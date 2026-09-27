@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -2572,6 +2573,7 @@ body:not(.edit-unlocked) .ticker-edit-btn{display:none !important;}
 <div class="oc-modal-actions">
 <button class="btn-action btn-image" onclick="copyTableAsImage('officeCountDetailTable')">🖼️ Copy as Image</button>
 <button class="btn-action btn-excel" onclick="downloadTableAsExcel('officeCountDetailTable', 'Office_Wise_Data_Count_Detail')">📥 Download Excel</button>
+<button class="btn-action btn-pdf-report" onclick="exportReportTableToPDF('officeCountDetailTable', 'Office_Wise_Data_Count_Detail')">📄 Export PDF</button>
 </div>
 <div class="oc-modal-table-wrap">
 <table class="oc-modal-table" id="officeCountDetailTable">
@@ -6578,6 +6580,11 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
       if (!overlay || !titleEl || !bodyEl) return;
       titleEl.textContent = title;
       bodyEl.innerHTML = bodyHtml;
+      bodyEl.querySelectorAll('table').forEach(tbl => {
+        if (!tbl.getAttribute('data-export-subsection')) {
+          tbl.setAttribute('data-export-subsection', String(title || '').replace(/\s+/g,' ').trim());
+        }
+      });
       overlay.style.display = 'flex';
     }
 
@@ -7370,11 +7377,12 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
       });
 
       const total = officeRows;
+      const regionalCell = (cat) => `<td class="num oc-clickable" onclick="showOfficeCountDetails('${cat}')" title="Click to view Regional Total office list">${officeCountMetric(total,cat)}</td>`;
       body += `<tr style="background:#dff3ec;font-weight:950;">
-        <td class="left"><strong>Grand Total</strong></td>
-        <td class="num">${officeCountMetric(total,'hpoTotal')}</td><td class="num">${officeCountMetric(total,'hpoBelow500')}</td><td class="num">${officeCountMetric(total,'hpo501to1000')}</td>
-        <td class="num">${officeCountMetric(total,'soTotal')}</td><td class="num">${officeCountMetric(total,'soBelow25')}</td><td class="num">${officeCountMetric(total,'so25to50')}</td><td class="num">${officeCountMetric(total,'so51to100')}</td><td class="num">${officeCountMetric(total,'so101to500')}</td>
-        <td class="num">${officeCountMetric(total,'boTotal')}</td><td class="num">${officeCountMetric(total,'boBelow0')}</td><td class="num">${officeCountMetric(total,'boBelow25')}</td><td class="num">${officeCountMetric(total,'bo26to50')}</td><td class="num">${officeCountMetric(total,'bo51to100')}</td><td class="num">${officeCountMetric(total,'bo101to500')}</td>
+        <td class="left"><strong>Regional Total</strong></td>
+        ${regionalCell('hpoTotal')}${regionalCell('hpoBelow500')}${regionalCell('hpo501to1000')}
+        ${regionalCell('soTotal')}${regionalCell('soBelow25')}${regionalCell('so25to50')}${regionalCell('so51to100')}${regionalCell('so101to500')}
+        ${regionalCell('boTotal')}${regionalCell('boBelow0')}${regionalCell('boBelow25')}${regionalCell('bo26to50')}${regionalCell('bo51to100')}${regionalCell('bo101to500')}
       </tr>`;
       return body;
     }
@@ -7448,7 +7456,10 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
       if (!label || !body || !overlay) return;
 
       const { from, to } = getOfficeCountDateRange();
-      label.innerText = `${labels[category] || category}${divisionFilter ? ` • ${divisionFilter}` : ''}${subDivisionFilter ? ` • ${subDivisionFilter}` : ''} • ${from || '-'} to ${to || '-'}`;
+      const subSectionName = `${labels[category] || category}${divisionFilter ? ` — ${divisionFilter}` : ''}${subDivisionFilter ? ` — ${subDivisionFilter}` : ''}`;
+      label.innerText = `${subSectionName} • ${from || '-'} to ${to || '-'}`;
+      const detailTable = document.getElementById('officeCountDetailTable');
+      if (detailTable) detailTable.setAttribute('data-export-subsection', subSectionName);
       body.innerHTML = items.length ? items
         .sort((a,b) => a.net-b.net || a.officeName.localeCompare(b.officeName))
         .map(o => `<tr>
@@ -9515,9 +9526,45 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
     // Return the exact human-facing name of the subsection used by the
     // currently displayed dashboard section. Export controls and badges are
     // excluded, while the visible title and subtitle/descriptor are retained.
+    function humanizeExportReportName(value) {
+      return pdfCleanText(String(value || '')
+        .replace(/Table$/i, '')
+        .replace(/Modal$/i, '')
+        .replace(/([a-z])([A-Z])/g, '$1 $2')
+        .replace(/[_-]+/g, ' ')
+        .replace(/\bHmosc\b/gi, 'HMoSC')
+        .replace(/\bOc\b/gi, 'Office')
+        .replace(/\s+/g, ' ')
+        .trim());
+    }
+
     function getActualDisplayedSubSectionName(table) {
-      const host = table?.closest('.weekly-section-card, .oc-section-card, .hmosc-section, .card, section, .report-section') || table?.parentElement;
-      if (!host) return table?.getAttribute('aria-label') || table?.id || 'Report';
+      if (!table) return 'Report';
+
+      // Explicit metadata is authoritative. Dynamic popups set this to the
+      // exact human-facing report/subsection title represented by the table.
+      const explicit = table.getAttribute('data-export-subsection');
+      if (explicit) return pdfCleanText(explicit);
+
+      // Popup/modal titles are preferred over the technical table ID.
+      const modal = table.closest('.weekly-modal-overlay, .oc-modal-overlay, .hmosc-modal-overlay, .modal-overlay, [role="dialog"]');
+      if (modal) {
+        const titleNode = modal.querySelector(
+          '#weeklyModalTitle, #officeCountDetailModalTitle, .oc-modal-title, .modal-title, .weekly-modal-head h3, [role="heading"]'
+        );
+        if (titleNode) {
+          const text = pdfCleanText(titleNode.textContent);
+          if (text) return text;
+        }
+        const subtitleNode = modal.querySelector('#officeCountDetailLabel, .oc-modal-subtitle');
+        if (subtitleNode) {
+          const text = pdfCleanText(subtitleNode.textContent);
+          if (text) return text;
+        }
+      }
+
+      const host = table.closest('.weekly-section-card, .oc-section-card, .hmosc-section, .card, section, .report-section') || table.parentElement;
+      if (!host) return humanizeExportReportName(table.getAttribute('aria-label') || table.id) || 'Report';
 
       const selectors = [
         '.weekly-section-title',
@@ -9542,8 +9589,13 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
       }
 
       const heading = host.querySelector('.hmosc-title, .section-title-box span, .weekly-section-title h3, .oc-section-title h3, .card-header h3, .card-header h2, .card-header > span, h1,h2,h3,h4');
-      if (heading) return pdfCleanText(heading.textContent);
-      return table?.getAttribute('aria-label') || table?.id || 'Report';
+      if (heading) {
+        const text = pdfCleanText(heading.textContent);
+        if (text) return text;
+      }
+
+      // Never expose technical DOM/table IDs as the subsection heading.
+      return humanizeExportReportName(table.getAttribute('aria-label') || table.id) || 'Report';
     }
 
     function getPdfSubSection(table) {
@@ -10946,9 +10998,10 @@ body{padding:0!important;margin:0!important;}
       const range=window.__hmoscComparisonData?.[period]?.range||{};
       const nodeLabel=nodeKey==='ALL'?'All Divisions':String(nodeKey).split('|').join(' → ');
       const periodLabel=period==='previous'?`Previous Month (${hmoscFormatDate(range.from)} to ${hmoscFormatDate(range.to)})`:`Current / Selected Period (${hmoscFormatDate(range.from)} to ${hmoscFormatDate(range.to)})`;
-      const title=`${hmoscCategoryLabel(category)} — ${nodeLabel} — ${periodLabel} (${list.length})`;
+      const exportSubSection = `${hmoscCategoryLabel(category)} — ${nodeLabel}`;
+      const title=`${exportSubSection} — ${periodLabel} (${list.length})`;
       const rows=list.map(o=>`<tr class="weekly-office-link" onclick="openHmoscOfficeModal('${hmoscEscape(o.key)}')"><td class="left"><strong>${hmoscEscape(o.officeName)}</strong></td><td class="left">${hmoscEscape(o.soName)}</td><td class="left">${hmoscEscape(o.subDivision)}</td><td class="left">${hmoscEscape(o.division)}</td><td class="num">${o.opened.toLocaleString('en-IN')}</td><td class="left">${hmoscEscape(hmoscCategoryLabel(o.category))}</td></tr>`).join('');
-      const html=`<div class="oc-modal-actions"><button type="button" class="btn-action btn-excel" onclick="downloadTableAsExcel('hmoscComparisonModalTable','HMoSC_${period}_${category}_Office_List')">📥 Download Excel</button><button type="button" class="btn-action btn-pdf-report" onclick="exportReportTableToPDF('hmoscComparisonModalTable','HMoSC_${period}_${category}_Office_List')">📄 Download PDF</button></div><div class="oc-modal-table-wrap"><table class="oc-modal-table" id="hmoscComparisonModalTable"><thead><tr><th class="left">BO Name</th><th class="left">SO Name</th><th class="left">Sub Division</th><th class="left">Division</th><th>Accounts Opened</th><th class="left">Category</th></tr></thead><tbody>${rows||'<tr><td colspan="6" class="left">No offices found for this cell.</td></tr>'}</tbody></table></div>`;
+      const html=`<div class="oc-modal-actions"><button type="button" class="btn-action btn-excel" onclick="downloadTableAsExcel('hmoscComparisonModalTable','HMoSC_${period}_${category}_Office_List')">📥 Download Excel</button><button type="button" class="btn-action btn-pdf-report" onclick="exportReportTableToPDF('hmoscComparisonModalTable','HMoSC_${period}_${category}_Office_List')">📄 Download PDF</button></div><div class="oc-modal-table-wrap"><table class="oc-modal-table" id="hmoscComparisonModalTable" data-export-subsection="${hmoscEscape(exportSubSection)}"><thead><tr><th class="left">BO Name</th><th class="left">SO Name</th><th class="left">Sub Division</th><th class="left">Division</th><th>Accounts Opened</th><th class="left">Category</th></tr></thead><tbody>${rows||'<tr><td colspan="6" class="left">No offices found for this cell.</td></tr>'}</tbody></table></div>`;
       openWeeklyModal(title,html);
     }
 
@@ -10978,10 +11031,11 @@ body{padding:0!important;margin:0!important;}
 
     function openHmoscCategoryModal(category){
       const list=currentHmoscBoList.filter(o=>category==='ALL'||o.category===category).slice().sort((a,b)=>b.opened-a.opened||a.officeName.localeCompare(b.officeName));
+      const exportSubSection = `${hmoscCategoryLabel(category)} — Selected Division / Scope`;
       const title=`${hmoscCategoryLabel(category)} (${list.length})`;
       if(!list.length){openWeeklyModal(title,'<p class="weekly-empty">No BOs found for the selected filters.</p>');return;}
       const rows=list.map(o=>`<tr class="weekly-office-link" onclick="openHmoscOfficeModal('${hmoscEscape(o.key)}')"><td class="left"><strong>${hmoscEscape(o.officeName)}</strong></td><td class="left">${hmoscEscape(o.soName)}</td><td class="left">${hmoscEscape(o.subDivision)}</td><td class="left">${hmoscEscape(o.division)}</td><td class="num">${o.opened.toLocaleString('en-IN')}</td><td class="left">${hmoscEscape(hmoscCategoryLabel(o.category))}</td></tr>`).join('');
-      const html=`<div class="oc-modal-actions"><button type="button" class="btn-action btn-excel" onclick="downloadTableAsExcel('hmoscCategoryModalTable','HMoSC_${category}_BO_List')">📥 Download Excel</button><button type="button" class="btn-action btn-pdf-report" onclick="exportReportTableToPDF('hmoscCategoryModalTable','HMoSC_${category}_BO_List')">📄 Download PDF</button></div><div class="oc-modal-table-wrap"><table class="oc-modal-table" id="hmoscCategoryModalTable"><thead><tr><th class="left">BO Name</th><th class="left">SO Name</th><th class="left">Sub Division</th><th class="left">Division</th><th>Accounts Opened</th><th class="left">Category</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+      const html=`<div class="oc-modal-actions"><button type="button" class="btn-action btn-excel" onclick="downloadTableAsExcel('hmoscCategoryModalTable','HMoSC_${category}_BO_List')">📥 Download Excel</button><button type="button" class="btn-action btn-pdf-report" onclick="exportReportTableToPDF('hmoscCategoryModalTable','HMoSC_${category}_BO_List')">📄 Download PDF</button></div><div class="oc-modal-table-wrap"><table class="oc-modal-table" id="hmoscCategoryModalTable" data-export-subsection="${hmoscEscape(exportSubSection)}"><thead><tr><th class="left">BO Name</th><th class="left">SO Name</th><th class="left">Sub Division</th><th class="left">Division</th><th>Accounts Opened</th><th class="left">Category</th></tr></thead><tbody>${rows}</tbody></table></div>`;
       openWeeklyModal(title,html);
     }
 
