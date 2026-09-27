@@ -10,6 +10,7 @@
 <script defer="" src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx-js-style.min.js"></script>
 <script defer="" src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
 <script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script async src="https://counterapi.com/c.js?ns=nagpur-posb-performance-dashboard" id="posbVisitorCounterApi"></script>
 <style>
     :root {
       --post-red: #c8102e;
@@ -1635,6 +1636,10 @@
     .weekly-monitoring-nav-row { display:flex !important; gap:10px; }
     .weekly-monitoring-nav-row .nav-tab { flex:1 1 0; }
 
+
+/* Total visitor counter */
+.posb-total-visitors{display:flex;align-items:center;gap:7px;padding:6px 10px;border:1px solid rgba(255,255,255,.24);border-radius:8px;background:rgba(0,0,0,.20);color:#fff;font-size:11px;font-weight:800;line-height:1.2;white-space:nowrap;}
+.posb-total-visitors .counterapi{color:#fff;font-size:12px;}
 </style>
 <style id="compact-header-half-size">
 /* Compact government header — approximately half the previous v23 scale */
@@ -2420,6 +2425,10 @@ button,.nav-tab,.tree-toggle,.hmosc-tree-toggle,th{ -webkit-user-select:none; us
 <div class="header-status-stack">
   <div aria-live="polite" class="header-last-updated">
     <span id="headerLastUpdated">MIS Data updated upto - 23-09-2026</span>
+  </div>
+  <div class="posb-total-visitors" aria-label="Total dashboard visitors">
+    <span>👁 Total Visitors</span>
+    <div class="counterapi" key="total-dashboard-visitors" action="view" unique="true" noIcon="true" noLink="true" noCss="true" noAnim="true" style="display:inline-block;min-width:42px;text-align:right;font-weight:900;">0</div>
   </div>
   <div class="edit-security-bar" id="editSecurityBar">
     <span class="edit-security-status" id="editSecurityStatus">🔒 Admin Mode: Locked</span>
