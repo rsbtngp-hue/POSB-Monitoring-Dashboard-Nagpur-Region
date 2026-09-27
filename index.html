@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 
 <html lang="en">
@@ -316,6 +315,37 @@
       text-underline-offset:3px;
     }
     .office-popup-trigger:hover { color:#6d28d9 !important; background:#eff6ff !important; }
+    .admin-upload-header{display:flex;align-items:center;gap:10px;flex-wrap:wrap;width:100%;margin-bottom:8px}
+    .admin-upload-title{font-size:14px;font-weight:900;color:#0f172a;flex:1 1 320px}
+    .admin-control-rows{display:flex;flex-direction:column;gap:7px;width:100%}
+    .admin-control-row{display:flex;align-items:center;gap:7px;flex-wrap:wrap;width:100%;padding:7px 8px;border:1px solid #e2e8f0;border-radius:10px;background:#f8fafc}
+    .admin-row-label{min-width:112px;font-size:10px;font-weight:950;text-transform:uppercase;letter-spacing:.35px;color:#475569}
+    .admin-mini-btn{border:1px solid #cbd5e1;border-radius:7px;padding:7px 10px;font-size:10.5px;font-weight:900;line-height:1.1;cursor:pointer;background:#fff;color:#0f172a;white-space:nowrap;box-shadow:0 1px 2px rgba(15,23,42,.04)}
+    .admin-mini-btn:hover{transform:translateY(-1px);box-shadow:0 3px 8px rgba(15,23,42,.09)}
+    .admin-mini-btn.data-upload{background:#eff6ff;border-color:#bfdbfe;color:#1d4ed8}
+    .admin-mini-btn.data-action{background:#ecfdf5;border-color:#bbf7d0;color:#166534}
+    .admin-mini-btn.danger{background:#fff1f2;border-color:#fecdd3;color:#be123c}
+    .admin-mini-btn.target{background:#eef2ff;border-color:#c7d2fe;color:#3730a3}
+    .admin-mini-btn.drive{background:#fff7ed;border-color:#fed7aa;color:#c2410c}
+    .admin-mini-btn.monitoring{background:#f5f3ff;border-color:#ddd6fe;color:#6d28d9}
+    .admin-mini-btn.template{background:#f0fdf4;border-color:#bbf7d0;color:#15803d}
+    .admin-mini-btn.upload-monitoring{background:#ecfeff;border-color:#a5f3fc;color:#0e7490}
+    .admin-mini-btn.cloud{background:#eff6ff;border-color:#bfdbfe;color:#1e40af}
+    .admin-import-control,.admin-date-control{display:flex;align-items:center;gap:6px;padding:5px 7px;border:1px solid #cbd5e1;border-radius:7px;background:#fff;font-size:10px;font-weight:800;color:#334155}
+    .admin-control-caption{font-size:9px;font-weight:950;color:#64748b;text-transform:uppercase;letter-spacing:.3px}
+    .admin-date-control input{border:0;outline:0;font-size:10px;font-weight:800;min-width:118px;background:transparent}
+    .admin-upload-help{width:100%;font-size:10px;color:#64748b;margin-top:6px}
+    .admin-upload-help #googleSheetUploadDateHelp{margin-left:8px}
+    #adminAdministrationRow{display:none}
+    body.edit-unlocked #adminAdministrationRow{display:flex}
+    @media(max-width:800px){.admin-row-label{min-width:100%;}.admin-control-row{align-items:stretch}.admin-mini-btn,.admin-import-control,.admin-date-control{flex:1 1 auto;justify-content:center}.admin-date-control input{min-width:110px}}
+    .office-popup-glance-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,1fr);gap:14px;align-items:start;margin-top:4px}
+    .office-popup-glance-card{border:1px solid #dbe4ef;border-radius:10px;background:#fff;overflow:hidden;box-shadow:0 2px 8px rgba(15,23,42,.05)}
+    .office-popup-glance-title{font-weight:900;font-size:13px;color:#0f172a;padding:9px 11px;background:#f8fafc;border-bottom:1px solid #e2e8f0}
+    .office-popup-glance-card .weekly-modal-table{margin:0}
+    .office-popup-glance-card .office-team-grid{padding:9px}
+    @media(max-width:760px){.office-popup-glance-grid{grid-template-columns:1fr}.weekly-modal-box{max-height:92vh}}
+
     .campaign-kpi-grid-5 {
       display:grid;
       grid-template-columns:repeat(5,minmax(0,1fr));
@@ -1637,13 +1667,35 @@ body.edit-unlocked #googleSheetUploadDate,
 body.edit-unlocked #googleSheetUploadBtn,
 body.edit-unlocked #googleSheetLocalDownloadBtn,
 body.edit-unlocked #editableCsvUploadCard { display:inline-block !important; }
+<style id="office-monitoring-config-styles">
+.office-monitoring-upload{background:#f8fafc;border:1px solid #cbd5e1;border-radius:10px;padding:10px;margin-top:8px;font-size:11px;color:#334155;}
+.office-monitoring-upload strong{color:#0f172a;}
+.office-monitoring-template-btn{border:0;border-radius:8px;padding:7px 10px;font-weight:800;cursor:pointer;color:#fff;background:#7c3aed;}
+.office-monitoring-upload-btn{border:0;border-radius:8px;padding:7px 10px;font-weight:800;cursor:pointer;color:#fff;background:#0891b2;}
+.office-monitoring-status{font-size:10px;font-weight:800;color:#64748b;margin-top:5px;}
+.office-team-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 0;}
+.office-team-card{border:1px solid #e2e8f0;border-radius:9px;padding:9px;background:#f8fafc;}
+.office-team-role{font-size:10px;font-weight:900;color:#475569;text-transform:uppercase;}
+.office-team-name{font-size:12px;font-weight:900;color:#0f172a;margin-top:2px;}
+.office-team-phone{font-size:11px;color:#0369a1;font-weight:800;margin-top:3px;}
+.monitoring-crud-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 0;}
+.monitoring-crud-grid label{font-size:10px;font-weight:900;color:#475569;display:block;margin-bottom:3px;}
+.monitoring-crud-grid input,.monitoring-crud-grid select{width:100%;box-sizing:border-box;padding:7px 8px;border:1px solid #cbd5e1;border-radius:7px;font-size:11px;background:#fff;}
+.monitoring-crud-full{grid-column:1/-1;}
+.monitoring-crud-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px;}
+.monitoring-crud-actions button{border:0;border-radius:7px;padding:7px 10px;font-weight:900;cursor:pointer;color:#fff;font-size:11px;}
+.monitoring-save-btn{background:#059669;} .monitoring-add-btn{background:#2563eb;} .monitoring-delete-btn{background:#dc2626;} .monitoring-cancel-btn{background:#64748b;}
+@media(max-width:700px){.monitoring-crud-grid{grid-template-columns:1fr;}}
+
+@media(max-width:700px){.office-team-grid{grid-template-columns:1fr;}}
+</style>
 </style>
 <style id="viewOnlyModeStyles">
 /* VIEW-ONLY DISTRIBUTION BUILD: no data/configuration mutation controls */
 .upload-card{display:block!important;}
 .view-only-hide{display:none!important;}
 .edit-btn,.campaign-action-btn,.btn-view-targets,[onclick*="openCampaignModal"],[onclick*="deleteCurrentCampaign"],[onclick*="editOfficeTarget"],[onclick*="editOfficeFigures"],[onclick*="handleBulkTargetUpload"],[onclick*="downloadBulkTargetTemplate"]{display:none!important;}
-#csvFileInput,#bulkTargetFileInput,#googleSheetUploadDate,#googleSheetUploadBtn,#googleSheetLocalDownloadBtn{display:none!important;}
+body:not(.edit-unlocked) #csvFileInput,body:not(.edit-unlocked) #bulkTargetFileInput,body:not(.edit-unlocked) #googleSheetUploadDate,body:not(.edit-unlocked) #googleSheetUploadBtn,body:not(.edit-unlocked) #googleSheetLocalDownloadBtn{display:none!important;}
 .view-only-status-card{background:#f0fdf4;border:1px solid #86efac;border-radius:12px;padding:12px 14px;margin:0 0 12px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
 .view-only-status-title{font-size:12px;font-weight:900;color:#166534;}
 .view-only-status-text{font-size:11px;color:#475569;margin-top:3px;}
@@ -2305,8 +2357,36 @@ body.edit-unlocked .ticker-edit-btn{display:inline-flex !important;}
 body:not(.edit-unlocked) #editableCsvUploadCard{display:none !important;}
 body:not(.edit-unlocked) .ticker-edit-btn{display:none !important;}
 </style>
+<style id="universalShortfallAdminStyles">
+.shortfall-value,.shortfall-value *,.weekly-bad,.target-shortfall,.shortfall-cell{color:#dc2626 !important;font-weight:800 !important;}
+.admin-config-actions{display:none;align-items:center;gap:8px;flex-wrap:wrap;margin:8px 0 0;padding:8px 10px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;}
+body.edit-unlocked .admin-config-actions{display:flex;}
+.admin-config-actions{max-width:100%;box-sizing:border-box;overflow:visible;}
+.admin-config-actions button{border:0;border-radius:7px;padding:5px 8px;font-size:11px;line-height:1.15;font-weight:800;cursor:pointer;color:#fff;white-space:nowrap;min-height:30px;box-sizing:border-box;}
+.admin-config-actions .target{background:#2563eb}.admin-config-actions .drive{background:#d97706}.admin-config-actions .upload{background:#059669}.admin-config-actions .monitor{background:#7c3aed}.admin-config-actions .template{background:#475569}
+@media (max-width:900px){.admin-config-actions{gap:5px;padding:6px 7px}.admin-config-actions button{font-size:10px;padding:5px 6px;}}
+@media (max-width:620px){.admin-config-actions{gap:4px}.admin-config-actions button{font-size:9px;padding:5px 5px;white-space:normal;min-height:32px;}}
+</style>
+<style id="code-protection-style">
+html,body{ -webkit-user-select:none; user-select:none; }
+input,textarea,select{ -webkit-user-select:text; user-select:text; }
+</style>
 </head>
 <body>
+<script>
+/* Basic browser-side source/code deterrence. This cannot provide cryptographic source protection because HTML must be delivered to the browser. */
+(function(){
+  document.addEventListener('contextmenu',function(e){ e.preventDefault(); },{capture:true});
+  document.addEventListener('dragstart',function(e){ e.preventDefault(); },{capture:true});
+  document.addEventListener('keydown',function(e){
+    const k=String(e.key||'').toLowerCase();
+    if(k==='f12' || (e.ctrlKey&&e.shiftKey&&(k==='i'||k==='j'||k==='c')) || (e.ctrlKey&&k==='u')){
+      e.preventDefault(); e.stopPropagation(); return false;
+    }
+  },true);
+})();
+</script>
+
 <a class="skip-link" href="#main-content">Skip to dashboard content</a>
 <!-- Flash Message Ticker with Live Edit Button -->
 <div class="ticker-wrap">
@@ -2340,6 +2420,11 @@ body:not(.edit-unlocked) .ticker-edit-btn{display:none !important;}
   <div class="edit-security-bar" id="editSecurityBar">
     <span class="edit-security-status" id="editSecurityStatus">🔒 Admin Mode: Locked</span>
     <button class="edit-security-btn" id="editSecurityButton" type="button" onclick="toggleEditMode()">🔑 Admin Login</button>
+  </div>
+  <div class="admin-config-actions" id="adminConfigActions" aria-label="Administrator configuration actions">
+    <button type="button" class="target" onclick="openAdminTargetUpdate()">🎯 Update Target</button>
+    <button type="button" class="drive" onclick="openCampaignModal(false)">🚗 Modify Special Drive</button>
+    <button type="button" class="upload" onclick="adminUploadDashboardConfig()">☁ Upload Config to Google Sheet</button>
   </div>
 </div>
 </div>
@@ -2398,40 +2483,55 @@ body:not(.edit-unlocked) .ticker-edit-btn{display:none !important;}
 </div>
 <!-- EDIT MODE: CSV DAILY APPEND TO GOOGLE SHEET -->
 <div class="upload-card edit-csv-upload-card" id="editableCsvUploadCard">
-  <div style="min-width:260px;flex:1;">
-    <div style="font-size:14px;font-weight:900;color:#0f172a;">📤 Upload CSV & Append Daily Data to Google Sheet</div>
-    <div class="upload-status" id="csvStatus" style="margin-top:4px;">Choose a daily CSV file. Append mode is recommended for daily data.</div>
-    <div class="google-sheet-status" id="googleSheetStatus" style="margin-top:6px;">Google Sheet: Ready</div>
+  <div class="admin-upload-header">
+    <div class="admin-upload-title">📤 Upload CSV &amp; Append Daily Data to Google Sheet</div>
+    <div class="upload-status" id="csvStatus">Choose a daily CSV file. Append mode is recommended for daily data.</div>
+    <div class="google-sheet-status" id="googleSheetStatus">Google Sheet: Ready</div>
   </div>
 
-  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-    <label for="csvFileInput" class="btn-upload" style="display:inline-flex;align-items:center;gap:6px;cursor:pointer;">
-      📁 Choose CSV
-    </label>
-    <input accept=".csv,text/csv" id="csvFileInput" onchange="handleCsvFile(event)" type="file" style="display:none;">
+  <div class="admin-control-rows">
+    <!-- Row 1: Data controls -->
+    <div class="admin-control-row admin-data-row" aria-label="Data controls">
+      <div class="admin-row-label">Data controls</div>
+      <label for="csvFileInput" class="admin-mini-btn data-upload" title="Choose CSV file">
+        📤 Choose File / Upload CSV
+      </label>
+      <input accept=".csv,text/csv" id="csvFileInput" onchange="handleCsvFile(event)" type="file" style="display:none;">
 
-    <div class="import-mode-box" aria-label="CSV import mode">
-      <label><input checked name="importMode" type="radio" value="append"> Append</label>
-      <label><input name="importMode" type="radio" value="replace"> Replace</label>
+      <div class="admin-import-control" title="Append or replace imported records">
+        <span class="admin-control-caption">Mode</span>
+        <label><input checked name="importMode" type="radio" value="append"> Append</label>
+        <label><input name="importMode" type="radio" value="replace"> Replace</label>
+      </div>
+
+      <button class="admin-mini-btn data-action" id="googleSheetUploadBtn" onclick="uploadCurrentDataToGoogleSheet()" type="button">
+        📋 Append / Replace Record
+      </button>
+      <div class="admin-date-control" title="Select upload date">
+        <span class="admin-control-caption">Date</span>
+        <input id="googleSheetUploadDate" type="date" aria-label="Select next daily upload date" onchange="updateGoogleSheetButtonState()">
+      </div>
+      <button class="admin-mini-btn danger" onclick="clearStoredDatabase()" type="button">
+        🗑️ Clear Local Data
+      </button>
     </div>
 
-    <input id="googleSheetUploadDate" type="date" aria-label="Select next daily upload date"
-      onchange="updateGoogleSheetButtonState()"
-      style="padding:8px 10px;border:1px solid #cbd5e1;border-radius:8px;font-size:11px;font-weight:800;background:#fff;"
-      title="Select a date after the latest Google Sheet date and up to today">
-    <span id="googleSheetUploadDateHelp" style="font-size:10px;color:#64748b;font-weight:700;"></span>
-
-    <button class="btn-google-sheet" id="googleSheetUploadBtn" onclick="uploadCurrentDataToGoogleSheet()" type="button">
-      ☁ Append Selected Date to Google Sheet
-    </button>
-
-    <button class="btn-clear-db" onclick="clearStoredDatabase()" type="button">
-      🗑 Clear Local Data
-    </button>
+    <!-- Row 2: Administration controls; visible only after Admin Login -->
+    <div class="admin-control-row admin-admin-row" id="adminAdministrationRow" aria-label="Administration controls">
+      <div class="admin-row-label">Administration controls</div>
+      <button class="admin-mini-btn target" onclick="openAdminTargetUpdate()" type="button">🎯 Update Target</button>
+      <button class="admin-mini-btn drive" onclick="openCampaignModal(false)" type="button">🚗 Modify Special Drive</button>
+      <button class="admin-mini-btn monitoring" onclick="openMonitoringTeamConfiguration()" type="button">👥 Monitoring Team Configuration</button>
+      <button class="admin-mini-btn template" onclick="downloadOfficeMonitoringTemplate()" type="button">📋 Monitoring Template</button>
+      <button class="admin-mini-btn upload-monitoring" onclick="document.getElementById('officeMonitoringBulkFile').click()" type="button">📤 Upload Phone &amp; Monitoring</button>
+      <button class="admin-mini-btn cloud" onclick="adminUploadDashboardConfig()" type="button">☁ Upload Config to Google Sheet</button>
+      <input accept=".xlsx,.xls,.csv" id="officeMonitoringBulkFile" onchange="handleOfficeMonitoringBulkUpload(event)" type="file" style="display:none;">
+    </div>
   </div>
 
-  <div style="width:100%;font-size:10.5px;color:#64748b;">
-    <strong>Daily workflow:</strong> 1) Unlock Edit Mode → 2) Choose the daily CSV → 3) Keep <b>Append</b> selected → 4) Select the date → 5) Click <b>Append Selected Date to Google Sheet</b>.
+  <div class="admin-upload-help">
+    <strong>Daily workflow:</strong> 1) Unlock Edit Mode → 2) Choose the daily CSV → 3) Select Append or Replace → 4) Select the date → 5) Append / Replace Record.
+    <span id="googleSheetUploadDateHelp"></span>
   </div>
 </div>
 
@@ -3079,6 +3179,7 @@ body:not(.edit-unlocked) .ticker-edit-btn{display:none !important;}
 <button class="campaign-action-btn campaign-btn-target" onclick="openCampaignModal(false)">🎯 Set Campaign Targets</button>
 <button class="campaign-action-btn campaign-btn-delete" onclick="deleteCurrentCampaign()">🗑️</button>
 <button class="campaign-action-btn campaign-btn-new" onclick="openCampaignModal(true)">+ New Drive</button>
+<button class="btn-action btn-pdf-report" type="button" onclick="exportCampaignPerformanceToPDF()" title="Export complete Special Campaign / Drive Performance section as PDF">📄 Export PDF</button>
 </div>
 </div>
 </div>
@@ -3112,6 +3213,14 @@ body:not(.edit-unlocked) .ticker-edit-btn{display:none !important;}
 <span id="cmpCardEntries" style="font-size: 11px; color: #64748b;">Distinct post offices</span>
 </div>
 </div>
+<!-- Campaign Top 3 Divisions by Proportionate Target Achievement -->
+<section aria-label="Top 3 Divisions by Campaign Proportionate Target Achievement" class="top-divisions-section campaign-top-divisions-section">
+<div class="top-divisions-heading">
+<div><span class="top-divisions-title">TOP 3 DIVISIONS</span><span class="top-divisions-subtitle">by % Proportionate Target Achievement in Selected Campaign/Drive</span></div>
+<span class="top-divisions-badge" id="campaignTop3Badge">LIVE • Selected Campaign/Drive</span>
+</div>
+<div class="top-divisions-grid" id="campaignTopDivisionsKpiGrid"></div>
+</section>
 <div style="background: #091220; border-radius: 10px; padding: 12px 16px; color: #fff;">
 <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; margin-bottom: 6px; font-family: monospace;">
 <span id="cmpStripTitle" style="color: #fde047;">Campaign Region Progress</span>
@@ -3261,7 +3370,7 @@ body:not(.edit-unlocked) .ticker-edit-btn{display:none !important;}
 </div>
 <div class="hero-bars-grid">
 <div class="hero-bar-box">
-<div class="hero-bar-header"><span id="heroBar1Title" style="color:#34d399;">Proportionate Achievement (158 Days)</span><span id="heroBar1Pct" style="color:#ffffff;">0.0%</span></div>
+<div class="hero-bar-header"><span id="heroBar1Title" style="color:#34d399;">Proportionate Achievement (FY elapsed days)</span><span id="heroBar1Pct" style="color:#ffffff;">0.0%</span></div>
 <div class="hero-progress-track"><div class="hero-progress-fill" id="heroBar1Fill" style="background: linear-gradient(90deg, #10b981, #06b6d4); width: 0%;"></div></div>
 <div class="hero-bar-footer"><span id="heroBar1Net">+0 Net Addition</span><span id="heroBar1Goal">Target: 0</span></div>
 </div>
@@ -3544,13 +3653,13 @@ body:not(.edit-unlocked) .ticker-edit-btn{display:none !important;}
 <div class="tab-module" id="mod-zeroneg" style="display: none;">
 <div class="card">
 <div class="card-header">
-<span>Deficit &amp; Zero-Opening Post Offices Audit</span>
+<span>Net Addition Zero or Negative Post Offices</span>
 <div style="display: flex; gap: 8px;">
 <button class="btn-action" onclick="copyTableToClipboard('zeroNegTable')">📋 Copy to Excel</button>
-<button class="btn-action btn-image" onclick="copyTableAsImage('zeroNegTable')">🖼️ Copy as Image</button><button class="btn-action btn-excel" onclick="downloadTableAsExcel('zeroNegTable', 'Offices_Net_Zero_Or_Negative')">📥 Download Excel</button>
+<button class="btn-action btn-image" onclick="copyTableAsImage('zeroNegTable')">🖼️ Copy as Image</button><button class="btn-action btn-excel" onclick="downloadTableAsExcel('zeroNegTable', 'Net_Addition_Zero_or_Negative_Post_Offices')">📥 Download Excel</button>
 </div>
 </div>
-<section aria-label="Deficit and Zero-Opening Post Offices Filters" class="directory-filter-section" style="margin-bottom:12px;">
+<section aria-label="Net Addition Zero or Negative Post Offices Filters" class="directory-filter-section" style="margin-bottom:12px;">
 <div class="directory-filter-title">🔎 Audit Filters <span style="font-size:10px;color:#64748b;font-weight:700;">Filters apply only to this audit.</span></div>
 <div class="directory-filter-grid">
 <div class="directory-filter-field"><label for="zeroNegFromDate">Date From</label><input id="zeroNegFromDate" onchange="renderZeroNegReport()" type="date"/></div>
@@ -3569,7 +3678,7 @@ body:not(.edit-unlocked) .ticker-edit-btn{display:none !important;}
 <tr>
 <th onclick="sortTable('zeroNegTable', 0)">Office Name <span class="sort-arrow">↕</span></th>
 <th onclick="sortTable('zeroNegTable', 1)">Type <span class="sort-arrow">↕</span></th>
-<th onclick="sortTable('zeroNegTable', 2)">SO Name <span class="sort-arrow">↕</span></th>
+<th onclick="sortTable('zeroNegTable', 2)">Sub Division <span class="sort-arrow">↕</span></th>
 <th onclick="sortTable('zeroNegTable', 3)">Division <span class="sort-arrow">↕</span></th>
 <th class="num" onclick="sortTable('zeroNegTable', 4, true)">Opened <span class="sort-arrow">↕</span></th>
 <th class="num" onclick="sortTable('zeroNegTable', 5, true)">Closed <span class="sort-arrow">↕</span></th>
@@ -3814,6 +3923,33 @@ body:not(.edit-unlocked) .ticker-edit-btn{display:none !important;}
 </main><div class="footer">@ 2026 Nagpur Postal Region • Maharashtra Circle • Department of Posts • Ministry of Communications, Government of India • POSB Monitoring System</div>
 <script>
     const REGION_ANNUAL_TARGET = 1700000;
+
+    // UNIVERSAL FINANCIAL-YEAR PROPORTIONATE-TARGET BASIS
+    // FY 2026-27: 01-Apr-2026 to 31-Mar-2027 = 365 days.
+    // Every proportionate-target section uses cumulative days elapsed from FY start
+    // through the applicable target/as-on date (inclusive).
+    const UNIVERSAL_FY_START = '2026-04-01';
+    const UNIVERSAL_FY_END = '2027-03-31';
+    const UNIVERSAL_FY_DAYS = 365;
+    function universalFYElapsedDays(asOfISO) {
+      let iso = String(asOfISO || '').slice(0,10);
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(iso)) iso = UNIVERSAL_FY_START;
+      if (iso < UNIVERSAL_FY_START) iso = UNIVERSAL_FY_START;
+      if (iso > UNIVERSAL_FY_END) iso = UNIVERSAL_FY_END;
+      const a = new Date(`${UNIVERSAL_FY_START}T00:00:00`);
+      const b = new Date(`${iso}T00:00:00`);
+      return Number.isNaN(a.getTime()) || Number.isNaN(b.getTime()) ? 0 : Math.floor((b-a)/86400000)+1;
+    }
+    function universalPropFactor(asOfISO) {
+      return universalFYElapsedDays(asOfISO || window.__universalTargetDateISO) / UNIVERSAL_FY_DAYS;
+    }
+    function universalTargetDateISO() {
+      if (window.__universalTargetDateISO) return window.__universalTargetDateISO;
+      try {
+        const dates=(Array.isArray(rawTransactions)?rawTransactions:[]).map(r=>r.iso||r.date||'').filter(Boolean).sort();
+        return dates.length ? dates[dates.length-1] : '2026-09-26';
+      } catch(e) { return '2026-09-26'; }
+    }
     const DEFAULT_DIVISION_TARGETS = {
       'Akola Division': 200000,
       'Amravati Division': 220000,
@@ -4565,32 +4701,51 @@ body:not(.edit-unlocked) .ticker-edit-btn{display:none !important;}
       return dates[dates.length - 1] || '';
     }
 
+    function addOneISODate(iso) {
+      const s = String(iso || '').slice(0,10);
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(s)) return '';
+      const d = new Date(`${s}T00:00:00`);
+      if (Number.isNaN(d.getTime())) return '';
+      d.setDate(d.getDate() + 1);
+      return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    }
+
     function populateGoogleSheetUploadDates(transactions = rawTransactions) {
       const el = document.getElementById('googleSheetUploadDate');
       if (!el) return;
 
-      // Daily upload calendar starts from 01-04-2026 and remains selectable
-      // through the current date. It is not restricted by the latest date
-      // already present in Google Sheet.
       const minDate = '2026-04-01';
       const today = getTodayISO();
+      // POSB_Data is the authoritative source for this control. During a
+      // successful Google Sheet sync we persist its latest transaction date.
+      // Prefer that value over rawTransactions because rawTransactions can
+      // also contain locally imported/edited records.
+      const storedGoogleDate = String(localStorage.getItem('posb_google_sheet_latest_date') || '').slice(0,10);
+      const latestGoogleSheetDate = /^\d{4}-\d{2}-\d{2}$/.test(storedGoogleDate)
+        ? storedGoogleDate
+        : getLatestDataISO(transactions);
+      const nextGoogleSheetDate = addOneISODate(latestGoogleSheetDate);
+
+      // Default upload date is strictly the day immediately after the latest
+      // Google Sheet transaction date.
+      const defaultDate = nextGoogleSheetDate && nextGoogleSheetDate >= minDate
+        ? nextGoogleSheetDate
+        : minDate;
 
       el.min = minDate;
-      el.max = today;
+      // Permit the exact next date even if it is tomorrow; the field is a
+      // workflow date for the next daily MIS upload, not a historical-date picker.
+      el.max = defaultDate > today ? defaultDate : today;
 
-      // Keep the current selection if it is valid; otherwise start at 01-04-2026.
       const current = el.value;
-      if (current && current >= minDate && current <= today) {
-        // keep current
-      } else if (minDate <= today) {
-        el.value = minDate;
-      } else {
-        el.value = '';
-      }
+      const currentIsValid = current && current >= minDate && current <= el.max;
+      if (!currentIsValid) el.value = defaultDate;
 
       const helper = document.getElementById('googleSheetUploadDateHelp');
       if (helper) {
-        helper.textContent = `Selectable dates: ${formatDateDMY(minDate)} to ${formatDateDMY(today)}.`;
+        helper.textContent = latestGoogleSheetDate
+          ? `Google Sheet latest transaction: ${formatDateDMY(latestGoogleSheetDate)} • Next upload date: ${formatDateDMY(defaultDate)}.`
+          : `Next upload date: ${formatDateDMY(defaultDate)}.`;
       }
       updateGoogleSheetButtonState();
     }
@@ -4628,6 +4783,9 @@ body:not(.edit-unlocked) .ticker-edit-btn{display:none !important;}
         const json = await res.json().catch(()=>null);
         if (!res.ok || (json && json.error)) throw new Error((json && json.error) || `HTTP ${res.status}`);
         setGoogleSheetStatus(`✅ ${records.length.toLocaleString()} records for ${formatDateDMY(selectedDate)} synced. Historical dates were not resent.`);
+        const storedDateAfterUpload = String(localStorage.getItem('posb_google_sheet_latest_date') || '').slice(0,10);
+        if (!storedDateAfterUpload || selectedDate > storedDateAfterUpload) localStorage.setItem('posb_google_sheet_latest_date', selectedDate);
+        populateGoogleSheetUploadDates(rawTransactions);
       } catch (err) {
         console.error('Google Sheet upload failed:',err);
         setGoogleSheetStatus(`⚠️ Upload failed for ${formatDateDMY(selectedDate)}: ${err.message || err}`,true);
@@ -4973,6 +5131,7 @@ body:not(.edit-unlocked) .ticker-edit-btn{display:none !important;}
         const latestGoogleDate = getLatestDataISO(rawTransactions);
         if (latestGoogleDate) localStorage.setItem('posb_google_sheet_latest_date', latestGoogleDate);
         localStorage.setItem('posb_google_sheet_signature', signature);
+        try { populateGoogleSheetUploadDates(rawTransactions); } catch (e) { console.warn('Upload-date refresh skipped:', e); }
 
         // IMPORTANT: persist the Google data BEFORE declaring sync complete.
         // The previous delayed/background write could be interrupted when the
@@ -5424,8 +5583,10 @@ body:not(.edit-unlocked) .ticker-edit-btn{display:none !important;}
       const dObj = new Date(latestDate);
       const dateFmt = `${String(dObj.getDate()).padStart(2, '0')}-${String(dObj.getMonth() + 1).padStart(2, '0')}-${dObj.getFullYear()}`;
       
-      const activeDays = 158;
-      const propFactor = activeDays / 365;
+      const targetDateISO = (mode === 'date' && toDate) ? toDate : latestDate;
+      window.__universalTargetDateISO = targetDateISO;
+      const activeDays = universalFYElapsedDays(targetDateISO);
+      const propFactor = universalPropFactor(targetDateISO);
 
       let currentBaseAnnualTarget = REGION_ANNUAL_TARGET;
       if (selectedDiv !== 'ALL') {
@@ -5744,7 +5905,7 @@ body:not(.edit-unlocked) .ticker-edit-btn{display:none !important;}
       });
 
       const divList = Object.values(divMap).map(d => {
-        const propTgt = Math.round(d.target * (158 / 365));
+        const propTgt = Math.round(d.target * universalPropFactor());
         const shortfall = propTgt - d.net;
         return { ...d, propTgt, shortfall, propPct: propTgt > 0 ? (d.net / propTgt * 100) : 0 };
       }).sort((a, b) => b.propPct - a.propPct);
@@ -5810,7 +5971,7 @@ body:not(.edit-unlocked) .ticker-edit-btn{display:none !important;}
       });
 
       const subList = Object.values(subMap).map(s => {
-        const propTgt = Math.round(s.target * (158 / 365));
+        const propTgt = Math.round(s.target * universalPropFactor());
         const shortfall = propTgt - s.net;
         const annPct = s.target > 0 ? (s.net / s.target * 100) : 0;
         return { ...s, propTgt, shortfall, propPct: propTgt > 0 ? (s.net / propTgt * 100) : 0, annPct };
@@ -5841,7 +6002,7 @@ body:not(.edit-unlocked) .ticker-edit-btn{display:none !important;}
 
     function renderTieredPerformanceSummaries(filteredRows) {
       const rows = Array.isArray(filteredRows) ? filteredRows : [];
-      const propFactor = 158 / 365;
+      const propFactor = universalPropFactor();
       window.__tierSummaryExpanded = window.__tierSummaryExpanded || {ho:new Set(), so:new Set(), bo:new Set()};
 
       const build = (type) => {
@@ -5934,7 +6095,7 @@ body:not(.edit-unlocked) .ticker-edit-btn{display:none !important;}
     function populateZeroNegSubFilters(){const div=document.getElementById('zeroNegDivision')?.value||'ALL',el=document.getElementById('zeroNegSubDivision');if(!el)return;const old=el.value||'ALL';let p=rawTransactions;if(div!=='ALL')p=p.filter(r=>r.division===div);const a=[...new Set(p.map(r=>r.subDivision).filter(Boolean))].sort();el.innerHTML='<option value="ALL">All Sub Divisions</option>'+a.map(x=>`<option value="${weeklyEsc(x)}">${weeklyEsc(x)}</option>`).join('');el.value=a.includes(old)?old:'ALL';}
     function populateZeroNegSoFilters(){const div=document.getElementById('zeroNegDivision')?.value||'ALL',sub=document.getElementById('zeroNegSubDivision')?.value||'ALL',el=document.getElementById('zeroNegSoName');if(!el)return;const old=el.value||'ALL';let p=rawTransactions;if(div!=='ALL')p=p.filter(r=>r.division===div);if(sub!=='ALL')p=p.filter(r=>r.subDivision===sub);const a=[...new Set(p.map(r=>r.soName).filter(Boolean))].sort();el.innerHTML='<option value="ALL">All SO Names</option>'+a.map(x=>`<option value="${weeklyEsc(x)}">${weeklyEsc(x)}</option>`).join('');el.value=a.includes(old)?old:'ALL';}
     function resetZeroNegFilters(){['zeroNegMonth','zeroNegDivision','zeroNegSubDivision','zeroNegSoName','zeroNegOfficeType'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='ALL';});const d=rawTransactions.map(r=>r.iso).filter(Boolean).sort(),f=document.getElementById('zeroNegFromDate'),t=document.getElementById('zeroNegToDate');if(f)f.value=d[0]||'';if(t)t.value=d[d.length-1]||'';populateZeroNegFilters();renderZeroNegReport();}
-    function renderZeroNegReport(){if(!rawTransactions.length)return;populateZeroNegFilters();const rows=zeroNegGetRows(),body=document.getElementById('zeroNegTableBody');if(!body)return;body.innerHTML=rows.length?rows.map(o=>`<tr><td><strong>${weeklyEsc(o.officeName)}</strong></td><td><span class="badge-level level-so">${weeklyEsc(o.officeType)}</span></td><td>${weeklyEsc(o.soName)}</td><td>${weeklyEsc(o.division)}</td><td class="num">${Math.round(o.opened).toLocaleString()}</td><td class="num">${Math.round(o.closed).toLocaleString()}</td><td class="num font-bold" style="color:#dc2626;">${Math.round(o.net).toLocaleString()}</td></tr>`).join(''):`<tr><td colspan="7" style="text-align:center;padding:18px;color:#64748b;">No offices meet Net Addition ≤ 0 for the selected filters.</td></tr>`;}
+    function renderZeroNegReport(){if(!rawTransactions.length)return;populateZeroNegFilters();const rows=zeroNegGetRows(),body=document.getElementById('zeroNegTableBody');if(!body)return;body.innerHTML=rows.length?rows.map(o=>`<tr><td><strong>${weeklyEsc(o.officeName)}</strong></td><td><span class="badge-level level-so">${weeklyEsc(o.officeType)}</span></td><td>${weeklyEsc(o.subDivision)}</td><td>${weeklyEsc(o.division)}</td><td class="num">${Math.round(o.opened).toLocaleString()}</td><td class="num">${Math.round(o.closed).toLocaleString()}</td><td class="num font-bold" style="color:#dc2626;">${Math.round(o.net).toLocaleString()}</td></tr>`).join(''):`<tr><td colspan="7" style="text-align:center;padding:18px;color:#64748b;">No offices meet Net Addition ≤ 0 for the selected filters.</td></tr>`;}
 
     function renderTopPerforming(dataset){
       const source=dataset||rawTransactions, configs=[{type:'HPO_GPO',body:'hoTableBody'},{type:'SPO',body:'spoTableBody'},{type:'BPO',body:'bpoTableBody'}];
@@ -5944,7 +6105,7 @@ body:not(.edit-unlocked) .ticker-edit-btn{display:none !important;}
     // =========================================================
     // OFFICE PERFORMANCE SUMMARY
     // Independent date/month and office hierarchy filters.
-    // Uses the same 158/365 proportionate-target basis as the
+    // Uses the same cumulative FY-days/365 proportionate-target basis as the
     // Sub Division Performance Summary.
     // =========================================================
     function officePerfGetRows() {
@@ -6090,7 +6251,7 @@ body:not(.edit-unlocked) .ticker-edit-btn{display:none !important;}
       });
 
       const list = [...groups.values()].map(o => {
-        const propTgt = Math.round(o.target * (158 / 365));
+        const propTgt = Math.round(o.target * universalPropFactor());
         const balance = o.net - propTgt;
         return {
           ...o,
@@ -6371,7 +6532,7 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
         <td class="num ${shortfallClass}"${shortfallAttr}>${failCount}</td>
         <td class="num">${weeklyNum(target)}</td>
         <td class="num">${weeklyNum(achievement)}</td>
-        <td class="num ${shortfall > 0 ? 'weekly-bad' : 'weekly-good'}">${weeklyNum(shortfall)}</td>
+        <td class="num ${shortfall > 0 ? 'weekly-bad' : 'weekly-good'}">${weeklyNum(Math.max(0, shortfall))}</td>
         <td class="num ${pct >= 100 ? 'weekly-good' : 'weekly-bad'}">${weeklyPct(pct)}</td>`;
     }
 
@@ -6427,7 +6588,7 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
         <td style="text-align:center;">${weeklyEsc(o.type)}</td>
         <td class="left">${weeklyEsc(o.division)}</td><td class="left">${weeklyEsc(o.subDivision)}</td>
         <td class="num">${weeklyNum(o.target)}</td><td class="num">${weeklyNum(o.achievement)}</td>
-        <td class="num ${o.shortfall > 0 ? 'weekly-bad' : 'weekly-good'}">${weeklyNum(o.shortfall)}</td>
+        <td class="num ${o.shortfall > 0 ? 'weekly-bad' : 'weekly-good'}">${weeklyNum(Math.max(0, o.shortfall))}</td>
         <td class="num ${o.percent >= 100 ? 'weekly-good' : 'weekly-bad'}">${weeklyPct(o.percent)}</td>
         <td style="text-align:center;"><span class="weekly-status ${o.achieved ? 'pass' : 'fail'}">${o.achieved ? 'Target Achieved' : 'Target Not Achieved'}</span></td>
       </tr>`).join('');
@@ -6449,7 +6610,7 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
         <td style="text-align:center;">${weeklyEsc(o.type)}</td>
         <td class="left">${weeklyEsc(o.division)}</td><td class="left">${weeklyEsc(o.subDivision)}</td>
         <td class="num">${weeklyNum(o.target)}</td><td class="num">${weeklyNum(o.achievement)}</td>
-        <td class="num weekly-bad">${weeklyNum(o.shortfall)}</td><td class="num weekly-bad">${weeklyPct(o.percent)}</td>
+        <td class="num weekly-bad">${weeklyNum(Math.max(0, o.shortfall))}</td><td class="num weekly-bad">${weeklyPct(o.percent)}</td>
         <td><span class="weekly-status fail">Target Not Achieved</span></td>
       </tr>`).join('');
     }
@@ -6573,17 +6734,26 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
       if (overlay) overlay.style.display = 'none';
     }
 
-    function openWeeklyModal(title, bodyHtml) {
+    function openWeeklyModal(title, bodyHtml, officeName, solId, officeType) {
       const overlay = document.getElementById('weeklyModalOverlay');
       const titleEl = document.getElementById('weeklyModalTitle');
       const bodyEl = document.getElementById('weeklyModalBody');
       if (!overlay || !titleEl || !bodyEl) return;
       titleEl.textContent = title;
       bodyEl.innerHTML = bodyHtml;
+      if (officeName || solId) {
+        const glance = document.createElement('div');
+        glance.className = 'office-popup-glance-grid';
+        glance.innerHTML = `<div class="office-popup-glance-card"><div class="office-popup-glance-title">🏢 Office Record</div></div><div class="office-popup-glance-card"><div class="office-popup-glance-title">👥 Monitoring Team — At a Glance</div>${renderOfficeContactPanel(solId, officeName, officeType)}</div>`;
+        const officeCard = glance.firstElementChild;
+        const sourceTable = bodyEl.querySelector('table');
+        if (sourceTable) officeCard.appendChild(sourceTable.cloneNode(true));
+        else officeCard.insertAdjacentHTML('beforeend','<div style="padding:10px;color:#64748b;font-size:12px;">Office record not available.</div>');
+        if (sourceTable) sourceTable.style.display='none';
+        bodyEl.appendChild(glance);
+      }
       bodyEl.querySelectorAll('table').forEach(tbl => {
-        if (!tbl.getAttribute('data-export-subsection')) {
-          tbl.setAttribute('data-export-subsection', String(title || '').replace(/\s+/g,' ').trim());
-        }
+        if (!tbl.getAttribute('data-export-subsection')) tbl.setAttribute('data-export-subsection', String(title || '').replace(/\s+/g,' ').trim());
       });
       overlay.style.display = 'flex';
     }
@@ -6606,12 +6776,12 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
           <tr><th>Accounts Opened</th><td>${weeklyNum(o.opened)}</td></tr>
           <tr><th>Accounts Closed</th><td>${weeklyNum(o.closed)}</td></tr>
           <tr><th>Achievement (Net Addition)</th><td>${weeklyNum(o.achievement)}</td></tr>
-          <tr><th>Shortfall</th><td class="${o.shortfall > 0 ? 'weekly-bad' : 'weekly-good'}">${weeklyNum(o.shortfall)}</td></tr>
+          <tr><th>Shortfall</th><td class="${o.shortfall > 0 ? 'weekly-bad' : 'weekly-good'}">${weeklyNum(Math.max(0, o.shortfall))}</td></tr>
           <tr><th>% Achievement</th><td class="${o.percent >= 100 ? 'weekly-good' : 'weekly-bad'}">${weeklyPct(o.percent)}</td></tr>
           <tr><th>Status</th><td><span class="weekly-status ${o.achieved ? 'pass' : 'fail'}">${o.achieved ? 'Target Achieved' : 'Target Not Achieved'}</span></td></tr>
           ${o.hasData === false ? '<tr><th>Reporting</th><td class="weekly-bad">No data uploaded for this period</td></tr>' : ''}
         </table>`;
-      openWeeklyModal(o.officeName, rowsHtml);
+      openWeeklyModal(o.officeName, rowsHtml, o.officeName, o.solId, o.type);
     }
 
     function openWeeklyShortfallModal(groupId) {
@@ -6624,12 +6794,12 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
       const rows = group.items.slice()
         .sort((a,b) => b.shortfall - a.shortfall || a.officeName.localeCompare(b.officeName))
         .map(o => `<tr class="weekly-office-link" data-office-key="${weeklyEsc(o.key)}">
-          <td class="left"><strong>${weeklyEsc(o.officeName)}</strong></td>
+          <td class="left office-name-link" data-office-name="${weeklyEsc(o.officeName)}" data-sol-id="${weeklyEsc(o.solId||'')}"><strong>${weeklyEsc(o.officeName)}</strong></td>
           <td class="left">${weeklyEsc(o.division)}</td>
           <td class="left">${weeklyEsc(o.subDivision)}</td>
           <td class="num">${weeklyNum(o.target)}</td>
           <td class="num">${weeklyNum(o.achievement)}</td>
-          <td class="num weekly-bad">${weeklyNum(o.shortfall)}</td>
+          <td class="num weekly-bad">${weeklyNum(Math.max(0, o.shortfall))}</td>
         </tr>`).join('');
       const html = `
         <div style="display:flex; justify-content:flex-end; margin-bottom:10px;">
@@ -7072,7 +7242,7 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
       const rows = group.items.slice()
         .sort((a,b) => a.officeName.localeCompare(b.officeName))
         .map(o => `<tr>
-          <td class="left"><strong>${weeklyEsc(o.officeName)}</strong></td>
+          <td class="left office-name-link" data-office-name="${weeklyEsc(o.officeName)}" data-sol-id="${weeklyEsc(o.solId||'')}"><strong>${weeklyEsc(o.officeName)}</strong></td>
           <td class="left">${weeklyEsc(o.division)}</td>
           <td class="left">${weeklyEsc(o.soName)}</td>
           <td class="left">${weeklyEsc(o.subDivision)}</td>
@@ -7174,7 +7344,7 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
 
       tbody.innerHTML = rows.map((o, i) => `<tr>
         <td>${i + 1}</td>
-        <td class="left"><strong>${weeklyEsc(o.officeName)}</strong></td>
+        <td class="left office-name-link" data-office-name="${weeklyEsc(o.officeName)}" data-sol-id="${weeklyEsc(o.solId||'')}"><strong>${weeklyEsc(o.officeName)}</strong></td>
         <td class="left">${weeklyEsc(o.soName)}</td>
         <td class="left">${weeklyEsc(o.subDivision)}</td>
         <td><span class="nil-type-pill">${nilTypeLabel(o.type)}</span></td>
@@ -7463,7 +7633,7 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
       body.innerHTML = items.length ? items
         .sort((a,b) => a.net-b.net || a.officeName.localeCompare(b.officeName))
         .map(o => `<tr>
-          <td class="left"><strong>${weeklyEsc(o.officeName)}</strong></td>
+          <td class="left office-name-link" data-office-name="${weeklyEsc(o.officeName)}" data-sol-id="${weeklyEsc(o.solId||'')}"><strong>${weeklyEsc(o.officeName)}</strong></td>
           <td class="left">${weeklyEsc(o.division)}</td>
           <td class="left">${weeklyEsc(o.subDivision)}</td>
           <td class="left">${weeklyEsc(o.soName)}</td>
@@ -7533,8 +7703,8 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
           <td class="num">${Math.round(s.target).toLocaleString()}</td>
           <td class="num">${s.propTgt.toLocaleString()}</td>
           <td class="num" style="color:${s.net >= 0 ? '#059669' : '#dc2626'}; font-weight:700;">${Math.round(s.net).toLocaleString()}</td>
-          <td class="num" style="color:${propShortfall > 0 ? '#dc2626' : '#059669'}; font-weight:700;">${Math.round(propShortfall).toLocaleString()}</td>
-          <td class="num" style="color:${overallShortfall > 0 ? '#dc2626' : '#059669'}; font-weight:700;">${Math.round(overallShortfall).toLocaleString()}</td>
+          <td class="num" class="shortfall-value">${Math.max(0, Math.round(propShortfall)).toLocaleString()}</td>
+          <td class="num" class="shortfall-value">${Math.max(0, Math.round(overallShortfall)).toLocaleString()}</td>
           <td class="num" style="color:${s.propPct >= 100 ? '#059669' : '#dc2626'}; font-weight:700;">${s.propPct.toFixed(1)}%</td>
           <td class="num">${s.annPct.toFixed(1)}%</td>
         </tr>`;
@@ -7663,7 +7833,7 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
     function renderTargetFilteredReportTable(rows) {
       const tbody = document.getElementById('targetFilteredReportBody');
       if (!tbody) return;
-      const propFactor = 158 / 365;
+      const propFactor = universalPropFactor();
       const div = document.getElementById('targetReportDivSelect')?.value || 'ALL';
       const sub = document.getElementById('targetReportSubSelect')?.value || 'ALL';
       const so = document.getElementById('targetReportSoSelect')?.value || 'ALL';
@@ -7762,8 +7932,8 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
     }
 
     // Financial Year 2026-27 is fixed for this Target Vs Achievement module.
-    // Proportionate Target is based on the exact number of calendar days in the
-    // selected month/date period, divided by the 365 days of FY 2026-27.
+    // Proportionate Target is cumulative from FY start through the selected
+    // target/as-on date, divided by the 365 days of FY 2026-27.
     const TARGET_FY_START = '2026-04-01';
     const TARGET_FY_END = '2027-03-31';
     const TARGET_FY_DAYS = 365;
@@ -7801,7 +7971,7 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
 
     function getTargetMatrixPropTarget(annualTarget, period = getTargetMatrixPeriod()) {
       const annual = Number(annualTarget) || 0;
-      return Math.round(annual * ((Number(period.days) || 0) / TARGET_FY_DAYS));
+      return Math.round(annual * universalPropFactor(period && period.to ? period.to : universalTargetDateISO()));
     }
 
     function getTargetMatrixBaseRows() {
@@ -7890,7 +8060,7 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
       const tbody = document.getElementById('matrixTableBody');
       if (!tbody) return;
       const period = getTargetMatrixPeriod();
-      const propFactor = (Number(period.days) || 0) / TARGET_FY_DAYS;
+      const propFactor = universalPropFactor(period.to || universalTargetDateISO());
 
       const divTree = {};
 
@@ -8082,7 +8252,7 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
           <td class="num">${totalAnnualTarget.toLocaleString()}</td>
           <td class="num">${totalPropTarget.toLocaleString()}</td>
           <td class="num" style="color:${totalNet >= 0 ? '#059669' : '#dc2626'};">${Math.round(totalNet).toLocaleString()}</td>
-          <td class="num" style="color:${totalShortfall > 0 ? '#dc2626' : '#059669'};font-weight:900;">${Math.round(totalShortfall).toLocaleString()}</td>
+          <td class="num" class="shortfall-value">${Math.max(0, Math.round(totalShortfall)).toLocaleString()}</td>
           <td class="num" style="color:#2563eb;">${totalPropPct}%</td>
           <td class="num">${totalAnnPct}%</td>
         </tr>`;
@@ -8569,7 +8739,7 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
       }
 
       tbody.innerHTML = rows.map(o => `<tr>
-        <td class="left"><strong>${weeklyEsc(o.officeName)}</strong></td>
+        <td class="left office-name-link" data-office-name="${weeklyEsc(o.officeName)}" data-sol-id="${weeklyEsc(o.solId||'')}"><strong>${weeklyEsc(o.officeName)}</strong></td>
         <td class="left"><span class="badge" style="background:${o.type==='GPO'?'#fef3c7':'#dcfce7'};color:${o.type==='GPO'?'#92400e':'#166534'};">${o.type}</span></td>
         <td class="left">${weeklyEsc(o.division)}</td>
         <td class="left">${weeklyEsc(o.solId)}</td>
@@ -8785,7 +8955,8 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
     function renderSubDnMonitoringTable() {
       if (!currentConsolidatedOffices.length) consolidateOffices();
       populateSubDnDateFilters();
-      const period=getSubDnPeriod(), propFactor=(period.days||0)/TARGET_FY_DAYS;
+      const period=getSubDnPeriod(), propFactor=universalPropFactor(period.to || universalTargetDateISO());
+       window.__universalTargetDateISO = period.to || window.__universalTargetDateISO;
       const selDiv=document.getElementById('subDnDivSelect')?.value||'ALL';
       const selSub=document.getElementById('subDnSubSelect')?.value||'ALL';
       const selType=document.getElementById('subDnTypeSelect')?.value||'ALL';
@@ -8822,7 +8993,7 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
       document.getElementById('subDnKpiPropTarget').innerText=totalPropTgt.toLocaleString();
       document.getElementById('subDnKpiAchieved').innerText=(totalAch>=0?'+':'')+Math.round(totalAch).toLocaleString();
       document.getElementById('subDnKpiAchievedPct').innerText=`${totalPct.toFixed(1)}% of Prop. Target`;
-      document.getElementById('subDnKpiShortfall').innerText=`${totalShort>=0?'Shortfall: ':'Excess: +'}${Math.abs(Math.round(totalShort)).toLocaleString()}`;
+      document.getElementById('subDnKpiShortfall').innerText=`Shortfall: ${Math.max(0, Math.round(totalShort)).toLocaleString()}`;
       document.getElementById('subDnKpiShortfall').style.color=totalShort>0?'#dc2626':'#059669';
 
       const rank=(type)=>filtered.filter(o=>o.officeType===type).map(o=>{const target=getTargetForOffice(o.solId,o.officeName),pt=Math.round(target*propFactor);return {...o,target,propTgt:pt,pct:pt>0?o.net/pt*100:0,short:pt-o.net};}).sort((a,b)=>b.pct-a.pct);
@@ -8874,6 +9045,82 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
       return { opened, closed, net };
     }
 
+    function campaignProportionateFactor(cmp, cmpRows) {
+      if (!cmp || !cmp.startDate || !cmp.endDate) return 1;
+      const start = String(cmp.startDate).slice(0,10);
+      const end = String(cmp.endDate).slice(0,10);
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(start) || !/^\d{4}-\d{2}-\d{2}$/.test(end) || end < start) return 1;
+
+      // Use the latest available campaign transaction date when it is earlier
+      // than today; otherwise use today. This keeps the proportionate target
+      // aligned with the data actually available in the dashboard.
+      const rowDates = (Array.isArray(cmpRows) ? cmpRows : [])
+        .map(r => campaignRecordDate(r)).filter(Boolean).sort();
+      const today = new Date();
+      const todayISO = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+      let asOf = rowDates.length ? rowDates[rowDates.length - 1] : todayISO;
+      if (asOf < start) return 0;
+      if (asOf > end) asOf = end;
+
+      const a = new Date(`${start}T00:00:00`);
+      const b = new Date(`${end}T00:00:00`);
+      const x = new Date(`${asOf}T00:00:00`);
+      const totalDays = Math.floor((b-a)/86400000) + 1;
+      const elapsedDays = Math.min(Math.max(Math.floor((x-a)/86400000) + 1, 0), totalDays);
+      return totalDays > 0 ? elapsedDays / totalDays : 1;
+    }
+
+    function renderCampaignTopDivisionKpis(cmp, cmpRows) {
+      const grid = document.getElementById('campaignTopDivisionsKpiGrid');
+      if (!grid || !cmp) return;
+
+      const divMap = {};
+      Object.keys(DEFAULT_DIVISION_TARGETS).forEach(d => {
+        const configured = cmp.divTargets && cmp.divTargets[d] !== undefined ? Number(cmp.divTargets[d]) : null;
+        divMap[d] = { name:d, target:Number.isFinite(configured) ? configured : Math.round((DEFAULT_DIVISION_TARGETS[d] / REGION_ANNUAL_TARGET) * Number(cmp.regionTarget || 0)), net:0 };
+      });
+      Object.keys(cmp.divTargets || {}).forEach(d => {
+        if (!divMap[d]) divMap[d] = { name:d, target:Number(cmp.divTargets[d]) || 0, net:0 };
+        else divMap[d].target = Number(cmp.divTargets[d]) || 0;
+      });
+      (Array.isArray(cmpRows) ? cmpRows : []).forEach(r => {
+        const d = String(r.division || 'Unassigned').trim() || 'Unassigned';
+        if (!divMap[d]) divMap[d] = { name:d, target:0, net:0 };
+        divMap[d].net += getCampaignRecordMetrics(r, cmp).net;
+      });
+
+      const factor = campaignProportionateFactor(cmp, cmpRows);
+      const ranked = Object.values(divMap).map(d => {
+        const propTarget = Math.round((Number(d.target) || 0) * factor);
+        const net = Number(d.net) || 0;
+        const propPct = propTarget > 0 ? (net / propTarget) * 100 : 0;
+        return { ...d, propTarget, net, propPct };
+      }).filter(d => d.propTarget > 0).sort((a,b) => b.propPct-a.propPct || b.net-a.net || a.name.localeCompare(b.name)).slice(0,3);
+
+      const badge = document.getElementById('campaignTop3Badge');
+      if (badge) badge.innerText = `LIVE • ${cmp.name}`;
+      const fallbackPhotos = Object.values(TOP_DIVISION_PHOTOS || {});
+      grid.innerHTML = ranked.length ? ranked.map((d,i) => {
+        const rank=i+1;
+        const photo=TOP_DIVISION_PHOTOS[normalizeDivisionPhotoKey(d.name)] || fallbackPhotos[i] || '';
+        const emblem=TOP_DIVISION_RANK_EMBLEMS[rank] || '';
+        return `<div class="top-division-card campaign-top-division-card">
+          <img class="top-division-rank-emblem" src="${emblem}" alt="${rank===1?'1st':rank===2?'2nd':'3rd'} place" aria-hidden="true">
+          <div class="top-division-photo-wrap"><img class="top-division-photo" src="${photo}" alt="${weeklyEsc(d.name)}" loading="eager"></div>
+          <div class="top-division-content">
+            <div class="top-division-rank-space"></div>
+            <div class="top-division-name" title="${weeklyEsc(d.name)}">${weeklyEsc(d.name)}</div>
+            <div class="top-division-meta">% Proportionate Target Achievement</div>
+            <div class="top-division-achievement-box"><span class="top-division-pct">${Number(d.propPct||0).toFixed(2)}%</span></div>
+            <div class="top-division-stats">
+              <div class="top-division-stat target-stat"><span>Target</span><strong>${Math.round(d.propTarget).toLocaleString('en-IN')}</strong></div>
+              <div class="top-division-stat achievement-stat"><span>Ach -</span><strong>${Math.round(d.net).toLocaleString('en-IN')}</strong></div>
+            </div>
+          </div>
+        </div>`;
+      }).join('') : '<div class="top-division-empty">No campaign division target data available for the selected Campaign/Drive.</div>';
+    }
+
     function renderCampaignPerformanceModule() {
       const cmp = getActiveCampaign();
       if (!cmp) return;
@@ -8904,6 +9151,8 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
       const achievedPct = cmp.regionTarget > 0 ? (cmpNet / cmp.regionTarget) * 100 : 0;
       const campaignShortfall = Math.max(cmp.regionTarget - cmpNet, 0);
       const pctFormatted = achievedPct.toFixed(1) + '%';
+
+      renderCampaignTopDivisionKpis(cmp, cmpRows);
 
       document.getElementById('cmpCardTarget').innerText = cmp.regionTarget.toLocaleString();
       document.getElementById('cmpCardNet').innerText = (cmpNet >= 0 ? '+' : '') + Math.round(cmpNet).toLocaleString();
@@ -9097,7 +9346,7 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
           <td class="num" style="color:#2563eb;">${Math.round(regionalOpened).toLocaleString()}</td>
           <td class="num" style="color:#dc2626;">${Math.round(regionalClosed).toLocaleString()}</td>
           <td class="num font-bold" style="color:${regionalNet>=0?'#059669':'#dc2626'};">${Math.round(regionalNet).toLocaleString()}</td>
-          <td class="num font-bold" style="color:#c2410c;">${regionalShortfall.toLocaleString()}</td>
+          <td class="num font-bold shortfall-value">${Math.max(0, regionalShortfall).toLocaleString()}</td>
           <td class="num font-bold" style="color:#b45309;">${regionalPct.toFixed(1)}%</td>
           <td>-</td>
         </tr>`;
@@ -9246,10 +9495,285 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
       renderCampaignPerformanceModule();
     }
 
+    function monitoringConfigDivisions(){ return [...new Set(getMonitoringOfficeMaster().map(o=>o.division).filter(Boolean))].sort(); }
+    function monitoringConfigOffices(division){ return getMonitoringOfficeMaster().filter(o=>!division || o.division===division); }
+    function monitoringCrudPopulateOffices(){
+      const d=document.getElementById('monitoringCrudDivision')?.value||''; const sel=document.getElementById('monitoringCrudOffice'); if(!sel)return;
+      const list=monitoringConfigOffices(d); sel.innerHTML='<option value="">➕ Add / select office</option>'+list.map(o=>`<option value="${officePopupEscape(o.solId||o.officeName)}">${officePopupEscape(o.officeName)} • ${officePopupEscape(o.solId||'')}</option>`).join('');
+    }
+    function monitoringCrudLoadOffice(){
+      const key=document.getElementById('monitoringCrudOffice')?.value||''; const d=document.getElementById('monitoringCrudDivision')?.value||'';
+      const office=getMonitoringOfficeMaster().find(o=>String(o.solId||o.officeName)===key && (!d||o.division===d)); if(!office)return monitoringCrudClearForm();
+      const cfg=getOfficeContactConfig(office.solId,office.officeName,office.officeType), t=cfg.team||{};
+      const set=(id,v)=>{const e=document.getElementById(id);if(e)e.value=v||'';};
+      set('monitoringCrudSolId',office.solId);set('monitoringCrudOfficeName',office.officeName);set('monitoringCrudOfficeType',office.officeType);set('monitoringCrudSubDivision',office.subDivision);set('monitoringCrudDivisionName',office.division);set('monitoringCrudPhone',cfg.phone);set('monitoringCrudActive',cfg.phone&&officePhoneDirectory[officeConfigKey(office.solId,office.officeName)]?.active===false?'FALSE':'TRUE');
+      set('monitoringCrudPrimaryName',t.primaryOfficerName);set('monitoringCrudPrimaryPhone',t.primaryOfficerPhone);set('monitoringCrudDoName',t.monitoringPAAtDOName);set('monitoringCrudDoPhone',t.monitoringPAAtDOPhone);set('monitoringCrudSdhName',t.subDivisionalHeadName);set('monitoringCrudSdhPhone',t.subDivisionalHeadPhone);set('monitoringCrudPaSdhName',t.monitoringPAAtSDHName);set('monitoringCrudPaSdhPhone',t.monitoringPAAtSDHPhone);set('monitoringCrudMoName',t.mailOverseerName);set('monitoringCrudMoPhone',t.mailOverseerPhone);
+    }
+    function monitoringCrudClearForm(){ ['monitoringCrudSolId','monitoringCrudOfficeName','monitoringCrudOfficeType','monitoringCrudSubDivision','monitoringCrudDivisionName','monitoringCrudPhone','monitoringCrudPrimaryName','monitoringCrudPrimaryPhone','monitoringCrudDoName','monitoringCrudDoPhone','monitoringCrudSdhName','monitoringCrudSdhPhone','monitoringCrudPaSdhName','monitoringCrudPaSdhPhone','monitoringCrudMoName','monitoringCrudMoPhone'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';}); const a=document.getElementById('monitoringCrudActive');if(a)a.value='TRUE'; }
+    function monitoringCrudRead(){
+      const v=id=>String(document.getElementById(id)?.value||'').trim(); const officeType=v('monitoringCrudOfficeType').toUpperCase();
+      const solId=v('monitoringCrudSolId'), officeName=v('monitoringCrudOfficeName'); if(!solId&&!officeName)return null;
+      const key=officeConfigKey(solId,officeName);
+      officePhoneDirectory[key]={solId,officeName,phone:v('monitoringCrudPhone'),active:v('monitoringCrudActive')!=='FALSE'};
+      officeMonitoringTeams[key]={solId,officeName,officeType,primaryDesignation:monitoringPrimaryDesignation(officeType),primaryOfficerName:v('monitoringCrudPrimaryName'),primaryOfficerPhone:v('monitoringCrudPrimaryPhone'),monitoringPAAtDOName:v('monitoringCrudDoName'),monitoringPAAtDOPhone:v('monitoringCrudDoPhone'),subDivisionalHeadName:v('monitoringCrudSdhName'),subDivisionalHeadPhone:v('monitoringCrudSdhPhone'),monitoringPAAtSDHName:v('monitoringCrudPaSdhName'),monitoringPAAtSDHPhone:v('monitoringCrudPaSdhPhone'),mailOverseerName:v('monitoringCrudMoName'),mailOverseerPhone:v('monitoringCrudMoPhone')};
+      return key;
+    }
+    async function monitoringCrudSave(){ if(!requireEditAccess())return; const key=monitoringCrudRead(); if(!key)return alert('SOL ID or Office Name is required.'); persistOfficeContactConfig(); saveDashboardConfigLocal(); const ok=await saveDashboardConfigToGoogleSheet(); alert(ok?'Monitoring team saved and uploaded to POSB_Dashboard_Config.':'Monitoring team saved locally. Google Sheet upload failed; please retry.'); }
+    async function monitoringCrudDelete(){ if(!requireEditAccess())return; const key=officeConfigKey(document.getElementById('monitoringCrudSolId')?.value,document.getElementById('monitoringCrudOfficeName')?.value); if(!key)return alert('Select an office first.'); if(!confirm('Delete phone and monitoring team configuration for this office?'))return; delete officePhoneDirectory[key]; delete officeMonitoringTeams[key]; persistOfficeContactConfig(); saveDashboardConfigLocal(); const ok=await saveDashboardConfigToGoogleSheet(); monitoringCrudClearForm(); alert(ok?'Monitoring team deleted and Google Sheet updated.':'Monitoring team deleted locally. Google Sheet upload failed; please retry.'); }
+    function openMonitoringTeamConfiguration(){
+      if(!requireEditAccess())return; const overlay=document.getElementById('officeInfoPopupOverlay'),box=overlay?.querySelector('.weekly-modal-box'),body=box?.querySelector('.weekly-modal-body'),title=document.getElementById('officeInfoPopupTitle'); if(!overlay||!box||!body||!title)return;
+      const divs=monitoringConfigDivisions(); const count=Object.keys(officeMonitoringTeams||{}).length;
+      title.textContent='👥 Monitoring Team Configuration — Add / Modify / Delete';
+      body.innerHTML=`<div style="padding:4px 0;">
+        <div style="font-size:11px;color:#475569;margin-bottom:8px;">Direct SOL ID-wise configuration. Select an office to modify it, or leave office selection empty and enter a new office master record.</div>
+        <div class="monitoring-crud-grid">
+          <div><label>Division Name</label><select id="monitoringCrudDivision" onchange="monitoringCrudPopulateOffices()"><option value="">All / New Office</option>${divs.map(d=>`<option>${officePopupEscape(d)}</option>`).join('')}</select></div>
+          <div><label>Select Existing Office</label><select id="monitoringCrudOffice" onchange="monitoringCrudLoadOffice()"><option value="">➕ Add / select office</option></select></div>
+          <div><label>SOL ID</label><input id="monitoringCrudSolId"></div><div><label>Office Name</label><input id="monitoringCrudOfficeName"></div>
+          <div><label>Office Type</label><select id="monitoringCrudOfficeType"><option>HPO</option><option>GPO</option><option>SPO</option><option>BPO</option></select></div><div><label>Active</label><select id="monitoringCrudActive"><option>TRUE</option><option>FALSE</option></select></div>
+          <div><label>Sub Division</label><input id="monitoringCrudSubDivision"></div><div><label>Division Name</label><input id="monitoringCrudDivisionName"></div>
+          <div><label>Office Phone</label><input id="monitoringCrudPhone"></div><div><label>Primary Officer Name</label><input id="monitoringCrudPrimaryName"></div>
+          <div><label>Primary Officer Phone</label><input id="monitoringCrudPrimaryPhone"></div><div><label>Monitoring PA at DO Name</label><input id="monitoringCrudDoName"></div>
+          <div><label>Monitoring PA at DO Phone</label><input id="monitoringCrudDoPhone"></div><div><label>Sub Divisional Head Name</label><input id="monitoringCrudSdhName"></div>
+          <div><label>Sub Divisional Head Phone</label><input id="monitoringCrudSdhPhone"></div><div><label>Monitoring PA at SDH Name</label><input id="monitoringCrudPaSdhName"></div>
+          <div><label>Monitoring PA at SDH Phone</label><input id="monitoringCrudPaSdhPhone"></div><div><label>Mail Overseer Name (BPO)</label><input id="monitoringCrudMoName"></div>
+          <div><label>Mail Overseer Phone (BPO)</label><input id="monitoringCrudMoPhone"></div>
+        </div>
+        <div class="monitoring-crud-actions"><button class="monitoring-add-btn" onclick="monitoringCrudClearForm()">＋ New / Clear</button><button class="monitoring-save-btn" onclick="monitoringCrudSave()">💾 Save / Modify</button><button class="monitoring-delete-btn" onclick="monitoringCrudDelete()">🗑 Delete</button><button class="monitoring-cancel-btn" onclick="closeOfficeInfoPopup()">Close</button></div>
+        <div style="font-size:10px;color:#64748b;margin-top:8px;">Configured monitoring records: <b>${count.toLocaleString()}</b>. Primary designation is automatic: HPO → PM, SPO → SPM, BPO → BPM. Mail Overseer is used for BPO.</div>
+      </div>`;
+      overlay.style.display='flex';overlay.setAttribute('aria-hidden','false');monitoringCrudPopulateOffices();
+    }
+
     function saveDashboardConfigLocal() {
-      const config = { campaigns: campaignList, activeCampaignId, customTargets, tickerMessage: localStorage.getItem('posb_ticker_message') || '' };
+      const config = { campaigns: campaignList, activeCampaignId, customTargets, tickerMessage: localStorage.getItem('posb_ticker_message') || '', officePhoneDirectory: officePhoneDirectory || {}, officeMonitoringTeams: officeMonitoringTeams || {} };
       localStorage.setItem('posb_dashboard_config_v1', JSON.stringify(config));
       saveDashboardConfigToIndexedDB(config).catch(err => console.warn('Dashboard config IndexedDB save failed:', err));
+    }
+
+    // ---------- OFFICE PHONE + MONITORING TEAM CONFIGURATION ----------
+    let officePhoneDirectory = {};
+    let officeMonitoringTeams = {};
+    try { officePhoneDirectory = JSON.parse(localStorage.getItem('posb_office_phone_directory') || '{}') || {}; } catch (_) { officePhoneDirectory = {}; }
+    try { officeMonitoringTeams = JSON.parse(localStorage.getItem('posb_office_monitoring_teams') || '{}') || {}; } catch (_) { officeMonitoringTeams = {}; }
+
+    function monitoringPrimaryDesignation(officeType) {
+      const t = String(officeType || '').trim().toUpperCase();
+      if (t === 'HPO') return 'PM';
+      if (t === 'SPO' || t === 'SO') return 'SPM';
+      if (t === 'BPO' || t === 'BO') return 'BPM';
+      return '';
+    }
+    function officeConfigKey(solId, officeName) {
+      const sol = String(solId || '').trim();
+      return sol || String(officeName || '').trim();
+    }
+    function persistOfficeContactConfig() {
+      localStorage.setItem('posb_office_phone_directory', JSON.stringify(officePhoneDirectory || {}));
+      localStorage.setItem('posb_office_monitoring_teams', JSON.stringify(officeMonitoringTeams || {}));
+    }
+    function getOfficeContactConfig(solId, officeName, officeType) {
+      const key = officeConfigKey(solId, officeName);
+      const phone = officePhoneDirectory[key] || {};
+      const team = officeMonitoringTeams[key] || {};
+      const primaryDesignation = team.primaryDesignation || monitoringPrimaryDesignation(officeType);
+      return { phone: phone.phone || phone.officePhone || '', team: {...team, primaryDesignation} };
+    }
+    function normalizeBulkHeader(v) {
+      return String(v ?? '').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+    }
+    function pickBulkValue(row, names) {
+      const normalized = {};
+      Object.keys(row || {}).forEach(k => normalized[normalizeBulkHeader(k)] = row[k]);
+      for (const n of names) {
+        const v = normalized[normalizeBulkHeader(n)];
+        if (v !== undefined && v !== null && String(v).trim() !== '') return String(v).trim();
+      }
+      return '';
+    }
+    function getMonitoringOfficeMaster() {
+      const seen = new Map();
+      (Array.isArray(rawTransactions) ? rawTransactions : []).forEach(r => {
+        const solId=String(r.solId||'').trim();
+        const officeName=String(r.officeName||'').trim();
+        const key=solId || `${officeName}|${String(r.division||'').trim()}|${String(r.subDivision||'').trim()}`;
+        if (!key || seen.has(key)) return;
+        seen.set(key,{
+          solId, officeName,
+          officeType:String(r.officeType||officeCountType(r)||'').trim().toUpperCase(),
+          subDivision:String(r.subDivision||'').trim(),
+          division:String(r.division||'').trim()
+        });
+      });
+      return [...seen.values()].sort((a,b)=>a.division.localeCompare(b.division)||a.subDivision.localeCompare(b.subDivision)||a.officeName.localeCompare(b.officeName));
+    }
+
+    function downloadOfficeMonitoringTemplate() {
+      if (!requireEditAccess()) return;
+      const offices=getMonitoringOfficeMaster();
+      if (!offices.length) return alert('Office master is not available yet. Please sync/load POSB data first.');
+      const divisions=[...new Set(offices.map(o=>o.division).filter(Boolean))].sort();
+      const overlay=document.getElementById('officeInfoPopupOverlay');
+      const box=overlay?.querySelector('.weekly-modal-box');
+      const body=box?.querySelector('.weekly-modal-body');
+      const title=document.getElementById('officeInfoPopupTitle');
+      if(!overlay||!box||!body||!title){
+        const d=prompt('Enter exact Division name:\n\n'+divisions.join('\n'),divisions[0]||'');
+        if(d) exportOfficeMonitoringTemplateForDivision(d,offices);
+        return;
+      }
+      title.textContent='📋 Monitoring Template — Select Division';
+      body.innerHTML=`<div style="padding:6px 0;">
+        <div style="font-size:12px;color:#475569;margin-bottom:8px;">Select a Division. The downloaded template will contain only that Division's office master.</div>
+        <label style="font-size:11px;font-weight:900;color:#334155;display:block;margin-bottom:4px;">Division Name</label>
+        <select id="monitoringTemplateDivision" style="width:100%;padding:9px;border:1px solid #cbd5e1;border-radius:8px;font-weight:800;">
+          ${divisions.map(d=>`<option value="${officePopupEscape(d)}">${officePopupEscape(d)}</option>`).join('')}
+        </select>
+        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px;">
+          <button type="button" class="monitoring-cancel-btn" onclick="closeOfficeInfoPopup()">Cancel</button>
+          <button type="button" class="office-monitoring-template-btn" onclick="exportOfficeMonitoringTemplateForDivision(document.getElementById('monitoringTemplateDivision').value)">⬇ Download Template</button>
+        </div>
+      </div>`;
+      overlay.style.display='flex'; overlay.setAttribute('aria-hidden','false');
+    }
+
+    async function exportOfficeMonitoringTemplateForDivision(division, officesArg) {
+      const offices=officesArg || getMonitoringOfficeMaster();
+      const selected=String(division||'').trim();
+      if(!selected) return alert('Please select a Division.');
+      const list=offices.filter(o=>String(o.division||'').trim()===selected);
+      if(!list.length) return alert('No offices found for the selected Division.');
+      const headers=['SOL ID','Office Name','Office Type','Sub Division','Division Name','Office Phone','Active','Primary Officer Name','Primary Officer Phone','Monitoring PA at DO Name','Monitoring PA at DO Phone','Sub Divisional Head Name','Sub Divisional Head Phone','Monitoring PA at SDH Name','Monitoring PA at SDH Phone','Mail Overseer Name','Mail Overseer Phone'];
+      const rows=list.map(o=>{
+        const key=officeConfigKey(o.solId,o.officeName), ph=officePhoneDirectory[key]||{}, t=officeMonitoringTeams[key]||{};
+        return [o.solId,o.officeName,o.officeType,o.subDivision,o.division,ph.phone||ph.officePhone||'',ph.active===false?'FALSE':'TRUE',t.primaryOfficerName||'',t.primaryOfficerPhone||'',t.monitoringPAAtDOName||'',t.monitoringPAAtDOPhone||'',t.subDivisionalHeadName||'',t.subDivisionalHeadPhone||'',t.monitoringPAAtSDHName||'',t.monitoringPAAtSDHPhone||'',t.mailOverseerName||'',t.mailOverseerPhone||''];
+      });
+      const matrix=[headers,...rows];
+      const safeName=selected.replace(/[^a-z0-9]+/gi,'_');
+
+      // Prefer ExcelJS because it writes real cell borders/column widths into the XLSX file.
+      if(typeof ExcelJS!=='undefined'){
+        try{
+          const wb=new ExcelJS.Workbook();
+          const ws=wb.addWorksheet('Office_Monitoring');
+          ws.addRows(matrix);
+          const border={style:'thin',color:{argb:'FF808080'}};
+          ws.eachRow((row,rowNumber)=>{
+            row.height=rowNumber===1?24:20;
+            row.eachCell({includeEmpty:true},cell=>{
+              cell.border={top:border,bottom:border,left:border,right:border};
+              cell.alignment={vertical:'middle',horizontal:cell.col===1?'center':'left',wrapText:true};
+              if(rowNumber===1){
+                cell.font={bold:true};
+                cell.fill={type:'pattern',pattern:'solid',fgColor:{argb:'FFD9EAF7'}};
+              }
+            });
+          });
+          // True content-based autofit, with readable minimum/maximum widths.
+          for(let c=1;c<=headers.length;c++){
+            let maxLen=String(headers[c-1]||'').length;
+            for(let r=2;r<=matrix.length;r++) maxLen=Math.max(maxLen,String(matrix[r-1][c-1]??'').length);
+            ws.getColumn(c).width=Math.min(42,Math.max(12,maxLen+2));
+          }
+          ws.views=[{state:'frozen',ySplit:1}];
+          const buffer=await wb.xlsx.writeBuffer();
+          const blob=new Blob([buffer],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+          const a=document.createElement('a');
+          a.href=URL.createObjectURL(blob); a.download=`POSB_Office_Monitoring_Template_${safeName}.xlsx`;
+          document.body.appendChild(a); a.click(); a.remove();
+          setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+          closeOfficeInfoPopup();
+          return;
+        }catch(err){ console.warn('ExcelJS template export failed; using XLSX fallback.',err); }
+      }
+
+      if(typeof XLSX!=='undefined'&&XLSX.utils&&XLSX.writeFile){
+        const ws=XLSX.utils.aoa_to_sheet(matrix);
+        ws['!cols']=headers.map((h,c)=>{
+          const maxLen=matrix.reduce((m,row)=>Math.max(m,String(row?.[c]??'').length),String(h).length);
+          return {wch:Math.min(42,Math.max(12,maxLen+2))};
+        });
+        const thin={style:'thin',color:{rgb:'808080'}};
+        const borders={top:thin,bottom:thin,left:thin,right:thin};
+        for(let r=0;r<matrix.length;r++) for(let c=0;c<headers.length;c++){
+          const addr=XLSX.utils.encode_cell({r,c});
+          if(!ws[addr]) ws[addr]={t:'s',v:''};
+          ws[addr].s={border:borders,alignment:{vertical:'center',horizontal:c===0?'center':'left',wrapText:true},font:r===0?{bold:true}:{} };
+          if(r===0) ws[addr].s.fill={patternType:'solid',fgColor:{rgb:'D9EAF7'}};
+        }
+        ws['!rows']=[{hpt:24},...rows.map(()=>({hpt:20}))];
+        const wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb,ws,'Office_Monitoring');
+        XLSX.writeFile(wb,`POSB_Office_Monitoring_Template_${safeName}.xlsx`);
+      }else{
+        const csv=[headers,...rows].map(row=>row.map(v=>`"${String(v??'').replace(/"/g,'""')}"`).join(',')).join('\n');
+        const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'}), a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`POSB_Office_Monitoring_Template_${safeName}.csv`; a.click(); URL.revokeObjectURL(a.href);
+      }
+      closeOfficeInfoPopup();
+    }
+
+    async function handleOfficeMonitoringBulkUpload(event) {
+      if (!requireEditAccess()) { event.target.value=''; return; }
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      try {
+        let rows=[];
+        const lower=file.name.toLowerCase();
+        if (lower.endsWith('.csv')) {
+          const text=await file.text();
+          if (typeof PapaParse !== 'undefined') rows=PapaParse.parse(text,{header:true,skipEmptyLines:true}).data;
+          else if (typeof Papa !== 'undefined') rows=Papa.parse(text,{header:true,skipEmptyLines:true}).data;
+          else throw new Error('CSV parser is not available.');
+        } else {
+          if (typeof XLSX === 'undefined') throw new Error('Excel reader is not available.');
+          const data=await file.arrayBuffer();
+          const wb=XLSX.read(data,{type:'array'});
+          const ws=wb.Sheets[wb.SheetNames[0]];
+          rows=XLSX.utils.sheet_to_json(ws,{defval:''});
+        }
+        let imported=0, skipped=0;
+        rows.forEach(row=>{
+          const solId=pickBulkValue(row,['SOL ID','SOLID','SOL']);
+          const officeName=pickBulkValue(row,['Office Name','Office']);
+          const officeType=(pickBulkValue(row,['Office Type','Type'])||'').toUpperCase();
+          const key=officeConfigKey(solId,officeName);
+          if (!key) { skipped++; return; }
+          const phone=pickBulkValue(row,['Office Phone','Phone Number','Phone']);
+          officePhoneDirectory[key]={solId,officeName,phone,active:(pickBulkValue(row,['Active'])||'TRUE').toUpperCase()!=='FALSE'};
+          officeMonitoringTeams[key]={
+            solId,officeName,officeType,
+            primaryDesignation:monitoringPrimaryDesignation(officeType),
+            primaryOfficerName:pickBulkValue(row,['Primary Officer Name','PM Name','SPM Name','BPM Name']),
+            primaryOfficerPhone:pickBulkValue(row,['Primary Officer Phone','PM Phone','SPM Phone','BPM Phone']),
+            monitoringPAAtDOName:pickBulkValue(row,['Monitoring PA at DO Name','Monitoring PA DO Name','Monitoring PA Name']),
+            monitoringPAAtDOPhone:pickBulkValue(row,['Monitoring PA at DO Phone','Monitoring PA DO Phone']),
+            subDivisionalHeadName:pickBulkValue(row,['Sub Divisional Head Name','SDH Name']),
+            subDivisionalHeadPhone:pickBulkValue(row,['Sub Divisional Head Phone','SDH Phone']),
+            monitoringPAAtSDHName:pickBulkValue(row,['Monitoring PA at SDH Name','Monitoring PA SDH Name','Monitoring PA at Sub Division Name','Monitoring PA Sub Division Name']),
+            monitoringPAAtSDHPhone:pickBulkValue(row,['Monitoring PA at SDH Phone','Monitoring PA SDH Phone','Monitoring PA at Sub Division Phone','Monitoring PA Sub Division Phone']),
+            mailOverseerName:pickBulkValue(row,['Mail Overseer Name','MO Name']),
+            mailOverseerPhone:pickBulkValue(row,['Mail Overseer Phone','MO Phone'])
+          };
+          imported++;
+        });
+        persistOfficeContactConfig();
+        saveDashboardConfigLocal();
+        const uploaded=await saveDashboardConfigToGoogleSheet();
+        alert(`${imported.toLocaleString()} office phone/monitoring records imported${skipped ? `; ${skipped} skipped` : ''}.${uploaded ? '\\n\\nConfiguration uploaded to POSB_Dashboard_Config.' : '\\n\\nLocal configuration saved; Google Sheet upload failed, please retry.'}`);
+      } catch(err) { console.error(err); alert('Bulk monitoring upload failed: '+(err.message||err)); }
+      event.target.value='';
+    }
+
+    function renderOfficeContactPanel(solId, officeName, officeType) {
+      const cfg=getOfficeContactConfig(solId,officeName,officeType);
+      const t=cfg.team||{};
+      const cards=[];
+      const add=(role,name,phone,always=false)=>{ if(always || name || phone) cards.push(`<div class="office-team-card"><div class="office-team-role">${officePopupEscape(role)}</div><div class="office-team-name">${officePopupEscape(name||'Not configured')}</div>${phone?`<div class="office-team-phone">📞 ${officePopupEscape(phone)}</div>`:''}</div>`); };
+      add(`Primary Monitoring Officer • ${t.primaryDesignation||monitoringPrimaryDesignation(officeType)}`,t.primaryOfficerName,t.primaryOfficerPhone,true);
+      add('Monitoring PA at DO',t.monitoringPAAtDOName,t.monitoringPAAtDOPhone,true);
+      add('Sub Divisional Head',t.subDivisionalHeadName,t.subDivisionalHeadPhone,true);
+      add('Monitoring PA at SDH',t.monitoringPAAtSDHName,t.monitoringPAAtSDHPhone,true);
+      if (String(officeType||'').toUpperCase() === 'BPO' || t.mailOverseerName || t.mailOverseerPhone) add('Mail Overseer',t.mailOverseerName,t.mailOverseerPhone,String(officeType||'').toUpperCase()==='BPO');
+      return `<div style="margin-top:12px;border-top:1px solid #e2e8f0;padding-top:10px;"><div style="font-weight:900;color:#0f172a;margin-bottom:4px;">📞 Office Phone</div><div style="font-size:13px;font-weight:900;color:#0369a1;">${cfg.phone ? officePopupEscape(cfg.phone) : 'Not configured'}</div><div style="font-weight:900;color:#0f172a;margin:12px 0 4px;">👥 Monitoring Team</div><div class="office-team-grid">${cards.join('')}</div></div>`;
     }
 
     async function saveDashboardConfigToGoogleSheet() {
@@ -9263,7 +9787,9 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
           divisions: customTargets?.divisions || {},
           subDivisions: customTargets?.subDivisions || {},
           offices: customTargets?.offices || {}
-        }
+        },
+        officePhoneDirectory: officePhoneDirectory || {},
+        officeMonitoringTeams: officeMonitoringTeams || {}
       };
       try {
         await saveDashboardConfigToIndexedDB(config);
@@ -9280,6 +9806,53 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
         console.error('Google Sheet configuration save failed:', err);
         setGoogleSheetStatus('⚠️ Local update saved, but Google Sheet configuration sync failed. Please retry.', true);
         return false;
+      }
+    }
+
+    function openAdminTargetUpdate() {
+      if (!requireEditAccess()) return;
+      const level = (prompt('Target level: enter Division, Sub-Division, Office, or Region', 'Division') || '').trim().toLowerCase();
+      if (!level) return;
+      if (level === 'region') {
+        const current = Number(REGION_ANNUAL_TARGET || 0);
+        const val = prompt('Enter Annual Regional Target:', current);
+        if (val === null) return; const num = Number(val);
+        if (!Number.isFinite(num) || num < 0) return alert('Please enter a valid target.');
+        window.REGION_ANNUAL_TARGET = num;
+        localStorage.setItem('posb_region_annual_target', String(num));
+      } else if (level === 'division') {
+        const names = Object.keys(DEFAULT_DIVISION_TARGETS || {});
+        const name = prompt('Enter exact Division name:\n\n' + names.join('\n'), names[0] || '');
+        if (!name || !(name in DEFAULT_DIVISION_TARGETS)) return alert('Division not found.');
+        const current = getTargetForDiv(name); const val = prompt('Enter Annual Target for ' + name + ':', current);
+        if (val === null) return; const num = Number(val);
+        if (!Number.isFinite(num) || num < 0) return alert('Please enter a valid target.');
+        customTargets.divisions[name] = num;
+      } else if (level === 'sub-division' || level === 'subdivision') {
+        const names = Object.keys(DEFAULT_SUB_DIVISION_TARGETS || {});
+        const name = prompt('Enter exact Sub-Division name:\n\n' + names.join('\n'), names[0] || '');
+        if (!name || !(name in DEFAULT_SUB_DIVISION_TARGETS)) return alert('Sub-Division not found.');
+        const current = getTargetForSubDiv(name); const val = prompt('Enter Annual Target for ' + name + ':', current);
+        if (val === null) return; const num = Number(val);
+        if (!Number.isFinite(num) || num < 0) return alert('Please enter a valid target.');
+        customTargets.subDivisions[name] = num;
+      } else if (level === 'office') {
+        const name = prompt('Enter Office/SOL ID (exact):', ''); if (!name) return;
+        const current = getTargetForOffice(name, name); const val = prompt('Enter Annual Target for ' + name + ':', current);
+        if (val === null) return; const num = Number(val);
+        if (!Number.isFinite(num) || num < 0) return alert('Please enter a valid target.');
+        customTargets.offices[name] = num;
+      } else return alert('Choose Division, Sub-Division, Office or Region.');
+      saveDashboardConfigLocal(); renderDashboard();
+      setGoogleSheetStatus('✅ Target updated locally. Click Upload Target & Drive to Google Sheet to publish the change.');
+    }
+
+    async function adminUploadDashboardConfig() {
+      if (!requireEditAccess()) return;
+      const ok = await saveDashboardConfigToGoogleSheet();
+      if (ok) {
+        renderDashboard();
+        alert('Target and Special Drive configuration uploaded successfully to POSB_Dashboard_Config.');
       }
     }
 
@@ -9316,6 +9889,20 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
       if (config.activeCampaignId && activeCampaignId !== config.activeCampaignId) {
         activeCampaignId = config.activeCampaignId;
         changed = true;
+      }
+      if (config.officePhoneDirectory && typeof config.officePhoneDirectory === 'object') {
+        if (JSON.stringify(officePhoneDirectory) !== JSON.stringify(config.officePhoneDirectory)) {
+          officePhoneDirectory = config.officePhoneDirectory || {};
+          localStorage.setItem('posb_office_phone_directory', JSON.stringify(officePhoneDirectory));
+          changed = true;
+        }
+      }
+      if (config.officeMonitoringTeams && typeof config.officeMonitoringTeams === 'object') {
+        if (JSON.stringify(officeMonitoringTeams) !== JSON.stringify(config.officeMonitoringTeams)) {
+          officeMonitoringTeams = config.officeMonitoringTeams || {};
+          localStorage.setItem('posb_office_monitoring_teams', JSON.stringify(officeMonitoringTeams));
+          changed = true;
+        }
       }
       if (config.customTargets && typeof config.customTargets === 'object') {
         const incomingTargets = {
@@ -9998,6 +10585,103 @@ body{padding:0!important;margin:0!important;}
 })();
 <\/script>
 </body></html>`);
+      win.document.close();
+    }
+
+    // Export the complete Special Campaign / Drive Performance section,
+    // beginning with the 🚩 section heading and ending at the last tabular report.
+    function exportCampaignPerformanceToPDF() {
+      const source = document.getElementById('mod-campaign');
+      if (!source) { alert('Special Campaign / Drive Performance section is not available yet.'); return; }
+      const tables = Array.from(source.querySelectorAll('table'));
+      const lastTable = tables[tables.length - 1];
+      if (!lastTable) { alert('The campaign report table is not available yet.'); return; }
+
+      const cloneClean = (el) => {
+        const clone = el.cloneNode(true);
+        clone.removeAttribute('id');
+        clone.querySelectorAll('[id]').forEach(x => x.removeAttribute('id'));
+        clone.querySelectorAll('[onclick]').forEach(x => x.removeAttribute('onclick'));
+        clone.querySelectorAll('button,input,select,textarea').forEach(x => x.remove());
+        clone.querySelectorAll('.btn-action,.btn-excel,.btn-image,.btn-pdf-report,.campaign-action-btn').forEach(x => x.remove());
+        return clone;
+      };
+
+      // Capture the complete campaign module in DOM order. The module itself
+      // ends at the final campaign table, so no unrelated dashboard content is included.
+      const working = source.cloneNode(true);
+      working.querySelectorAll('[id]').forEach(x => x.removeAttribute('id'));
+      working.querySelectorAll('[onclick]').forEach(x => x.removeAttribute('onclick'));
+      working.querySelectorAll('button,input,select,textarea').forEach(x => x.remove());
+      working.querySelectorAll('.btn-action,.btn-excel,.btn-image,.btn-pdf-report,.campaign-action-btn').forEach(x => x.remove());
+      working.querySelectorAll('.table-responsive').forEach(x => x.style.overflow = 'visible');
+      const campaignTitle = (document.getElementById('cmpTitle')?.textContent || 'Special Campaign / Drive Performance').trim();
+      const reportPeriod = (document.getElementById('cmpSubDesc')?.textContent || '').trim();
+      const now = new Date();
+      const generated = now.toLocaleString('en-IN', {day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit'});
+      const criteria = getPdfFilterCriteria();
+      const criteriaHtml = criteria.map(x => '<span class="criterion">' + pdfEscape(x) + '</span>').join('');
+      const pageStyles = Array.from(document.querySelectorAll('style')).map(style => style.textContent || '').join('\n');
+      const logo = getIndiaPostLogoDataUrl();
+      const win = window.open('', '_blank', 'width=1400,height=900');
+      if (!win) { alert('Please allow pop-ups for this dashboard to export PDF.'); return; }
+
+      win.document.open();
+      win.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>Special_Campaign_Drive_Performance</title>
+<style>
+${pageStyles}
+@page { size: A4 landscape; margin: 8mm 8mm 9mm 8mm; }
+*{box-sizing:border-box;}
+html,body{background:#fff!important;color:#0f172a;font-family:Arial,Helvetica,sans-serif;margin:0;padding:0;}
+body{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
+.no-print,.btn-action,.btn-excel,.btn-image,.btn-pdf-report,.campaign-action-btn{display:none!important;}
+.report-shell{width:100%;background:#fff;}
+.report-header{border-bottom:2px solid #0f172a;padding:0 0 6px;margin-bottom:6px;position:relative;min-height:54px;padding-right:90px;}
+.report-logo{position:absolute;right:0;top:0;width:78px;height:52px;object-fit:contain;}
+.report-brand{font-size:14px;font-weight:900;letter-spacing:.2px;text-align:center;}
+.report-main{font-size:11px;font-weight:800;margin-top:2px;text-align:center;}
+.report-sub{font-size:10px;font-weight:800;margin-top:2px;text-align:center;}
+.report-period{font-size:9px;font-weight:900;margin-top:3px;text-align:center;}
+.report-meta{display:flex;justify-content:space-between;gap:8px;margin-top:4px;color:#475569;font-size:8px;}
+.criteria-label{font-size:8px!important;}
+.criteria{display:flex;flex-wrap:wrap;gap:3px 5px;margin:4px 0 6px;}
+.criterion{border:1px solid #cbd5e1;background:#f8fafc;border-radius:3px;padding:2px 5px;font-size:7.5px;font-weight:700;}
+.campaign-print-content{width:100%;}
+.campaign-print-content .card,.campaign-print-content section,.campaign-print-content table{break-inside:avoid;page-break-inside:avoid;}
+.campaign-print-content .table-responsive{overflow:visible!important;}
+.campaign-print-content table{width:100%;border-collapse:collapse;}
+.campaign-print-content thead{display:table-header-group;}
+.campaign-print-content tr{page-break-inside:avoid;break-inside:avoid;}
+.report-footer{margin-top:5px;padding-top:4px;border-top:1px solid #cbd5e1;font-size:7px;color:#64748b;text-align:center;}
+@media print{body{font-size:9px!important;}}
+</style></head><body>
+<div class="report-shell">
+  <div class="report-header">
+    ${logo ? `<img class="report-logo" src="${logo}" alt="India Post">` : ''}
+    <div class="report-brand">POSB Performance Monitoring Dashboard • Nagpur Postal Region</div>
+    <div class="report-main">Main Section: Special Campaign / Drive Performance</div>
+    <div class="report-sub">Sub Section: ${pdfEscape(campaignTitle)}</div>
+    <div class="report-period">${pdfEscape(reportPeriod)}</div>
+    <div class="report-meta"><span>Generated: ${pdfEscape(generated)}</span><span>Report: Special_Campaign_Drive_Performance</span></div>
+  </div>
+  <div class="criteria-label"><strong>Filtered Criteria</strong></div>
+  <div class="criteria">${criteriaHtml}</div>
+  <div class="campaign-print-content">${working.innerHTML}</div>
+  <div class="report-footer">@ 2026 Nagpur Postal Region • Maharashtra Circle • Department of Posts • Ministry of Communications • POSB Monitoring System</div>
+</div>
+<script>
+(function(){
+  function fit(){
+    const c=document.querySelector('.campaign-print-content');
+    if(!c)return;
+    c.style.transform='none'; c.style.transformOrigin='top left'; c.style.width='100%';
+    const maxH=270*3.779527559; const h=c.scrollHeight;
+    if(h>maxH && h>0){const scale=Math.min(1,maxH/h);c.style.transform='scale('+scale+')';c.style.width=(100/scale)+'%';}
+  }
+  function prepare(){fit();document.body.offsetHeight;setTimeout(function(){window.focus();window.print();},500);}
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){setTimeout(prepare,120);});else window.addEventListener('load',function(){setTimeout(prepare,120);});
+})();
+<\/script></body></html>`);
       win.document.close();
     }
 
@@ -11000,7 +11684,7 @@ body{padding:0!important;margin:0!important;}
       const periodLabel=period==='previous'?`Previous Month (${hmoscFormatDate(range.from)} to ${hmoscFormatDate(range.to)})`:`Current / Selected Period (${hmoscFormatDate(range.from)} to ${hmoscFormatDate(range.to)})`;
       const exportSubSection = `${hmoscCategoryLabel(category)} — ${nodeLabel}`;
       const title=`${exportSubSection} — ${periodLabel} (${list.length})`;
-      const rows=list.map(o=>`<tr class="weekly-office-link" onclick="openHmoscOfficeModal('${hmoscEscape(o.key)}')"><td class="left"><strong>${hmoscEscape(o.officeName)}</strong></td><td class="left">${hmoscEscape(o.soName)}</td><td class="left">${hmoscEscape(o.subDivision)}</td><td class="left">${hmoscEscape(o.division)}</td><td class="num">${o.opened.toLocaleString('en-IN')}</td><td class="left">${hmoscEscape(hmoscCategoryLabel(o.category))}</td></tr>`).join('');
+      const rows=list.map(o=>`<tr class="weekly-office-link" onclick="openHmoscOfficeModal('${hmoscEscape(o.key)}')"><td class="left office-name-link" data-office-name="${hmoscEscape(o.officeName)}" data-sol-id="${hmoscEscape(o.solId||'')}"><strong>${hmoscEscape(o.officeName)}</strong></td><td class="left">${hmoscEscape(o.soName)}</td><td class="left">${hmoscEscape(o.subDivision)}</td><td class="left">${hmoscEscape(o.division)}</td><td class="num">${o.opened.toLocaleString('en-IN')}</td><td class="left">${hmoscEscape(hmoscCategoryLabel(o.category))}</td></tr>`).join('');
       const html=`<div class="oc-modal-actions"><button type="button" class="btn-action btn-excel" onclick="downloadTableAsExcel('hmoscComparisonModalTable','HMoSC_${period}_${category}_Office_List')">📥 Download Excel</button><button type="button" class="btn-action btn-pdf-report" onclick="exportReportTableToPDF('hmoscComparisonModalTable','HMoSC_${period}_${category}_Office_List')">📄 Download PDF</button></div><div class="oc-modal-table-wrap"><table class="oc-modal-table" id="hmoscComparisonModalTable" data-export-subsection="${hmoscEscape(exportSubSection)}"><thead><tr><th class="left">BO Name</th><th class="left">SO Name</th><th class="left">Sub Division</th><th class="left">Division</th><th>Accounts Opened</th><th class="left">Category</th></tr></thead><tbody>${rows||'<tr><td colspan="6" class="left">No offices found for this cell.</td></tr>'}</tbody></table></div>`;
       openWeeklyModal(title,html);
     }
@@ -11034,7 +11718,7 @@ body{padding:0!important;margin:0!important;}
       const exportSubSection = `${hmoscCategoryLabel(category)} — Selected Division / Scope`;
       const title=`${hmoscCategoryLabel(category)} (${list.length})`;
       if(!list.length){openWeeklyModal(title,'<p class="weekly-empty">No BOs found for the selected filters.</p>');return;}
-      const rows=list.map(o=>`<tr class="weekly-office-link" onclick="openHmoscOfficeModal('${hmoscEscape(o.key)}')"><td class="left"><strong>${hmoscEscape(o.officeName)}</strong></td><td class="left">${hmoscEscape(o.soName)}</td><td class="left">${hmoscEscape(o.subDivision)}</td><td class="left">${hmoscEscape(o.division)}</td><td class="num">${o.opened.toLocaleString('en-IN')}</td><td class="left">${hmoscEscape(hmoscCategoryLabel(o.category))}</td></tr>`).join('');
+      const rows=list.map(o=>`<tr class="weekly-office-link" onclick="openHmoscOfficeModal('${hmoscEscape(o.key)}')"><td class="left office-name-link" data-office-name="${hmoscEscape(o.officeName)}" data-sol-id="${hmoscEscape(o.solId||'')}"><strong>${hmoscEscape(o.officeName)}</strong></td><td class="left">${hmoscEscape(o.soName)}</td><td class="left">${hmoscEscape(o.subDivision)}</td><td class="left">${hmoscEscape(o.division)}</td><td class="num">${o.opened.toLocaleString('en-IN')}</td><td class="left">${hmoscEscape(hmoscCategoryLabel(o.category))}</td></tr>`).join('');
       const html=`<div class="oc-modal-actions"><button type="button" class="btn-action btn-excel" onclick="downloadTableAsExcel('hmoscCategoryModalTable','HMoSC_${category}_BO_List')">📥 Download Excel</button><button type="button" class="btn-action btn-pdf-report" onclick="exportReportTableToPDF('hmoscCategoryModalTable','HMoSC_${category}_BO_List')">📄 Download PDF</button></div><div class="oc-modal-table-wrap"><table class="oc-modal-table" id="hmoscCategoryModalTable" data-export-subsection="${hmoscEscape(exportSubSection)}"><thead><tr><th class="left">BO Name</th><th class="left">SO Name</th><th class="left">Sub Division</th><th class="left">Division</th><th>Accounts Opened</th><th class="left">Category</th></tr></thead><tbody>${rows}</tbody></table></div>`;
       openWeeklyModal(title,html);
     }
@@ -11045,7 +11729,7 @@ body{padding:0!important;margin:0!important;}
       const totalOpened=records.reduce((s,r)=>s+(Number(r.opened)||0),0);
       const rows=records.map(r=>`<tr><td class="left">${hmoscEscape(r.iso||r.date||'-')}</td><td class="num">${Math.round(Number(r.opened)||0).toLocaleString('en-IN')}</td><td class="num">${Math.round(Number(r.closed)||0).toLocaleString('en-IN')}</td><td class="num">${Math.round(Number(r.net)||0).toLocaleString('en-IN')}</td></tr>`).join('');
       const html=`<div style="display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;margin-bottom:10px;"><button type="button" class="btn-action btn-excel" onclick="downloadTableAsExcel('hmoscOfficeModalTable','HMoSC_${office.officeName.replace(/[^a-z0-9]+/gi,'_')}_Detail')">📥 Download Excel</button><button type="button" class="btn-action btn-pdf-report" onclick="exportReportTableToPDF('hmoscOfficeModalTable','HMoSC_${office.officeName.replace(/[^a-z0-9]+/gi,'_')}_Detail')">📄 Download PDF</button></div><table class="weekly-modal-list-table" id="hmoscOfficeModalTable"><thead><tr><th class="left">Date</th><th>Opened</th><th>Closed</th><th>Net</th></tr></thead><tbody>${rows||'<tr><td colspan="4" class="left">No daily detail available.</td></tr>'}</tbody><tfoot><tr><th class="left">Total</th><th>${Math.round(totalOpened).toLocaleString('en-IN')}</th><th>${Math.round(records.reduce((s,r)=>s+(Number(r.closed)||0),0)).toLocaleString('en-IN')}</th><th>${Math.round(records.reduce((s,r)=>s+(Number(r.net)||0),0)).toLocaleString('en-IN')}</th></tr></tfoot></table>`;
-      openWeeklyModal(`${office.officeName} — BO Detail`,html);
+      openWeeklyModal(`${office.officeName} — BO Detail`,html,office.officeName,office.solId,office.officeType || 'BPO');
     }
 
     // --- INITIALIZATION ---
@@ -11099,7 +11783,8 @@ body{padding:0!important;margin:0!important;}
     function openOfficeInfoPopup(officeName, solId) {
       const targetName = String(officeName || '').trim();
       const targetSol = String(solId || '').trim();
-      const rows = (rawTransactions || []).filter(r => {
+      const records = rawTransactions || [];
+      let rows = records.filter(r => {
         const rn = String(r.officeName || '').trim();
         const rs = String(r.solId || '').trim();
         return (targetSol && rs === targetSol) || (!targetSol && rn === targetName) || (targetName && rn === targetName);
@@ -11108,29 +11793,35 @@ body{padding:0!important;margin:0!important;}
       const opened = rows.reduce((a,r)=>a+(Number(r.opened)||0),0);
       const closed = rows.reduce((a,r)=>a+(Number(r.closed)||0),0);
       const net = rows.reduce((a,r)=>a+(Number(r.net)||0),0);
-      const first = rows[0] || {};
+      const first = rows[0] || records.find(r => String(r.officeName||'').trim()===targetName || String(r.solId||'').trim()===targetSol) || {};
+      const resolvedName = targetName || String(first.officeName||'').trim();
+      const resolvedSol = targetSol || String(first.solId||'').trim();
+      const resolvedType = first.officeType || officeCountType(first);
       const body = document.getElementById('officeInfoPopupBody');
       const title = document.getElementById('officeInfoPopupTitle');
       if (!body || !title) return;
-      title.textContent = targetName || first.officeName || 'Office Information';
-      body.innerHTML = `
-        <div style="display:flex;justify-content:flex-end;gap:8px;margin-bottom:10px;">
-          <button type="button" class="btn-action btn-pdf-report" onclick="exportReportTableToPDF('officeInfoPopupTable','Office_Information')">📄 Export PDF</button>
-          <button type="button" class="btn-action btn-excel" onclick="downloadTableAsExcel('officeInfoPopupTable','Office_Information')">📥 Download Excel</button>
-        </div>
-        <table class="weekly-modal-table" id="officeInfoPopupTable">
-          <tr><th>Office Name</th><td>${officePopupEscape(targetName || first.officeName)}</td></tr>
-          <tr><th>SOL ID</th><td>${officePopupEscape(targetSol || first.solId)}</td></tr>
-          <tr><th>Office Type</th><td>${officePopupEscape(first.officeType || officeCountType(first))}</td></tr>
+      title.textContent = resolvedName || 'Office Information';
+      const officeTable = `<table class="weekly-modal-table" id="officeInfoPopupTable">
+          <tr><th>Office Name</th><td>${officePopupEscape(resolvedName)}</td></tr>
+          <tr><th>SOL ID</th><td>${officePopupEscape(resolvedSol)}</td></tr>
+          <tr><th>Office Type</th><td>${officePopupEscape(resolvedType)}</td></tr>
           <tr><th>Division</th><td>${officePopupEscape(first.division)}</td></tr>
           <tr><th>Sub Division</th><td>${officePopupEscape(first.subDivision)}</td></tr>
           <tr><th>SO Name</th><td>${officePopupEscape(first.soName)}</td></tr>
           <tr><th>Latest Transaction Date</th><td>${latest === '-' ? '-' : formatDateDMY(latest)}</td></tr>
-          <tr><th>Total Accounts Opened</th><td>${opened.toLocaleString()}</td></tr>
-          <tr><th>Accounts Closed</th><td>${closed.toLocaleString()}</td></tr>
-          <tr><th>Net Addition</th><td>${Math.round(net).toLocaleString()}</td></tr>
-          <tr><th>Transaction Records</th><td>${rows.length.toLocaleString()}</td></tr>
+          <tr><th>Total Accounts Opened</th><td>${opened.toLocaleString('en-IN')}</td></tr>
+          <tr><th>Accounts Closed</th><td>${closed.toLocaleString('en-IN')}</td></tr>
+          <tr><th>Net Addition</th><td>${Math.round(net).toLocaleString('en-IN')}</td></tr>
+          <tr><th>Transaction Records</th><td>${rows.length.toLocaleString('en-IN')}</td></tr>
         </table>`;
+      body.innerHTML = `<div style="display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;margin-bottom:10px;">
+          <button type="button" class="btn-action btn-pdf-report" onclick="exportReportTableToPDF('officeInfoPopupTable','Office_Information')">📄 Export PDF</button>
+          <button type="button" class="btn-action btn-excel" onclick="downloadTableAsExcel('officeInfoPopupTable','Office_Information')">📥 Download Excel</button>
+        </div>
+        <div class="office-popup-glance-grid">
+          <div class="office-popup-glance-card"><div class="office-popup-glance-title">🏢 Office Record</div>${officeTable}</div>
+          <div class="office-popup-glance-card"><div class="office-popup-glance-title">👥 Monitoring Team — At a Glance</div>${renderOfficeContactPanel(resolvedSol, resolvedName, resolvedType)}</div>
+        </div>`;
       const overlay=document.getElementById('officeInfoPopupOverlay');
       if (overlay) { overlay.style.display='flex'; overlay.setAttribute('aria-hidden','false'); }
     }
@@ -11138,18 +11829,53 @@ body{padding:0!important;margin:0!important;}
       const overlay=document.getElementById('officeInfoPopupOverlay');
       if (overlay) { overlay.style.display='none'; overlay.setAttribute('aria-hidden','true'); }
     }
+    function resolveOfficeFromElement(el) {
+      const records = rawTransactions || [];
+      if (!el || !records.length) return null;
+      const explicitName = String(el.getAttribute?.('data-office-name') || '').trim();
+      const explicitSol = String(el.getAttribute?.('data-sol-id') || '').trim();
+      if (explicitName || explicitSol) {
+        const direct = records.find(r => (!explicitSol || String(r.solId||'').trim()===explicitSol) && (!explicitName || String(r.officeName||'').trim()===explicitName));
+        if (direct) return direct;
+      }
+      const row = el.closest('tr');
+      let rowText = String(row?.innerText || '').replace(/\s+/g,' ').trim();
+      let sol = '';
+      if (row) {
+        const cells=[...row.querySelectorAll('th,td')];
+        const solHeader=[...((row.closest('table')?.querySelectorAll('thead th'))||[])].findIndex(h=>/\bSOL\s*ID\b|\bSOLID\b/i.test(h.textContent||''));
+        if(solHeader>=0 && cells[solHeader]) sol=String(cells[solHeader].innerText||'').trim();
+      }
+      const candidates=[]; let n=el;
+      for(let depth=0;n&&depth<5;depth++,n=n.parentElement){
+        const t=String(n.innerText||'').replace(/\s+/g,' ').trim(); if(t&&t.length<=260)candidates.push(t);
+      }
+      const names=[...new Set(records.map(r=>String(r.officeName||'').trim()).filter(Boolean))].sort((a,b)=>b.length-a.length);
+      for(const txt of candidates){
+        const exact=records.find(r=>String(r.officeName||'').trim()===txt && (!sol || String(r.solId||'').trim()===sol));
+        if(exact)return exact;
+        for(const name of names){
+          if(!txt.toLowerCase().includes(name.toLowerCase()))continue;
+          const hit=records.find(r=>String(r.officeName||'').trim()===name && (!sol || String(r.solId||'').trim()===sol));
+          if(hit)return hit;
+        }
+      }
+      return null;
+    }
     document.addEventListener('click', function(e) {
       const interactive = e.target.closest('button,input,select,textarea,a,[role="button"]');
-      if (interactive) return;
-      const officeEl = e.target.closest('td,.div-kpi-name,.top-division-name,.weekly-office-link,.hmosc-office-link,.office-popup-trigger');
+      if (interactive && !interactive.classList.contains('office-popup-trigger')) return;
+      const officeEl = e.target.closest('td,th,.div-kpi-name,.top-division-name,.top-division-card,.weekly-office-link,.hmosc-office-link,.office-popup-trigger,.office-team-card,.office-name-link,.office-link');
       if (!officeEl) return;
-      const txt = (officeEl.innerText || '').trim();
-      if (!txt || txt.length > 140) return;
-      const records = rawTransactions || [];
-      const match = records.find(r => String(r.officeName || '').trim() === txt);
+      const match = resolveOfficeFromElement(officeEl);
       if (!match) return;
       officeEl.classList.add('office-popup-trigger');
+      officeEl.style.cursor='pointer';
       openOfficeInfoPopup(match.officeName, match.solId);
+    });
+    document.addEventListener('mouseover', function(e){
+      const el=e.target.closest('td,th,.div-kpi-name,.top-division-name,.top-division-card,.weekly-office-link,.hmosc-office-link,.office-popup-trigger,.office-name-link,.office-link');
+      if(!el)return; const m=resolveOfficeFromElement(el); if(m)el.title=`Click to view ${m.officeName} record & monitoring team`;
     });
 
     /* ===== ADMIN EDIT MODE SECURITY ===== */
@@ -11211,6 +11937,7 @@ body{padding:0!important;margin:0!important;}
           editModeUnlocked = true;
           updateEditSecurityUI();
           closeEditPasswordModal();
+          try { populateGoogleSheetUploadDates(rawTransactions); } catch (e) { console.warn('Admin upload-date initialization skipped:', e); }
           setGoogleSheetStatus('🔓 Admin Login successful. Edit mode is active.');
         } else {
           if (error) error.textContent = 'Incorrect password.';
