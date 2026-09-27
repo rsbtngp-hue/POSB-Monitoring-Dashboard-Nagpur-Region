@@ -9,8 +9,8 @@
 <script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <script defer="" src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx-js-style.min.js"></script>
 <script defer="" src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
+<!-- CounterAPI is called directly with its public JSONP endpoint below. -->
 <script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script async src="https://counterapi.com/c.js?ns=nagpur-posb-performance-dashboard" id="posbVisitorCounterApi"></script>
 <style>
     :root {
       --post-red: #c8102e;
@@ -308,6 +308,10 @@
   .header-status-stack{position:static;align-items:flex-start;margin-top:10px;}
   .header-status-stack .header-last-updated{font-size:12px;}
 }
+
+    .dashboard-visitor-count{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:7px;background:#0f766e;border:1px solid #115e59;color:#fff;font-size:11px;font-weight:900;box-shadow:0 2px 7px rgba(0,0,0,.14);white-space:nowrap;}
+    .dashboard-visitor-count .visitor-number{font-variant-numeric:tabular-nums;}
+    .dashboard-visitor-count.loading{opacity:.85;}
     .office-popup-trigger {
       cursor:pointer !important;
       color:#1d4ed8 !important;
@@ -345,10 +349,6 @@
     .office-popup-glance-title{font-weight:900;font-size:13px;color:#0f172a;padding:9px 11px;background:#f8fafc;border-bottom:1px solid #e2e8f0}
     .office-popup-glance-card .weekly-modal-table{margin:0}
     .office-popup-glance-card .office-team-grid{padding:9px}
-    .monitoring-team-glance{display:block;background:#ffffff;border:1px solid #cbd5e1;border-radius:10px;padding:10px}
-    .monitoring-team-phone{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:8px 10px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;margin-bottom:9px;color:#0f172a}
-    .monitoring-team-phone span{font-weight:900;color:#0369a1}
-    .monitoring-team-grid-title{font-weight:900;color:#0f172a;margin:4px 0 6px;font-size:13px}
     @media(max-width:760px){.office-popup-glance-grid{grid-template-columns:1fr}.weekly-modal-box{max-height:92vh}}
 
     .campaign-kpi-grid-5 {
@@ -1636,10 +1636,6 @@
     .weekly-monitoring-nav-row { display:flex !important; gap:10px; }
     .weekly-monitoring-nav-row .nav-tab { flex:1 1 0; }
 
-
-/* Total visitor counter */
-.posb-total-visitors{display:flex;align-items:center;gap:7px;padding:6px 10px;border:1px solid rgba(255,255,255,.24);border-radius:8px;background:rgba(0,0,0,.20);color:#fff;font-size:11px;font-weight:800;line-height:1.2;white-space:nowrap;}
-.posb-total-visitors .counterapi{color:#fff;font-size:12px;}
 </style>
 <style id="compact-header-half-size">
 /* Compact government header — approximately half the previous v23 scale */
@@ -2376,26 +2372,34 @@ body.edit-unlocked .admin-config-actions{display:flex;}
 @media (max-width:900px){.admin-config-actions{gap:5px;padding:6px 7px}.admin-config-actions button{font-size:10px;padding:5px 6px;}}
 @media (max-width:620px){.admin-config-actions{gap:4px}.admin-config-actions button{font-size:9px;padding:5px 5px;white-space:normal;min-height:32px;}}
 </style>
-<style id="code-protection-style">
-html,body{ -webkit-user-select:text; user-select:text; }
-input,textarea,select{ -webkit-user-select:text; user-select:text; }
-button,.nav-tab,.tree-toggle,.hmosc-tree-toggle,th{ -webkit-user-select:none; user-select:none; }
+<style id="final-admin-lock-and-export-fixes">
+/* FINAL ADMIN LOCK: no editing controls are visible while dashboard is locked. */
+body:not(.edit-unlocked) .edit-btn,
+body:not(.edit-unlocked) .campaign-action-btn,
+body:not(.edit-unlocked) .btn-view-targets,
+body:not(.edit-unlocked) [onclick*="editOfficeTarget"],
+body:not(.edit-unlocked) [onclick*="editOfficeFigures"],
+body:not(.edit-unlocked) [onclick*="editCampaignDivTarget"],
+body:not(.edit-unlocked) [onclick*="editCampaignSubTarget"],
+body:not(.edit-unlocked) [onclick*="openCampaignModal"],
+body:not(.edit-unlocked) [onclick*="deleteCurrentCampaign"],
+body:not(.edit-unlocked) [onclick*="handleBulkTargetUpload"],
+body:not(.edit-unlocked) [onclick*="downloadBulkTargetTemplate"],
+body:not(.edit-unlocked) [onclick*="bulkTargetFileInput"],
+body:not(.edit-unlocked) #bulkTargetFileInput,
+body:not(.edit-unlocked) #officeMonitoringBulkFile,
+body:not(.edit-unlocked) #csvFileInput,
+body:not(.edit-unlocked) #googleSheetUploadDate,
+body:not(.edit-unlocked) #googleSheetUploadBtn,
+body:not(.edit-unlocked) #googleSheetLocalDownloadBtn { display:none !important; }
+body:not(.edit-unlocked) .edit-only-note { display:none !important; }
+/* The administration row is the only place for administrator controls. */
+body:not(.edit-unlocked) #adminAdministrationRow { display:none !important; }
+body.edit-unlocked #adminAdministrationRow { display:flex !important; }
 </style>
+<script async src="https://counterapi.com/c.js?ns=nagpur-posb-performance-dashboard"></script>
 </head>
 <body>
-<script>
-/* Basic browser-side source/code deterrence. This cannot provide cryptographic source protection because HTML must be delivered to the browser. */
-(function(){
-  document.addEventListener('contextmenu',function(e){ e.preventDefault(); },{capture:true});
-  document.addEventListener('keydown',function(e){
-    const k=String(e.key||'').toLowerCase();
-    if(k==='f12' || (e.ctrlKey&&e.shiftKey&&(k==='i'||k==='j'||k==='c')) || (e.ctrlKey&&k==='u')){
-      e.preventDefault(); e.stopPropagation(); return false;
-    }
-  },true);
-})();
-</script>
-
 <a class="skip-link" href="#main-content">Skip to dashboard content</a>
 <!-- Flash Message Ticker with Live Edit Button -->
 <div class="ticker-wrap">
@@ -2426,10 +2430,7 @@ button,.nav-tab,.tree-toggle,.hmosc-tree-toggle,th{ -webkit-user-select:none; us
   <div aria-live="polite" class="header-last-updated">
     <span id="headerLastUpdated">MIS Data updated upto - 23-09-2026</span>
   </div>
-  <div class="posb-total-visitors" aria-label="Total dashboard visitors">
-    <span>👁 Total Visitors</span>
-    <div class="counterapi" key="total-dashboard-visitors" action="view" unique="true" noIcon="true" noLink="true" noCss="true" noAnim="true" style="display:inline-block;min-width:42px;text-align:right;font-weight:900;">0</div>
-  </div>
+  <div class="dashboard-visitor-count loading" id="dashboardVisitorCount" aria-live="polite" title="Total dashboard visitors">👁 Total Visitors: <span class="visitor-number" id="dashboardVisitorNumber"><span class="counterapi dashboard-counterapi" ns="nagpur-posb-performance-dashboard" action="view" key="total-visitors" unique="true" noIcon="true" noCss="true" noLink="true" noAnim="true" label=""></span></span></div>
   <div class="edit-security-bar" id="editSecurityBar">
     <span class="edit-security-status" id="editSecurityStatus">🔒 Admin Mode: Locked</span>
     <button class="edit-security-btn" id="editSecurityButton" type="button" onclick="toggleEditMode()">🔑 Admin Login</button>
@@ -3284,7 +3285,7 @@ button,.nav-tab,.tree-toggle,.hmosc-tree-toggle,th{ -webkit-user-select:none; us
 </div>
 </div>
 <!-- MODAL: WELCOME DATA AVAILABILITY POPUP -->
-<div class="modal-overlay" id="welcomeModalOverlay" onclick="if(event.target === this) closeWelcomeModal()">
+<div class="modal-overlay" id="welcomeModalOverlay" aria-hidden="true" onclick="if(event.target === this) closeWelcomeModal()">
 <div class="welcome-modal-card">
 <button class="welcome-close-btn" onclick="closeWelcomeModal()" title="Close">×</button>
 <div class="welcome-icon-wrap">
@@ -3297,7 +3298,7 @@ button,.nav-tab,.tree-toggle,.hmosc-tree-toggle,th{ -webkit-user-select:none; us
 <div class="welcome-status-dot"></div>
 </div>
 <h2 class="welcome-title">POSB Performance Data</h2>
-<p class="welcome-subtitle">Nagpur Region | POSB Monitoring</p>
+<p class="welcome-subtitle">Nagpur Postal Region | POSB Monitoring</p>
 <div class="welcome-info-box">
 <div class="welcome-info-row">
 <div class="welcome-info-icon">📅</div>
@@ -3316,7 +3317,7 @@ button,.nav-tab,.tree-toggle,.hmosc-tree-toggle,th{ -webkit-user-select:none; us
 <div class="welcome-info-row">
 <div class="welcome-info-icon">🕒</div>
 <div>
-<div class="welcome-info-label">Last Google Sheet Sync (IST)</div>
+<div class="welcome-info-label">Last Updated (IST)</div>
 <div class="welcome-info-val" id="popLastUpdated" style="color:#059669;">Not synced yet</div>
 </div>
 </div>
@@ -3398,7 +3399,7 @@ button,.nav-tab,.tree-toggle,.hmosc-tree-toggle,th{ -webkit-user-select:none; us
 <div class="card-header">
 <div>
 <h2 style="font-size: 19px; font-weight: 900; color: #0f172a;">Nagpur Region Target Vs Achievement Matrix</h2>
-<p style="font-size: 12px; color: #64748b;">Click <strong>▶</strong> to expand down to <strong>Sub Division, SO Name, and BO Name</strong>. Targets are fully editable via (✏️).</p>
+<p style="font-size: 12px; color: #64748b;">Click <strong>▶</strong> to expand down to <strong>Sub Division, SO Name, and BO Name</strong>. <span class="edit-only-note">Targets are editable by Administrator (✏️).</span></p>
 </div>
 <div style="display: flex; gap: 8px; flex-wrap: wrap;">
 <button class="btn-action" onclick="toggleAllTargetTree()">Expand / Collapse All</button>
@@ -4111,44 +4112,43 @@ button,.nav-tab,.tree-toggle,.hmosc-tree-toggle,th{ -webkit-user-select:none; us
     /* Welcome Data Availability Popup Controls */
     function openWelcomeModal() {
       updateWelcomeModalDates();
-      document.getElementById('welcomeModalOverlay').style.display = 'flex';
+      const overlay = document.getElementById('welcomeModalOverlay');
+      if (!overlay) return;
+      overlay.style.display = 'flex';
+      overlay.setAttribute('aria-hidden', 'false');
     }
 
     function closeWelcomeModal() {
-      document.getElementById('welcomeModalOverlay').style.display = 'none';
+      const overlay = document.getElementById('welcomeModalOverlay');
+      if (!overlay) return;
+      overlay.style.display = 'none';
+      overlay.setAttribute('aria-hidden', 'true');
     }
 
     function updateWelcomeModalDates() {
       const fromEl = document.getElementById('popDataFrom');
       const toEl = document.getElementById('popDataTo');
       const updatedEl = document.getElementById('popLastUpdated');
-
       if (fromEl) fromEl.innerText = '01.04.2026';
 
-      const validISODates = rawTransactions.map(r => r.iso).filter(Boolean).sort();
-      if (validISODates.length) {
-        const latestISO = validISODates[validISODates.length - 1];
-        const p = latestISO.split('-');
-        const formattedTo = p.length === 3 ? `${p[2]}.${p[1]}.${p[0]}` : latestISO;
-        if (toEl) toEl.innerText = formattedTo;
-      } else {
-        if (toEl) toEl.innerText = 'Awaiting Google Sheet / Local DB';
-      }
+      // The popup must use the Google Sheet transaction date first.
+      // Local transaction data is only a fallback when Google metadata has not
+      // been received yet.
+      const storedGoogleDate = String(localStorage.getItem('posb_google_sheet_latest_date') || '').slice(0,10);
+      const latestISO = /^\d{4}-\d{2}-\d{2}$/.test(storedGoogleDate)
+        ? storedGoogleDate
+        : getLatestDataISO(rawTransactions || []);
+      if (toEl) toEl.innerText = latestISO ? formatDateDMY(latestISO).replace(/-/g,'.') : 'Awaiting Google Sheet';
 
-      const lastSync = localStorage.getItem('posb_google_sheet_last_sync_at');
+      // Prefer the source timestamp supplied by Apps Script (Google Sheet's
+      // actual update time), never the browser time unless no source timestamp
+      // has been supplied yet.
+      const sourceUpdated = localStorage.getItem('posb_google_sheet_source_updated_at') || '';
+      const lastSync = localStorage.getItem('posb_google_sheet_last_sync_at') || '';
+      const stamp = sourceUpdated || lastSync;
       if (updatedEl) {
-        if (lastSync) {
-          const d = new Date(lastSync);
-          updatedEl.innerText = isNaN(d.getTime())
-            ? lastSync
-            : d.toLocaleString('en-IN', {
-                day:'2-digit', month:'short', year:'numeric',
-                hour:'2-digit', minute:'2-digit', second:'2-digit',
-                hour12:true, timeZone:'Asia/Kolkata'
-              }) + ' IST';
-        } else {
-          updatedEl.innerText = 'Not synced yet';
-        }
+        const formatted = formatGoogleSheetUpdatedAt(stamp);
+        updatedEl.innerText = formatted || 'Awaiting Google Sheet update';
       }
     }
 
@@ -4174,7 +4174,7 @@ button,.nav-tab,.tree-toggle,.hmosc-tree-toggle,th{ -webkit-user-select:none; us
         return d.toLocaleString('en-IN', {
           day:'2-digit', month:'short', year:'numeric',
           hour:'2-digit', minute:'2-digit', hour12:true, timeZone:'Asia/Kolkata'
-        }) + ' IST';
+        }) .replace(/, /, ' ') + ' IST';
       }
       return raw.replace(/\s*IST\s*$/i,'') + ' IST';
     }
@@ -4977,6 +4977,8 @@ button,.nav-tab,.tree-toggle,.hmosc-tree-toggle,th{ -webkit-user-select:none; us
           try { localStorage.setItem('posb_google_sheet_source_updated_at', String(sourceUpdatedAt)); } catch (_) {}
           updateHeaderSheetLastUpdated(sourceUpdatedAt);
         }
+        // Refresh the opening popup immediately with the Google Sheet source timestamp.
+        try { updateWelcomeModalDates(); } catch (_) {}
         const totalRows = Number(meta.totalRows || meta.rowCount || 0);
         const signature = String(meta.signature || `${meta.totalRows || 0}|${meta.lastUpdated || ''}`);
         const previousSignature = localStorage.getItem('posb_google_sheet_signature') || '';
@@ -9531,8 +9533,8 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
       officeMonitoringTeams[key]={solId,officeName,officeType,primaryDesignation:monitoringPrimaryDesignation(officeType),primaryOfficerName:v('monitoringCrudPrimaryName'),primaryOfficerPhone:v('monitoringCrudPrimaryPhone'),monitoringPAAtDOName:v('monitoringCrudDoName'),monitoringPAAtDOPhone:v('monitoringCrudDoPhone'),subDivisionalHeadName:v('monitoringCrudSdhName'),subDivisionalHeadPhone:v('monitoringCrudSdhPhone'),monitoringPAAtSDHName:v('monitoringCrudPaSdhName'),monitoringPAAtSDHPhone:v('monitoringCrudPaSdhPhone'),mailOverseerName:v('monitoringCrudMoName'),mailOverseerPhone:v('monitoringCrudMoPhone')};
       return key;
     }
-    async function monitoringCrudSave(){ if(!requireEditAccess())return; const key=monitoringCrudRead(); if(!key)return alert('SOL ID or Office Name is required.'); persistOfficeContactConfig(); saveDashboardConfigLocal(); const ok=await saveDashboardConfigToGoogleSheet(); alert(ok?'Monitoring team saved and uploaded to POSB_Dashboard_Config.':'Monitoring team saved locally. Google Sheet upload failed; please retry.'); }
-    async function monitoringCrudDelete(){ if(!requireEditAccess())return; const key=officeConfigKey(document.getElementById('monitoringCrudSolId')?.value,document.getElementById('monitoringCrudOfficeName')?.value); if(!key)return alert('Select an office first.'); if(!confirm('Delete phone and monitoring team configuration for this office?'))return; delete officePhoneDirectory[key]; delete officeMonitoringTeams[key]; persistOfficeContactConfig(); saveDashboardConfigLocal(); const ok=await saveDashboardConfigToGoogleSheet(); monitoringCrudClearForm(); alert(ok?'Monitoring team deleted and Google Sheet updated.':'Monitoring team deleted locally. Google Sheet upload failed; please retry.'); }
+    async function monitoringCrudSave(){ if(!requireEditAccess())return; const key=monitoringCrudRead(); if(!key)return alert('SOL ID or Office Name is required.'); await persistOfficeContactConfig(); await saveDashboardConfigLocal(); const ok=await saveDashboardConfigToGoogleSheet(); alert(ok?'Monitoring team saved and uploaded to POSB_Dashboard_Config.':'Monitoring team saved locally. Google Sheet upload failed; please retry.'); }
+    async function monitoringCrudDelete(){ if(!requireEditAccess())return; const key=officeConfigKey(document.getElementById('monitoringCrudSolId')?.value,document.getElementById('monitoringCrudOfficeName')?.value); if(!key)return alert('Select an office first.'); if(!confirm('Delete phone and monitoring team configuration for this office?'))return; delete officePhoneDirectory[key]; delete officeMonitoringTeams[key]; await persistOfficeContactConfig(); await saveDashboardConfigLocal(); const ok=await saveDashboardConfigToGoogleSheet(); monitoringCrudClearForm(); alert(ok?'Monitoring team deleted and Google Sheet updated.':'Monitoring team deleted locally. Google Sheet upload failed; please retry.'); }
     function openMonitoringTeamConfiguration(){
       if(!requireEditAccess())return; const overlay=document.getElementById('officeInfoPopupOverlay'),box=overlay?.querySelector('.weekly-modal-box'),body=box?.querySelector('.weekly-modal-body'),title=document.getElementById('officeInfoPopupTitle'); if(!overlay||!box||!body||!title)return;
       const divs=monitoringConfigDivisions(); const count=Object.keys(officeMonitoringTeams||{}).length;
@@ -9558,10 +9560,21 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
       overlay.style.display='flex';overlay.setAttribute('aria-hidden','false');monitoringCrudPopulateOffices();
     }
 
-    function saveDashboardConfigLocal() {
+    async function saveDashboardConfigLocal() {
+      // Keep large configuration objects out of localStorage. Browser localStorage
+      // is typically limited to about 5 MB and a full office monitoring master
+      // can exceed that limit. IndexedDB is the primary local persistence layer.
       const config = { campaigns: campaignList, activeCampaignId, customTargets, tickerMessage: localStorage.getItem('posb_ticker_message') || '', officePhoneDirectory: officePhoneDirectory || {}, officeMonitoringTeams: officeMonitoringTeams || {} };
-      localStorage.setItem('posb_dashboard_config_v1', JSON.stringify(config));
-      saveDashboardConfigToIndexedDB(config).catch(err => console.warn('Dashboard config IndexedDB save failed:', err));
+      try {
+        await saveDashboardConfigToIndexedDB(config);
+      } catch (err) {
+        console.warn('Dashboard config IndexedDB save failed:', err);
+        // Do not attempt to write the full configuration to localStorage.
+        // That write is what previously caused the quota exception.
+      }
+      try {
+        localStorage.setItem('posb_dashboard_config_v1_meta', JSON.stringify({savedAt:new Date().toISOString(), monitoringCount:Object.keys(officeMonitoringTeams||{}).length, phoneCount:Object.keys(officePhoneDirectory||{}).length}));
+      } catch (_) {}
     }
 
     // ---------- OFFICE PHONE + MONITORING TEAM CONFIGURATION ----------
@@ -9569,6 +9582,26 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
     let officeMonitoringTeams = {};
     try { officePhoneDirectory = JSON.parse(localStorage.getItem('posb_office_phone_directory') || '{}') || {}; } catch (_) { officePhoneDirectory = {}; }
     try { officeMonitoringTeams = JSON.parse(localStorage.getItem('posb_office_monitoring_teams') || '{}') || {}; } catch (_) { officeMonitoringTeams = {}; }
+
+    // Restore the full office monitoring master from IndexedDB before the
+    // dashboard is rendered. This replaces the old localStorage dependency.
+    // Keep a shared promise so an Office popup can wait for the monitoring
+    // master even when the user clicks an office immediately after page load.
+    let officeContactRestorePromise = null;
+    officeContactRestorePromise = restoreOfficeContactConfigFromIndexedDB().then(restored => {
+      // Remove legacy large localStorage payloads after the IndexedDB copy is
+      // confirmed. This also frees quota consumed by earlier dashboard builds.
+      if (restored) {
+        try {
+          localStorage.removeItem('posb_office_monitoring_teams');
+          localStorage.removeItem('posb_office_phone_directory');
+          localStorage.removeItem('posb_dashboard_config_v1');
+        } catch (_) {}
+        try { refreshDashboardFromLocalData(); } catch (_) {}
+        try { saveDashboardConfigToIndexedDB({ campaigns: campaignList, activeCampaignId, customTargets, tickerMessage: localStorage.getItem('posb_ticker_message') || '', officePhoneDirectory: officePhoneDirectory || {}, officeMonitoringTeams: officeMonitoringTeams || {} }); } catch (_) {}
+      }
+      return restored;
+    }).catch(err => { console.warn('Office monitoring restore startup failed:', err); return false; });
 
     function monitoringPrimaryDesignation(officeType) {
       const t = String(officeType || '').trim().toUpperCase();
@@ -9581,28 +9614,61 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
       const sol = String(solId || '').trim();
       return sol || String(officeName || '').trim();
     }
-    function persistOfficeContactConfig() {
-      localStorage.setItem('posb_office_phone_directory', JSON.stringify(officePhoneDirectory || {}));
-      localStorage.setItem('posb_office_monitoring_teams', JSON.stringify(officeMonitoringTeams || {}));
+    async function persistOfficeContactConfig() {
+      // Office phone + monitoring data can be large. Never serialize the full
+      // master into localStorage; store it in IndexedDB instead.
+      const config = {
+        campaigns: campaignList,
+        activeCampaignId,
+        customTargets,
+        tickerMessage: localStorage.getItem('posb_ticker_message') || '',
+        officePhoneDirectory: officePhoneDirectory || {},
+        officeMonitoringTeams: officeMonitoringTeams || {}
+      };
+      await saveDashboardConfigToIndexedDB(config);
+      try {
+        localStorage.setItem('posb_office_contact_meta', JSON.stringify({
+          savedAt:new Date().toISOString(),
+          phoneCount:Object.keys(officePhoneDirectory||{}).length,
+          monitoringCount:Object.keys(officeMonitoringTeams||{}).length
+        }));
+      } catch (_) {}
+      return true;
+    }
+
+    async function restoreOfficeContactConfigFromIndexedDB() {
+      try {
+        const config = await loadDashboardConfigFromIndexedDB();
+        if (!config) return false;
+        if (config.officePhoneDirectory && typeof config.officePhoneDirectory === 'object') officePhoneDirectory = config.officePhoneDirectory;
+        if (config.officeMonitoringTeams && typeof config.officeMonitoringTeams === 'object') officeMonitoringTeams = config.officeMonitoringTeams;
+        return true;
+      } catch (err) {
+        console.warn('Office monitoring IndexedDB restore failed:', err);
+        return false;
+      }
     }
     function getOfficeContactConfig(solId, officeName, officeType) {
-      const sol=String(solId||'').trim();
-      const name=String(officeName||'').trim();
-      const directKey=officeConfigKey(sol,name);
-      const findCfg=(obj)=>{
-        if(!obj || typeof obj!=='object') return {};
-        if(obj[directKey]) return obj[directKey];
-        if(sol && obj[sol]) return obj[sol];
-        const hit=Object.values(obj).find(v=>{
-          const vs=String(v?.solId||'').trim();
-          const vn=String(v?.officeName||'').trim().toLowerCase();
-          return (sol && vs===sol) || (name && vn===name.toLowerCase());
+      const directKey = officeConfigKey(solId, officeName);
+      let phone = officePhoneDirectory[directKey] || {};
+      let team = officeMonitoringTeams[directKey] || {};
+      // Fallback: imported configuration may use SOL ID while a rendered row
+      // contains the office name, or vice versa. Match both fields case-insensitively.
+      if ((!phone.phone && !phone.officePhone) && (!team || !team.primaryOfficerName)) {
+        const wantSol = String(solId || '').trim().toLowerCase();
+        const wantName = String(officeName || '').trim().toLowerCase();
+        const findKey = obj => Object.keys(obj || {}).find(k => {
+          const v=obj[k] || {};
+          const vs=String(v.solId || '').trim().toLowerCase();
+          const vn=String(v.officeName || '').trim().toLowerCase();
+          return (wantSol && vs===wantSol) || (!wantSol && wantName && vn===wantName) || (wantName && vn===wantName);
         });
-        return hit || {};
-      };
-      const phone=findCfg(officePhoneDirectory);
-      const team=findCfg(officeMonitoringTeams);
-      const primaryDesignation=team.primaryDesignation || monitoringPrimaryDesignation(officeType);
+        const pk=findKey(officePhoneDirectory);
+        const tk=findKey(officeMonitoringTeams);
+        if(pk) phone=officePhoneDirectory[pk] || phone;
+        if(tk) team=officeMonitoringTeams[tk] || team;
+      }
+      const primaryDesignation = team.primaryDesignation || monitoringPrimaryDesignation(officeType);
       return { phone: phone.phone || phone.officePhone || '', team: {...team, primaryDesignation} };
     }
     function normalizeBulkHeader(v) {
@@ -9667,72 +9733,54 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
       const offices=officesArg || getMonitoringOfficeMaster();
       const selected=String(division||'').trim();
       if(!selected) return alert('Please select a Division.');
-      const list=offices.filter(o=>String(o.division||'').trim()===selected);
+      const list=offices.filter(o=>o.division===selected);
       if(!list.length) return alert('No offices found for the selected Division.');
       const headers=['SOL ID','Office Name','Office Type','Sub Division','Division Name','Office Phone','Active','Primary Officer Name','Primary Officer Phone','Monitoring PA at DO Name','Monitoring PA at DO Phone','Sub Divisional Head Name','Sub Divisional Head Phone','Monitoring PA at SDH Name','Monitoring PA at SDH Phone','Mail Overseer Name','Mail Overseer Phone'];
       const rows=list.map(o=>{
         const key=officeConfigKey(o.solId,o.officeName), ph=officePhoneDirectory[key]||{}, t=officeMonitoringTeams[key]||{};
         return [o.solId,o.officeName,o.officeType,o.subDivision,o.division,ph.phone||ph.officePhone||'',ph.active===false?'FALSE':'TRUE',t.primaryOfficerName||'',t.primaryOfficerPhone||'',t.monitoringPAAtDOName||'',t.monitoringPAAtDOPhone||'',t.subDivisionalHeadName||'',t.subDivisionalHeadPhone||'',t.monitoringPAAtSDHName||'',t.monitoringPAAtSDHPhone||'',t.mailOverseerName||'',t.mailOverseerPhone||''];
       });
-      const matrix=[headers,...rows];
-      const safeName=selected.replace(/[^a-z0-9]+/gi,'_');
-
-      // Prefer ExcelJS because it writes real cell borders/column widths into the XLSX file.
       if(typeof ExcelJS!=='undefined'){
         try{
           const wb=new ExcelJS.Workbook();
-          const ws=wb.addWorksheet('Office_Monitoring');
-          ws.addRows(matrix);
-          const border={style:'thin',color:{argb:'FF808080'}};
-          ws.eachRow((row,rowNumber)=>{
-            row.height=rowNumber===1?24:20;
-            row.eachCell({includeEmpty:true},cell=>{
-              cell.border={top:border,bottom:border,left:border,right:border};
-              cell.alignment={vertical:'middle',horizontal:cell.col===1?'center':'left',wrapText:true};
-              if(rowNumber===1){
-                cell.font={bold:true};
-                cell.fill={type:'pattern',pattern:'solid',fgColor:{argb:'FFD9EAF7'}};
-              }
-            });
-          });
-          // True content-based autofit, with readable minimum/maximum widths.
-          for(let c=1;c<=headers.length;c++){
-            let maxLen=String(headers[c-1]||'').length;
-            for(let r=2;r<=matrix.length;r++) maxLen=Math.max(maxLen,String(matrix[r-1][c-1]??'').length);
-            ws.getColumn(c).width=Math.min(42,Math.max(12,maxLen+2));
+          const ws=wb.addWorksheet('Office_Monitoring',{views:[{state:'frozen',ySplit:1}]});
+          const borderSide={style:'thin',color:{argb:'FF808080'}};
+          const allBorders={top:borderSide,bottom:borderSide,left:borderSide,right:borderSide};
+          ws.addRow(headers);
+          rows.forEach(row=>ws.addRow(row));
+          ws.getRow(1).font={bold:true,color:{argb:'FF0F172A'}};
+          ws.getRow(1).fill={type:'pattern',pattern:'solid',fgColor:{argb:'FFD9EAF7'}};
+          for(let r=1;r<=ws.rowCount;r++){
+            const row=ws.getRow(r);
+            row.height=r===1?24:20;
+            for(let c=1;c<=headers.length;c++){
+              const cell=row.getCell(c);
+              cell.border=allBorders;
+              cell.alignment={vertical:'middle',horizontal:c===1?'center':'left',wrapText:true};
+            }
           }
-          ws.views=[{state:'frozen',ySplit:1}];
-          const buffer=await wb.xlsx.writeBuffer();
-          const blob=new Blob([buffer],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
-          const a=document.createElement('a');
-          a.href=URL.createObjectURL(blob); a.download=`POSB_Office_Monitoring_Template_${safeName}.xlsx`;
-          document.body.appendChild(a); a.click(); a.remove();
-          setTimeout(()=>URL.revokeObjectURL(a.href),1000);
-          closeOfficeInfoPopup();
-          return;
-        }catch(err){ console.warn('ExcelJS template export failed; using XLSX fallback.',err); }
-      }
-
-      if(typeof XLSX!=='undefined'&&XLSX.utils&&XLSX.writeFile){
-        const ws=XLSX.utils.aoa_to_sheet(matrix);
-        ws['!cols']=headers.map((h,c)=>{
-          const maxLen=matrix.reduce((m,row)=>Math.max(m,String(row?.[c]??'').length),String(h).length);
-          return {wch:Math.min(42,Math.max(12,maxLen+2))};
-        });
-        const thin={style:'thin',color:{rgb:'808080'}};
-        const borders={top:thin,bottom:thin,left:thin,right:thin};
-        for(let r=0;r<matrix.length;r++) for(let c=0;c<headers.length;c++){
-          const addr=XLSX.utils.encode_cell({r,c});
-          if(!ws[addr]) ws[addr]={t:'s',v:''};
-          ws[addr].s={border:borders,alignment:{vertical:'center',horizontal:c===0?'center':'left',wrapText:true},font:r===0?{bold:true}:{} };
-          if(r===0) ws[addr].s.fill={patternType:'solid',fgColor:{rgb:'D9EAF7'}};
+          for(let c=1;c<=headers.length;c++){
+            let width=String(headers[c-1]||'').length;
+            for(let r=2;r<=ws.rowCount;r++) width=Math.max(width,String(ws.getCell(r,c).value??'').length);
+            ws.getColumn(c).width=Math.min(60,Math.max(12,width+3));
+          }
+          const blob=await wb.xlsx.writeBuffer();
+          const url=URL.createObjectURL(new Blob([blob],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}));
+          const a=document.createElement('a'); a.href=url; a.download=`POSB_Office_Monitoring_Template_${selected.replace(/[^a-z0-9]+/gi,'_')}.xlsx`; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),1500);
+        }catch(ex){ console.warn('ExcelJS monitoring template export failed; using XLSX fallback.',ex); 
+          if(typeof XLSX!=='undefined'&&XLSX.utils&&XLSX.writeFile){
+            const ws=XLSX.utils.aoa_to_sheet([headers,...rows]);
+            ws['!cols']=headers.map((h,c)=>{let m=String(h).length; rows.forEach(r=>m=Math.max(m,String(r[c]??'').length));return {wch:Math.min(60,Math.max(12,m+3))};});
+            const wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb,ws,'Office_Monitoring'); XLSX.writeFile(wb,`POSB_Office_Monitoring_Template_${selected.replace(/[^a-z0-9]+/gi,'_')}.xlsx`);
+          }
         }
-        ws['!rows']=[{hpt:24},...rows.map(()=>({hpt:20}))];
-        const wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb,ws,'Office_Monitoring');
-        XLSX.writeFile(wb,`POSB_Office_Monitoring_Template_${safeName}.xlsx`);
-      }else{
+      } else if(typeof XLSX!=='undefined'&&XLSX.utils&&XLSX.writeFile){
+        const ws=XLSX.utils.aoa_to_sheet([headers,...rows]);
+        ws['!cols']=headers.map((h,c)=>{let m=String(h).length; rows.forEach(r=>m=Math.max(m,String(r[c]??'').length));return {wch:Math.min(60,Math.max(12,m+3))};});
+        const wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb,ws,'Office_Monitoring'); XLSX.writeFile(wb,`POSB_Office_Monitoring_Template_${selected.replace(/[^a-z0-9]+/gi,'_')}.xlsx`);
+      } else {
         const csv=[headers,...rows].map(row=>row.map(v=>`"${String(v??'').replace(/"/g,'""')}"`).join(',')).join('\n');
-        const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'}), a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`POSB_Office_Monitoring_Template_${safeName}.csv`; a.click(); URL.revokeObjectURL(a.href);
+        const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'}), a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`POSB_Office_Monitoring_Template_${selected.replace(/[^a-z0-9]+/gi,'_')}.csv`; a.click(); URL.revokeObjectURL(a.href);
       }
       closeOfficeInfoPopup();
     }
@@ -9781,8 +9829,8 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
           };
           imported++;
         });
-        persistOfficeContactConfig();
-        saveDashboardConfigLocal();
+        await persistOfficeContactConfig();
+        await saveDashboardConfigLocal();
         const uploaded=await saveDashboardConfigToGoogleSheet();
         alert(`${imported.toLocaleString()} office phone/monitoring records imported${skipped ? `; ${skipped} skipped` : ''}.${uploaded ? '\\n\\nConfiguration uploaded to POSB_Dashboard_Config.' : '\\n\\nLocal configuration saved; Google Sheet upload failed, please retry.'}`);
       } catch(err) { console.error(err); alert('Bulk monitoring upload failed: '+(err.message||err)); }
@@ -9799,12 +9847,35 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
       add('Sub Divisional Head',t.subDivisionalHeadName,t.subDivisionalHeadPhone,true);
       add('Monitoring PA at SDH',t.monitoringPAAtSDHName,t.monitoringPAAtSDHPhone,true);
       if (String(officeType||'').toUpperCase() === 'BPO' || t.mailOverseerName || t.mailOverseerPhone) add('Mail Overseer',t.mailOverseerName,t.mailOverseerPhone,String(officeType||'').toUpperCase()==='BPO');
-      return `<div class="monitoring-team-glance"><div class="monitoring-team-phone"><strong>📞 Office Phone</strong><span>${cfg.phone ? officePopupEscape(cfg.phone) : 'Not configured'}</span></div><div class="monitoring-team-grid-title">👥 Monitoring Team — At a Glance</div><div class="office-team-grid">${cards.join('')}</div></div>`;
+      return `<div style="margin-top:12px;border-top:1px solid #e2e8f0;padding-top:10px;"><div style="font-weight:900;color:#0f172a;margin-bottom:4px;">📞 Office Phone</div><div style="font-size:13px;font-weight:900;color:#0369a1;">${cfg.phone ? officePopupEscape(cfg.phone) : 'Not configured'}</div><div style="font-weight:900;color:#0f172a;margin:12px 0 4px;">👥 Monitoring Team</div><div class="office-team-grid">${cards.join('')}</div></div>`;
     }
 
     async function saveDashboardConfigToGoogleSheet() {
+      // Always make sure the latest monitoring master is restored before a
+      // Google Sheet upload. This prevents an early admin click from sending
+      // empty officePhoneDirectory / officeMonitoringTeams objects.
+      try {
+        if (officeContactRestorePromise) await officeContactRestorePromise;
+      } catch (_) {}
+      try {
+        if ((!officeMonitoringTeams || !Object.keys(officeMonitoringTeams).length) && (!officePhoneDirectory || !Object.keys(officePhoneDirectory).length)) {
+          const cached = await loadDashboardConfigFromIndexedDB();
+          if (cached) {
+            if (cached.officeMonitoringTeams && typeof cached.officeMonitoringTeams === 'object' && Object.keys(cached.officeMonitoringTeams).length) officeMonitoringTeams = cached.officeMonitoringTeams;
+            if (cached.officePhoneDirectory && typeof cached.officePhoneDirectory === 'object' && Object.keys(cached.officePhoneDirectory).length) officePhoneDirectory = cached.officePhoneDirectory;
+          }
+        }
+        // Legacy recovery for a browser that still has the older localStorage
+        // master from a previous dashboard version.
+        if ((!officeMonitoringTeams || !Object.keys(officeMonitoringTeams).length)) {
+          try { const legacy=JSON.parse(localStorage.getItem('posb_office_monitoring_teams')||'{}'); if (legacy && Object.keys(legacy).length) officeMonitoringTeams=legacy; } catch (_) {}
+        }
+        if ((!officePhoneDirectory || !Object.keys(officePhoneDirectory).length)) {
+          try { const legacy=JSON.parse(localStorage.getItem('posb_office_phone_directory')||'{}'); if (legacy && Object.keys(legacy).length) officePhoneDirectory=legacy; } catch (_) {}
+        }
+      } catch (restoreErr) { console.warn('Monitoring master recovery before Google upload failed:', restoreErr); }
       const config = {
-        version: 2,
+        version: 3,
         savedAt: new Date().toISOString(),
         campaigns: campaignList,
         activeCampaignId,
@@ -9815,18 +9886,29 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
           offices: customTargets?.offices || {}
         },
         officePhoneDirectory: officePhoneDirectory || {},
-        officeMonitoringTeams: officeMonitoringTeams || {}
+        officeMonitoringTeams: officeMonitoringTeams || {},
+        officePhoneDirectoryJson: JSON.stringify(officePhoneDirectory || {}),
+        officeMonitoringTeamsJson: JSON.stringify(officeMonitoringTeams || {}),
+        phoneCount: Object.keys(officePhoneDirectory || {}).length,
+        monitoringCount: Object.keys(officeMonitoringTeams || {}).length
       };
       try {
         await saveDashboardConfigToIndexedDB(config);
         const res = await fetch(GOOGLE_SHEET_SCRIPT_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify({ action: 'save_dashboard_config', config })
+          body: JSON.stringify({
+            action: 'save_dashboard_config', config,
+            officePhoneDirectory: config.officePhoneDirectory,
+            officeMonitoringTeams: config.officeMonitoringTeams,
+            officePhoneDirectoryJson: config.officePhoneDirectoryJson,
+            officeMonitoringTeamsJson: config.officeMonitoringTeamsJson,
+            monitoringCount: config.monitoringCount, phoneCount: config.phoneCount
+          })
         });
         const json = await res.json().catch(() => null);
         if (!res.ok || (json && json.error)) throw new Error((json && json.error) || `HTTP ${res.status}`);
-        setGoogleSheetStatus('☁ Dashboard targets/campaign configuration saved permanently to Google Sheet.');
+        setGoogleSheetStatus(`☁ Google Sheet configuration saved • Monitoring: ${Object.keys(officeMonitoringTeams||{}).length.toLocaleString()} • Phones: ${Object.keys(officePhoneDirectory||{}).length.toLocaleString()}.`);
         return true;
       } catch (err) {
         console.error('Google Sheet configuration save failed:', err);
@@ -9878,7 +9960,7 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
       const ok = await saveDashboardConfigToGoogleSheet();
       if (ok) {
         renderDashboard();
-        alert('Target and Special Drive configuration uploaded successfully to POSB_Dashboard_Config.');
+        alert(`Configuration uploaded successfully to POSB_Dashboard_Config.\n\nMonitoring Team offices: ${Object.keys(officeMonitoringTeams||{}).length.toLocaleString()}\nOffice phone records: ${Object.keys(officePhoneDirectory||{}).length.toLocaleString()}`);
       }
     }
 
@@ -9916,18 +9998,22 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
         activeCampaignId = config.activeCampaignId;
         changed = true;
       }
+      if ((!config.officeMonitoringTeams || typeof config.officeMonitoringTeams !== 'object') && config.officeMonitoringTeamsJson) {
+        try { config.officeMonitoringTeams = JSON.parse(config.officeMonitoringTeamsJson) || {}; } catch (_) {}
+      }
+      if ((!config.officePhoneDirectory || typeof config.officePhoneDirectory !== 'object') && config.officePhoneDirectoryJson) {
+        try { config.officePhoneDirectory = JSON.parse(config.officePhoneDirectoryJson) || {}; } catch (_) {}
+      }
       if (config.officePhoneDirectory && typeof config.officePhoneDirectory === 'object') {
-        if (JSON.stringify(officePhoneDirectory) !== JSON.stringify(config.officePhoneDirectory)) {
-          officePhoneDirectory = config.officePhoneDirectory || {};
-          localStorage.setItem('posb_office_phone_directory', JSON.stringify(officePhoneDirectory));
-          changed = true;
+        const incoming=config.officePhoneDirectory || {};
+        if (Object.keys(incoming).length > 0 || Object.keys(officePhoneDirectory||{}).length === 0) {
+          if (JSON.stringify(officePhoneDirectory) !== JSON.stringify(incoming)) { officePhoneDirectory=incoming; changed=true; }
         }
       }
       if (config.officeMonitoringTeams && typeof config.officeMonitoringTeams === 'object') {
-        if (JSON.stringify(officeMonitoringTeams) !== JSON.stringify(config.officeMonitoringTeams)) {
-          officeMonitoringTeams = config.officeMonitoringTeams || {};
-          localStorage.setItem('posb_office_monitoring_teams', JSON.stringify(officeMonitoringTeams));
-          changed = true;
+        const incoming=config.officeMonitoringTeams || {};
+        if (Object.keys(incoming).length > 0 || Object.keys(officeMonitoringTeams||{}).length === 0) {
+          if (JSON.stringify(officeMonitoringTeams) !== JSON.stringify(incoming)) { officeMonitoringTeams=incoming; changed=true; }
         }
       }
       if (config.customTargets && typeof config.customTargets === 'object') {
@@ -9945,7 +10031,12 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
         }
       }
       if (changed) {
-        saveDashboardConfigToIndexedDB({ campaigns: campaignList, activeCampaignId, customTargets }).catch(err => console.warn('Remote dashboard config cache failed:', err));
+        saveDashboardConfigToIndexedDB({
+          campaigns: campaignList, activeCampaignId, customTargets,
+          tickerMessage: localStorage.getItem('posb_ticker_message') || '',
+          officePhoneDirectory: officePhoneDirectory || {},
+          officeMonitoringTeams: officeMonitoringTeams || {}
+        }).catch(err => console.warn('Remote dashboard config cache failed:', err));
         if (!campaignList.length) campaignList = DEFAULT_CAMPAIGNS.map(c => ({...c, divTargets:{...c.divTargets}, subTargets:{...c.subTargets}}));
         if (!campaignList.some(c => c.id === activeCampaignId)) activeCampaignId = campaignList[0].id;
         localStorage.setItem('posb_campaign_list', JSON.stringify(campaignList));
@@ -10785,6 +10876,8 @@ body{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!importa
         try {
           const wb = new ExcelJS.Workbook();
           const wsx = wb.addWorksheet('Report', { views:[{state:'frozen', ySplit:9}] });
+          const excelThinBorder = { style:'thin', color:{ argb:'FF808080' } };
+          const excelAllBorders = { top:excelThinBorder, bottom:excelThinBorder, left:excelThinBorder, right:excelThinBorder };
           const logo = getIndiaPostLogoDataUrl();
           if (logo) {
             const imageId = wb.addImage({ base64: logo, extension: 'png' });
@@ -10817,7 +10910,15 @@ body{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!importa
               } else cell.alignment={horizontal:'center',vertical:'middle',wrapText:true};
             });
           });
-          for(let c=1;c<=maxCols;c++){ let width=12; reportRows.forEach(row=>width=Math.min(45,Math.max(width,String(row[c-1]??'').length+2))); wsx.getColumn(c).width=width; }
+          // Border EVERY populated/used cell in the exported workbook, including metadata and all report data.
+          for(let r=1;r<=reportRows.length;r++){
+            for(let c=1;c<=maxCols;c++){
+              const cell=wsx.getCell(r,c);
+              cell.border=excelAllBorders;
+              cell.alignment=Object.assign({vertical:'middle',wrapText:true}, cell.alignment||{});
+            }
+          }
+          for(let c=1;c<=maxCols;c++){ let width=12; reportRows.forEach(row=>width=Math.min(60,Math.max(width,String(row[c-1]??'').length+2))); wsx.getColumn(c).width=width; }
           for(let c=1;c<=maxCols;c++){ const cell=wsx.getRow(startRow).getCell(c); cell.font={bold:true}; cell.alignment={horizontal:'center',vertical:'middle',wrapText:true}; cell.fill={type:'pattern',pattern:'solid',fgColor:{argb:'FFE8F6F0'}}; }
           const blob=await wb.xlsx.writeBuffer();
           const url=URL.createObjectURL(new Blob([blob],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}));
@@ -11758,6 +11859,36 @@ body{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!importa
       openWeeklyModal(`${office.officeName} — BO Detail`,html,office.officeName,office.solId,office.officeType || 'BPO');
     }
 
+    // ---------- TOTAL VISITORS (GitHub Pages) ----------
+    // CounterAPI's official embed is used so the visitor count works on a
+    // static GitHub Pages site without an API key or server-side code.
+    function initDashboardVisitorCounter() {
+      const el=document.getElementById('dashboardVisitorCount');
+      const num=document.getElementById('dashboardVisitorNumber');
+      if(!el || !num) return;
+      // If the embed is already present, do not initialize it twice.
+      if(el.querySelector('.counterapi')) {
+        el.classList.remove('loading');
+        return;
+      }
+      num.innerHTML = '<span class="counterapi dashboard-counterapi" ns="nagpur-posb-performance-dashboard" action="view" key="total-visitors" unique="true" noIcon="true" noCss="true" noLink="true" noAnim="true" label=""></span>';
+      el.classList.remove('loading');
+      // CounterAPI's script is loaded asynchronously. Give it a moment to
+      // render; if it is blocked, show a useful fallback rather than
+      // permanently displaying Loading.
+      setTimeout(()=>{
+        const counter=num.querySelector('.counterapi');
+        if(counter && !counter.textContent.trim()) {
+          setTimeout(()=>{
+            if(counter && !counter.textContent.trim()) {
+              counter.textContent='—';
+              el.title='Visitor counter temporarily unavailable';
+            }
+          },5000);
+        }
+      },1500);
+    }
+
     // --- INITIALIZATION ---
     window.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('.tab-module').forEach(el => {
@@ -11794,9 +11925,39 @@ body{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!importa
       try { openWelcomeModal(); } catch (err) {
         console.warn('Welcome modal skipped:', err);
       }
+      setTimeout(initDashboardVisitorCounter, 250);
     });
 
     document.addEventListener('DOMContentLoaded', function(){ setTimeout(function(){ populateGoogleSheetUploadDates(rawTransactions); updateGoogleSheetButtonState(); }, 0); });
+
+    // Independent welcome-popup startup: this listener is deliberately separate
+    // from the large dashboard initialization block so the opening popup still
+    // appears even if another optional dashboard renderer throws an exception.
+    window.addEventListener('DOMContentLoaded', function(){
+      setTimeout(function(){
+        try { openWelcomeModal(); } catch (err) { console.warn('Welcome popup startup error:', err); }
+      }, 50);
+    }, {once:true});
+
+    function installUniversalExcelExportButtons(){
+      document.querySelectorAll('table').forEach((table,index)=>{
+        if(!table.id) table.id='autoExcelTable_'+index;
+        if(table.dataset.excelButtonInstalled==='1') return;
+        const host=table.closest('.weekly-section-card, .oc-section-card, .card, section, .report-section, .modal-overlay .weekly-modal-box');
+        if(!host) return;
+        const toolbar=host.querySelector('.weekly-section-title, .oc-section-title, .card-header, .section-header, .report-header');
+        if(!toolbar) return;
+        if(toolbar.querySelector('.btn-excel')){ table.dataset.excelButtonInstalled='1'; return; }
+        const button=document.createElement('button');
+        button.type='button'; button.className='btn-action btn-excel';
+        button.title='Export this section data to Excel'; button.innerHTML='📥 Download Excel';
+        button.addEventListener('click',()=>downloadTableAsExcel(table.id, table.id.replace(/^autoExcelTable_/,'Section_')));
+        toolbar.appendChild(button); table.dataset.excelButtonInstalled='1';
+      });
+    }
+    document.addEventListener('DOMContentLoaded',()=>setTimeout(installUniversalExcelExportButtons,350));
+    const __excelExportObserver=new MutationObserver(()=>{ clearTimeout(window.__excelExportTimer); window.__excelExportTimer=setTimeout(installUniversalExcelExportButtons,250); });
+    if(document.body) __excelExportObserver.observe(document.body,{childList:true,subtree:true});
 
     document.addEventListener('DOMContentLoaded',()=>makeAllTablesSortable());
     document.addEventListener('DOMContentLoaded',()=>setTimeout(installPdfExportButtons, 250));
@@ -11806,9 +11967,18 @@ body{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!importa
     function officePopupEscape(value) {
       return weeklyEsc(value == null ? '-' : String(value));
     }
-    function openOfficeInfoPopup(officeName, solId) {
+    async function openOfficeInfoPopup(officeName, solId) {
       const targetName = String(officeName || '').trim();
       const targetSol = String(solId || '').trim();
+      // Ensure the large IndexedDB monitoring master is restored before the
+      // popup is rendered. This fixes blank monitoring panels immediately
+      // after page load.
+      try { if (officeContactRestorePromise) await officeContactRestorePromise; } catch (_) {}
+      // If the first restore completed before the function was defined/called,
+      // perform one direct read as a final safeguard.
+      if ((!Object.keys(officeMonitoringTeams || {}).length) && (!Object.keys(officePhoneDirectory || {}).length)) {
+        try { await restoreOfficeContactConfigFromIndexedDB(); } catch (_) {}
+      }
       const records = rawTransactions || [];
       let rows = records.filter(r => {
         const rn = String(r.officeName || '').trim();
@@ -11891,7 +12061,7 @@ body{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!importa
     document.addEventListener('click', function(e) {
       const interactive = e.target.closest('button,input,select,textarea,a,[role="button"]');
       if (interactive && !interactive.classList.contains('office-popup-trigger')) return;
-      const officeEl = e.target.closest('td,th,.div-kpi-name,.top-division-name,.top-division-card,.weekly-office-link,.hmosc-office-link,.office-popup-trigger,.office-team-card,.office-name-link,.office-link,.office-name,.office-title,.office-label,[data-office-name]');
+      const officeEl = e.target.closest('td,th,.div-kpi-name,.top-division-name,.top-division-card,.weekly-office-link,.hmosc-office-link,.office-popup-trigger,.office-team-card,.office-name-link,.office-link');
       if (!officeEl) return;
       const match = resolveOfficeFromElement(officeEl);
       if (!match) return;
@@ -11903,33 +12073,6 @@ body{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!importa
       const el=e.target.closest('td,th,.div-kpi-name,.top-division-name,.top-division-card,.weekly-office-link,.hmosc-office-link,.office-popup-trigger,.office-name-link,.office-link');
       if(!el)return; const m=resolveOfficeFromElement(el); if(m)el.title=`Click to view ${m.officeName} record & monitoring team`;
     });
-
-    /* ===== UNIVERSAL MONITORING PANEL FOR ALL OFFICE POPUPS ===== */
-    function attachMonitoringTeamToPopupBody(bodyEl, officeName, solId, officeType) {
-      if(!bodyEl || (!officeName && !solId)) return;
-      if(bodyEl.querySelector('.universal-monitoring-team-attachment')) return;
-      const wrap=document.createElement('div');
-      wrap.className='universal-monitoring-team-attachment';
-      wrap.style.cssText='margin-top:12px;border:1px solid #cbd5e1;border-radius:10px;background:#fff;padding:10px;';
-      wrap.innerHTML=`<div style="font-weight:900;color:#0f172a;margin-bottom:7px;font-size:14px;">👥 Monitoring Team — At a Glance</div>${renderOfficeContactPanel(solId,officeName,officeType)}`;
-      bodyEl.appendChild(wrap);
-    }
-
-    // Observe dynamically-rendered modals and attach the monitoring panel whenever
-    // an office identity is present in the modal. Existing office-specific panels
-    // are detected and left untouched.
-    const officePopupObserver=new MutationObserver(function(){
-      document.querySelectorAll('.weekly-modal-overlay[aria-hidden="false"] .weekly-modal-body').forEach(body=>{
-        if(body.querySelector('.office-popup-glance-grid, .universal-monitoring-team-attachment')) return;
-        const row=body.querySelector('[data-office-name], .office-name-link');
-        if(!row) return;
-        const officeName=String(row.getAttribute('data-office-name')||row.textContent||'').trim();
-        const solId=String(row.getAttribute('data-sol-id')||'').trim();
-        const rec=resolveOfficeFromElement(row);
-        attachMonitoringTeamToPopupBody(body,officeName||rec?.officeName,solId||rec?.solId,rec?.officeType||officeCountType(rec||{}));
-      });
-    });
-    officePopupObserver.observe(document.body,{subtree:true,childList:true});
 
     /* ===== ADMIN EDIT MODE SECURITY ===== */
     const EDIT_PASSWORD_SHA256 = '57c5b0e675a183d48e79c405c79883678f3ae0c12f2793f75b377b91f295233a';
