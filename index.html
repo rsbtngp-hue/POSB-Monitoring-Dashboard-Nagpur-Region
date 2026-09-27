@@ -344,6 +344,10 @@
     .office-popup-glance-title{font-weight:900;font-size:13px;color:#0f172a;padding:9px 11px;background:#f8fafc;border-bottom:1px solid #e2e8f0}
     .office-popup-glance-card .weekly-modal-table{margin:0}
     .office-popup-glance-card .office-team-grid{padding:9px}
+    .monitoring-team-glance{display:block;background:#ffffff;border:1px solid #cbd5e1;border-radius:10px;padding:10px}
+    .monitoring-team-phone{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:8px 10px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;margin-bottom:9px;color:#0f172a}
+    .monitoring-team-phone span{font-weight:900;color:#0369a1}
+    .monitoring-team-grid-title{font-weight:900;color:#0f172a;margin:4px 0 6px;font-size:13px}
     @media(max-width:760px){.office-popup-glance-grid{grid-template-columns:1fr}.weekly-modal-box{max-height:92vh}}
 
     .campaign-kpi-grid-5 {
@@ -2368,8 +2372,9 @@ body.edit-unlocked .admin-config-actions{display:flex;}
 @media (max-width:620px){.admin-config-actions{gap:4px}.admin-config-actions button{font-size:9px;padding:5px 5px;white-space:normal;min-height:32px;}}
 </style>
 <style id="code-protection-style">
-html,body{ -webkit-user-select:none; user-select:none; }
+html,body{ -webkit-user-select:text; user-select:text; }
 input,textarea,select{ -webkit-user-select:text; user-select:text; }
+button,.nav-tab,.tree-toggle,.hmosc-tree-toggle,th{ -webkit-user-select:none; user-select:none; }
 </style>
 </head>
 <body>
@@ -2377,7 +2382,6 @@ input,textarea,select{ -webkit-user-select:text; user-select:text; }
 /* Basic browser-side source/code deterrence. This cannot provide cryptographic source protection because HTML must be delivered to the browser. */
 (function(){
   document.addEventListener('contextmenu',function(e){ e.preventDefault(); },{capture:true});
-  document.addEventListener('dragstart',function(e){ e.preventDefault(); },{capture:true});
   document.addEventListener('keydown',function(e){
     const k=String(e.key||'').toLowerCase();
     if(k==='f12' || (e.ctrlKey&&e.shiftKey&&(k==='i'||k==='j'||k==='c')) || (e.ctrlKey&&k==='u')){
@@ -9573,10 +9577,23 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
       localStorage.setItem('posb_office_monitoring_teams', JSON.stringify(officeMonitoringTeams || {}));
     }
     function getOfficeContactConfig(solId, officeName, officeType) {
-      const key = officeConfigKey(solId, officeName);
-      const phone = officePhoneDirectory[key] || {};
-      const team = officeMonitoringTeams[key] || {};
-      const primaryDesignation = team.primaryDesignation || monitoringPrimaryDesignation(officeType);
+      const sol=String(solId||'').trim();
+      const name=String(officeName||'').trim();
+      const directKey=officeConfigKey(sol,name);
+      const findCfg=(obj)=>{
+        if(!obj || typeof obj!=='object') return {};
+        if(obj[directKey]) return obj[directKey];
+        if(sol && obj[sol]) return obj[sol];
+        const hit=Object.values(obj).find(v=>{
+          const vs=String(v?.solId||'').trim();
+          const vn=String(v?.officeName||'').trim().toLowerCase();
+          return (sol && vs===sol) || (name && vn===name.toLowerCase());
+        });
+        return hit || {};
+      };
+      const phone=findCfg(officePhoneDirectory);
+      const team=findCfg(officeMonitoringTeams);
+      const primaryDesignation=team.primaryDesignation || monitoringPrimaryDesignation(officeType);
       return { phone: phone.phone || phone.officePhone || '', team: {...team, primaryDesignation} };
     }
     function normalizeBulkHeader(v) {
@@ -9773,7 +9790,7 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
       add('Sub Divisional Head',t.subDivisionalHeadName,t.subDivisionalHeadPhone,true);
       add('Monitoring PA at SDH',t.monitoringPAAtSDHName,t.monitoringPAAtSDHPhone,true);
       if (String(officeType||'').toUpperCase() === 'BPO' || t.mailOverseerName || t.mailOverseerPhone) add('Mail Overseer',t.mailOverseerName,t.mailOverseerPhone,String(officeType||'').toUpperCase()==='BPO');
-      return `<div style="margin-top:12px;border-top:1px solid #e2e8f0;padding-top:10px;"><div style="font-weight:900;color:#0f172a;margin-bottom:4px;">📞 Office Phone</div><div style="font-size:13px;font-weight:900;color:#0369a1;">${cfg.phone ? officePopupEscape(cfg.phone) : 'Not configured'}</div><div style="font-weight:900;color:#0f172a;margin:12px 0 4px;">👥 Monitoring Team</div><div class="office-team-grid">${cards.join('')}</div></div>`;
+      return `<div class="monitoring-team-glance"><div class="monitoring-team-phone"><strong>📞 Office Phone</strong><span>${cfg.phone ? officePopupEscape(cfg.phone) : 'Not configured'}</span></div><div class="monitoring-team-grid-title">👥 Monitoring Team — At a Glance</div><div class="office-team-grid">${cards.join('')}</div></div>`;
     }
 
     async function saveDashboardConfigToGoogleSheet() {
@@ -11865,7 +11882,7 @@ body{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!importa
     document.addEventListener('click', function(e) {
       const interactive = e.target.closest('button,input,select,textarea,a,[role="button"]');
       if (interactive && !interactive.classList.contains('office-popup-trigger')) return;
-      const officeEl = e.target.closest('td,th,.div-kpi-name,.top-division-name,.top-division-card,.weekly-office-link,.hmosc-office-link,.office-popup-trigger,.office-team-card,.office-name-link,.office-link');
+      const officeEl = e.target.closest('td,th,.div-kpi-name,.top-division-name,.top-division-card,.weekly-office-link,.hmosc-office-link,.office-popup-trigger,.office-team-card,.office-name-link,.office-link,.office-name,.office-title,.office-label,[data-office-name]');
       if (!officeEl) return;
       const match = resolveOfficeFromElement(officeEl);
       if (!match) return;
@@ -11877,6 +11894,33 @@ body{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!importa
       const el=e.target.closest('td,th,.div-kpi-name,.top-division-name,.top-division-card,.weekly-office-link,.hmosc-office-link,.office-popup-trigger,.office-name-link,.office-link');
       if(!el)return; const m=resolveOfficeFromElement(el); if(m)el.title=`Click to view ${m.officeName} record & monitoring team`;
     });
+
+    /* ===== UNIVERSAL MONITORING PANEL FOR ALL OFFICE POPUPS ===== */
+    function attachMonitoringTeamToPopupBody(bodyEl, officeName, solId, officeType) {
+      if(!bodyEl || (!officeName && !solId)) return;
+      if(bodyEl.querySelector('.universal-monitoring-team-attachment')) return;
+      const wrap=document.createElement('div');
+      wrap.className='universal-monitoring-team-attachment';
+      wrap.style.cssText='margin-top:12px;border:1px solid #cbd5e1;border-radius:10px;background:#fff;padding:10px;';
+      wrap.innerHTML=`<div style="font-weight:900;color:#0f172a;margin-bottom:7px;font-size:14px;">👥 Monitoring Team — At a Glance</div>${renderOfficeContactPanel(solId,officeName,officeType)}`;
+      bodyEl.appendChild(wrap);
+    }
+
+    // Observe dynamically-rendered modals and attach the monitoring panel whenever
+    // an office identity is present in the modal. Existing office-specific panels
+    // are detected and left untouched.
+    const officePopupObserver=new MutationObserver(function(){
+      document.querySelectorAll('.weekly-modal-overlay[aria-hidden="false"] .weekly-modal-body').forEach(body=>{
+        if(body.querySelector('.office-popup-glance-grid, .universal-monitoring-team-attachment')) return;
+        const row=body.querySelector('[data-office-name], .office-name-link');
+        if(!row) return;
+        const officeName=String(row.getAttribute('data-office-name')||row.textContent||'').trim();
+        const solId=String(row.getAttribute('data-sol-id')||'').trim();
+        const rec=resolveOfficeFromElement(row);
+        attachMonitoringTeamToPopupBody(body,officeName||rec?.officeName,solId||rec?.solId,rec?.officeType||officeCountType(rec||{}));
+      });
+    });
+    officePopupObserver.observe(document.body,{subtree:true,childList:true});
 
     /* ===== ADMIN EDIT MODE SECURITY ===== */
     const EDIT_PASSWORD_SHA256 = '57c5b0e675a183d48e79c405c79883678f3ae0c12f2793f75b377b91f295233a';
