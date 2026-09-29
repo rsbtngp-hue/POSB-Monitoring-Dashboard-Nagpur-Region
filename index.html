@@ -512,6 +512,61 @@
     @media (max-width: 860px) { .filter-grid { grid-template-columns: 1fr 1fr; } }
     @media (max-width: 520px) { .filter-grid { grid-template-columns: 1fr; } }
     .filter-label { font-size: 10px; font-weight: 800; text-transform: uppercase; color: #475569; margin-bottom: 4px; display: block; letter-spacing: 0.3px; }
+    .shortfall-display{color:#dc2626 !important;font-weight:900 !important;white-space:nowrap;}
+    .excess-display{color:#059669 !important;font-weight:900 !important;white-space:nowrap;}
+    .daywise-bottom-filter{margin-top:22px;padding:13px 14px;background:#f8fafc;border:1px solid #cbd5e1;border-radius:11px;}
+    .daywise-bottom-filter-title{font-size:11px;font-weight:950;color:#0f172a;text-transform:uppercase;letter-spacing:.35px;margin-bottom:9px;}
+    .daywise-bottom-filter-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;}
+    .daywise-bottom-filter-field label{display:block;font-size:9.5px;font-weight:850;color:#475569;margin-bottom:4px;}
+    .dedicated-report-titlebar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;background:linear-gradient(180deg,#3f82c9 0%,#2865a9 100%);border-bottom:3px solid #173f70;box-shadow:0 3px 8px rgba(15,23,42,.18);}
+    .dedicated-report-title{color:#fff;font-family:Georgia,'Times New Roman',serif;font-size:19px;font-weight:900;font-style:italic;text-align:center;flex:1;text-shadow:0 1px 1px rgba(0,0,0,.2);}
+    .dedicated-report-badge{background:#fff;color:#7f1d1d;border-radius:5px;padding:5px 8px;font-size:9px;font-weight:950;white-space:nowrap;border:1px solid #dbeafe;}
+    .dedicated-report-summary{padding:8px 14px;background:#f8fafc;color:#475569;font-size:11px;font-weight:750;border-bottom:1px solid #e2e8f0;}
+    .dedicated-report-table-wrap{border-radius:0;max-height:650px;}
+    #dedicatedOfficeReportTable{font-family:Georgia,'Times New Roman',serif;font-size:12px;}
+    #dedicatedOfficeReportTable th{background:#9e3434;color:#fff;border:1px solid #6f2323;text-align:center;font-family:Georgia,'Times New Roman',serif;font-size:11px;font-weight:900;white-space:normal;line-height:1.15;padding:7px 7px;}
+    #dedicatedOfficeReportTable th:first-child{text-align:left;min-width:175px;}
+    #dedicatedOfficeReportTable td{border:1px solid #222;color:#111;background:#fff;padding:4px 7px;font-weight:700;}
+    #dedicatedOfficeReportTable tbody tr:nth-child(even) td{background:#f8fafc;}
+    #dedicatedOfficeReportTable tbody tr:hover td{background:#eef6ff;}
+    #dedicatedOfficeReportTable .dedicated-total-row td,#dedicatedOfficePart1Table .dedicated-total-row td{background:#f1f5f9!important;color:#111827!important;font-weight:950;border:1px solid #94a3b8;}
+    #dedicatedOfficeReportTable .dedicated-total-row td.dedicated-total-shortfall,#dedicatedOfficePart1Table .dedicated-total-row td.dedicated-total-shortfall{background:#fee2e2!important;color:#b91c1c!important;border-color:#ef4444!important;}
+    #dedicatedOfficeReportTable .dedicated-shortfall,#dedicatedOfficePart1Table .dedicated-shortfall{color:#b91c1c;font-weight:950;}
+    #dedicatedOfficeReportTable .dedicated-excess,#dedicatedOfficePart1Table .dedicated-excess{color:#047857;font-weight:950;}
+    /* Dedicated report uses the same numeric treatment as Month Wise Net Addition HPO / GPO Wise. */
+    #dedicatedOfficeReportTable td.dedicated-net-negative{color:#dc2626!important;font-weight:900;}
+    #dedicatedOfficeReportTable td.dedicated-net-positive{color:#047857!important;font-weight:900;}
+    #dedicatedOfficeReportTable td.dedicated-net-zero{color:#111827!important;font-weight:800;}
+    #dedicatedOfficePart1Table{font-family:Georgia,'Times New Roman',serif;font-size:12px;}
+    #dedicatedOfficePart1Table th{background:#9e3434;color:#fff;border:1px solid #6f2323;text-align:center;font-family:Georgia,'Times New Roman',serif;font-size:11px;font-weight:900;white-space:normal;line-height:1.15;padding:7px 7px;}
+    #dedicatedOfficePart1Table th:first-child{text-align:left;min-width:175px;}
+    #dedicatedOfficePart1Table td{border:1px solid #222;color:#111;background:#fff;padding:4px 7px;font-weight:700;}
+    #dedicatedOfficePart1Table tbody tr:nth-child(even) td{background:#f8fafc;}
+    #dedicatedOfficePart1Table tbody tr:hover td{background:#eef6ff;}
+    #dedicatedOfficePart1Table td.dedicated-net-negative{color:#dc2626!important;font-weight:900;}
+    #dedicatedOfficePart1Table td.dedicated-net-positive{color:#047857!important;font-weight:900;}
+    #dedicatedOfficePart1Table td.dedicated-net-zero{color:#111827!important;font-weight:800;}
+    #dedicatedOfficeReportTable .dedicated-total-row td.dedicated-total-excess,#dedicatedOfficePart1Table .dedicated-total-row td.dedicated-total-excess{background:#dcfce7!important;color:#047857!important;border-color:#22c55e!important;}
+
+    @media(max-width:900px){.dedicated-report-title{font-size:15px}.dedicated-report-badge{display:none}}
+    /* Unified Day-wise / Month-wise subsection styling */
+    .daywise-unified-card{border:1px solid #a7f3d0!important;border-radius:10px;overflow:hidden;background:#fff;}
+    .daywise-unified-header{background:linear-gradient(135deg,#ecfdf5,#f0fdfa)!important;border-bottom:1px solid #a7f3d0!important;padding:12px 14px!important;}
+    .daywise-unified-header .section-title-box{display:flex;align-items:center;gap:9px;}
+    .daywise-unified-header .icon-badge{background:linear-gradient(135deg,#047857,#10b981)!important;}
+    .daywise-unified-header .section-title-box span,.daywise-unified-header .section-title-box div{color:#0f172a;}
+    .daywise-unified-header .section-title-box .icon-badge{color:#fff!important;}
+    .daywise-unified-card .table-responsive{background:#fff;}
+    .daywise-unified-card table thead th{background:#9e3434!important;color:#fff!important;border-color:#6f2323!important;font-weight:900;}
+    .daywise-unified-card table tbody tr.total-row td,
+    .daywise-unified-card table tbody tr.region-total-row td,
+    .daywise-unified-card table tbody tr.daywise-region-total-row td,
+    .daywise-unified-card table tbody tr.hpo-region-total-row td{background:#9e3434!important;color:#fff!important;font-weight:950;border-color:#6f2323!important;}
+    .dedicated-filter-card{margin-top:18px!important;}
+    .dedicated-filter-card .daywise-bottom-filter{margin:0;border:0;border-radius:0;background:#f8fafc;}
+    @media(max-width:900px){.daywise-bottom-filter-grid{grid-template-columns:1fr 1fr;}}
+    @media(max-width:520px){.daywise-bottom-filter-grid{grid-template-columns:1fr;}}
+
     select, input, textarea { width: 100%; padding: 8px 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 12px; color: #0f172a; background: #fff; outline: none; }
     select:focus, input:focus, textarea:focus { border-color: #2563eb; box-shadow: 0 0 0 2px rgba(37,99,235,0.12); }
 
@@ -2995,6 +3050,22 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
 <tbody id="hmoscBOMatrixBody"></tbody>
 </table>
 </div>
+
+<div class="hmosc-table-wrap" style="margin-top:18px;">
+<div class="hmosc-subtitle" style="font-weight:800;color:#334155;margin:0 0 10px 2px;">Current Selected Period — BO's by Accounts Opened (1–3, 4–7 and 8–10)</div>
+<table class="hmosc-table hmosc-compare-table" id="hmoscCurrentAccountRangeTable">
+<thead>
+<tr>
+<th class="left hmosc-division-head">Name of Division</th>
+<th>BO's with<br/>1–3 Accounts</th>
+<th>BO's with<br/>4–7 Accounts</th>
+<th>BO's with<br/>8–10 Accounts</th>
+<th>Total BO's<br/>1–10 Accounts</th>
+</tr>
+</thead>
+<tbody id="hmoscCurrentAccountRangeBody"></tbody>
+</table>
+</div>
 </section>
 </div>
 <!-- TAB 1: EXECUTIVE OVERVIEW -->
@@ -3939,12 +4010,75 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
 </div>
 <!-- Last 6 Operational Days Cards -->
 <div class="cards-row-6" id="last6DaysCardsContainer"></div>
-<!-- 4-Tier Expandable Month-Wise Section -->
-<div id="sec-month-wise" style="margin-top: 24px;">
+<!-- Month KPI Cards — intentionally kept directly below Last-6-Days cards, as in the previous version. -->
 <div class="cards-row-6" id="monthsCardsContainer"></div>
-<div class="card" style="border: 1px solid #e2e8f0; margin-top: 14px;">
-<div class="card-header">
-<span style="font-size: 14px; font-weight: 800;">Month Wise Net Addition (Expandable Hierarchy: Division → Sub-Division → SO Name → BO Name)</span>
+<!-- Dedicated Report Filters — independent and placed before the dedicated report -->
+<div class="card daywise-unified-card dedicated-filter-card" id="dedicatedReportFilterCard">
+  <div class="card-header daywise-unified-header">
+    <div class="section-title-box">
+      <div class="icon-badge">🔎</div>
+      <div>
+        <span style="font-size:14px;font-weight:800;">Dedicated Report Filters — Office wise Daily / Monthly</span>
+        <div style="font-size:11px;color:#64748b;">Independent filters for the Offices wise Dedicated Report only</div>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:flex-end;">
+    <button class="btn-action" type="button" onclick="resetDedicatedReportFilters()">↺ Reset</button>
+  </div>
+  </div>
+  <div class="daywise-bottom-filter" id="daywiseBottomFilter">
+    <div class="daywise-bottom-filter-title">🔎 Dedicated Report Filters — Office wise Daily / Monthly</div>
+    <div class="daywise-bottom-filter-grid">
+      <div class="daywise-bottom-filter-field"><label for="daywiseBottomDivision">Division</label><select id="daywiseBottomDivision" onchange="onDaywiseBottomDivisionChange()"><option value="ALL">All Divisions</option></select></div>
+      <div class="daywise-bottom-filter-field"><label for="daywiseBottomSubDivision">Sub Division</label><select id="daywiseBottomSubDivision" onchange="onDaywiseBottomSubDivisionChange()"><option value="ALL">All Sub Divisions</option></select></div>
+      <div class="daywise-bottom-filter-field"><label for="daywiseBottomSoName">SO Name</label><select id="daywiseBottomSoName" onchange="renderDedicatedDaywiseOfficeReport()"><option value="ALL">All SO Names</option></select></div>
+      <div class="daywise-bottom-filter-field"><label for="daywiseBottomOfficeType">Office Type</label><select id="daywiseBottomOfficeType" onchange="renderDedicatedDaywiseOfficeReport()"><option value="ALL">All Office Types</option><option value="HPO">HPO</option><option value="GPO">GPO</option><option value="SO">SO</option><option value="BO">BO</option></select></div>
+      <div class="daywise-bottom-filter-field"><label for="daywiseBottomReportType">Report Type</label><select id="daywiseBottomReportType" onchange="renderDedicatedDaywiseOfficeReport()"><option value="6DAYS">6 Days</option><option value="MONTHLY">Monthly</option></select></div>
+    </div>
+</div>
+<!-- Office wise Daily/Monthly required Net Addition -->
+<div class="card daywise-unified-card" id="dedicatedOfficeReportCard" style="margin-top:18px;">
+  <div class="card-header daywise-unified-header">
+    <div class="section-title-box">
+      <div class="icon-badge">OFF</div>
+      <div>
+        <span style="font-size:14px;font-weight:800;">Office wise Daily/Monthly Required Net Addition</span>
+        <div style="font-size:11px;color:#64748b;">Office-wise daily/monthly required net addition monitoring report</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:flex-end;">
+      <button class="btn-action btn-excel" onclick="exportDedicatedOfficeReportExcel()">📥 Excel</button>
+      <button class="btn-action btn-pdf-report" onclick="exportDedicatedOfficeReportPDF()">📄 PDF</button>
+    </div>
+  </div>
+  <div class="dedicated-report-summary" id="dedicatedOfficeReportSummary">Loading report…</div>
+  <div class="table-responsive dedicated-report-table-wrap">
+    <div style="font-size:13px;font-weight:900;color:#9e3434;margin:4px 0 8px;">Part I — Office-wise Achievement &amp; Target Position (Last 2 Reporting Days)</div>
+    <table id="dedicatedOfficePart1Table" aria-label="Office wise Achievement and Target Position — Part I">
+      <thead id="dedicatedOfficePart1Head"></thead>
+      <tbody id="dedicatedOfficePart1Body"></tbody>
+    </table>
+    <div style="height:14px;"></div>
+    <div id="dedicatedPart2Heading" style="font-size:13px;font-weight:900;color:#9e3434;margin:4px 0 8px;">Part II — Office wise Daily/Monthly Required Net Addition (6 Days)</div>
+    <table id="dedicatedOfficeReportTable" aria-label="Office wise Daily/Monthly required Net Addition — Part II" data-export-subsection="Office wise Daily/Monthly required Net Addition">
+      <thead id="dedicatedOfficeReportHead"></thead>
+      <tbody id="dedicatedOfficeReportBody"></tbody>
+    </table>
+    <table id="dedicatedOfficeCombinedExportTable" aria-label="Office wise Daily/Monthly required Net Addition — Part I + Part II" data-export-subsection="Office wise Daily/Monthly required Net Addition" style="display:none;"></table>
+  </div>
+</div>
+<!-- 4-Tier Expandable Month-Wise Section -->
+<div id="sec-month-wise" style="margin-top:18px;">
+<div class="card daywise-unified-card" style="margin-top:0;">
+<div class="card-header daywise-unified-header">
+<div class="section-title-box">
+<div class="icon-badge">MON</div>
+<div>
+<span style="font-size:14px;font-weight:800;">Month Wise Net Addition (Expandable Hierarchy: Division → Sub-Division → SO Name → BO Name)</span>
+<div style="font-size:11px;color:#64748b;">Monthly Net Addition with expandable four-level hierarchy</div>
+</div>
+</div>
 <div style="display: flex; gap: 8px;">
 <button class="btn-action" onclick="toggleAllMonthTree()">Toggle All Levels</button>
 <button class="btn-action" onclick="copyTableToClipboard('monthHierarchyTable')">📋 Copy to Excel</button>
@@ -3959,34 +4093,11 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
 </div>
 </div>
 </div>
-<!-- HPO / GPO Wise Month-Wise Net Addition -->
-<div class="card" id="sec-hpo-gpo-month-wise" style="border:1px solid #a7f3d0;margin-top:20px;">
-<div class="card-header" style="background:linear-gradient(135deg,#ecfdf5,#f0fdfa);">
-<div class="section-title-box">
-<div class="icon-badge" style="background:linear-gradient(135deg,#047857,#10b981);">HO</div>
-<div>
-<span style="font-size:14px;font-weight:800;">Month Wise Net Addition HPO / GPO Wise</span>
-<div style="font-size:11px;color:#64748b;">Month-wise Net Addition for each HPO and GPO</div>
-</div>
-</div>
-<div style="display:flex;gap:8px;">
-<button class="btn-action" onclick="copyTableToClipboard('hpoGpoMonthTable')">📋 Copy to Excel</button>
-<button class="btn-action btn-image" onclick="copyTableAsImage('hpoGpoMonthTable')">🖼️ Copy as Image</button>
-<button class="btn-action btn-excel" onclick="downloadTableAsExcel('hpoGpoMonthTable','Month_Wise_HPO_GPO_Net_Addition')">📥 Download Excel</button>
-</div>
-</div>
-<div class="table-responsive">
-<table id="hpoGpoMonthTable">
-<thead id="hpoGpoMonthTableHead"></thead>
-<tbody id="hpoGpoMonthTableBody"></tbody>
-</table>
-</div>
-</div>
 <!-- Division Wise Last 6 Days -->
-<div class="card" id="sec-div-wise" style="border: 1px solid #e2e8f0; margin-top: 20px;">
-<div class="card-header">
+<div class="card daywise-unified-card" id="sec-div-wise" style="border: 1px solid #e2e8f0; margin-top: 20px;">
+<div class="card-header daywise-unified-header">
 <div class="section-title-box">
-<div class="icon-badge" style="background:#1e3a8a;">DIV</div>
+<div class="icon-badge">DIV</div>
 <div>
 <span style="font-size: 14px; font-weight: 800;">1. Division Wise Day wise Performance (Last 6 Days) — Expandable: Division → Sub-Division → SO Name → BO Name</span>
 <span class="badge" id="badgeDivCount" style="margin-left: 6px;">0 Divisions</span>
@@ -4006,11 +4117,34 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
 </table>
 </div>
 </div>
-<!-- HPO / GPO Wise Last 6 Days -->
-<div class="card" id="sec-hpo-wise" style="border: 1px solid #e2e8f0; margin-top: 20px;">
-<div class="card-header">
+<!-- HPO / GPO Wise Month-Wise Net Addition -->
+<div class="card daywise-unified-card" id="sec-hpo-gpo-month-wise" style="border:1px solid #a7f3d0;margin-top:20px;">
+<div class="card-header daywise-unified-header"">
 <div class="section-title-box">
-<div class="icon-badge" style="background:#059669;">HPO</div>
+<div class="icon-badge">HO</div>
+<div>
+<span style="font-size:14px;font-weight:800;">Month Wise Net Addition HPO / GPO Wise</span>
+<div style="font-size:11px;color:#64748b;">Month-wise Net Addition for each HPO and GPO</div>
+</div>
+</div>
+<div style="display:flex;gap:8px;">
+<button class="btn-action" onclick="copyTableToClipboard('hpoGpoMonthTable')">📋 Copy to Excel</button>
+<button class="btn-action btn-image" onclick="copyTableAsImage('hpoGpoMonthTable')">🖼️ Copy as Image</button>
+<button class="btn-action btn-excel" onclick="downloadTableAsExcel('hpoGpoMonthTable','Month_Wise_HPO_GPO_Net_Addition')">📥 Download Excel</button>
+</div>
+</div>
+<div class="table-responsive">
+<table id="hpoGpoMonthTable">
+<thead id="hpoGpoMonthTableHead"></thead>
+<tbody id="hpoGpoMonthTableBody"></tbody>
+</table>
+</div>
+</div>
+<!-- HPO / GPO Wise Last 6 Days -->
+<div class="card daywise-unified-card" id="sec-hpo-wise" style="border: 1px solid #e2e8f0; margin-top: 20px;">
+<div class="card-header daywise-unified-header">
+<div class="section-title-box">
+<div class="icon-badge">HPO</div>
 <div>
 <span style="font-size: 14px; font-weight: 800;">3. HPO / GPO Wise Day wise Performance (Last 6 Days)</span>
 <span class="badge" id="badgeHpoCount" style="margin-left: 6px;">0 Head Offices &amp; GPO</span>
@@ -4029,6 +4163,7 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
 </table>
 </div>
 </div>
+
 </div>
 </div>
 </main><div class="footer">@ 2026 Nagpur Postal Region • Maharashtra Circle • Department of Posts • Ministry of Communications, Government of India • POSB Monitoring System</div>
@@ -6132,8 +6267,8 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
           case 'achievement': return `<td class="num" style="color:${o.achievement>=0?'#059669':'#dc2626'};font-weight:800;">${Math.round(o.achievement).toLocaleString('en-IN')}</td>`;
           case 'propPct': return `<td class="num" style="color:${o.propPct>=100?'#059669':'#2563eb'};font-weight:800;">${o.propPct.toFixed(1)}%</td>`;
           case 'annualPct': return `<td class="num">${o.annualPct.toFixed(1)}%</td>`;
-          case 'propShortfall': return `<td class="num" title="${o.propShortfall >= 0 ? 'Shortfall' : 'Excess'}" style="color:${o.propShortfall >= 0 ? '#dc2626' : '#059669'};font-weight:900;">${Math.abs(Math.round(o.propShortfall)).toLocaleString('en-IN')}</td>`;
-          case 'overallShortfall': return `<td class="num" title="${o.overallShortfall >= 0 ? 'Shortfall' : 'Excess'}" style="color:${o.overallShortfall >= 0 ? '#dc2626' : '#059669'};font-weight:900;">${Math.abs(Math.round(o.overallShortfall)).toLocaleString('en-IN')}</td>`;
+          case 'propShortfall': return `<td class="num ${o.propShortfall > 0 ? 'shortfall-display' : 'excess-display'}" title="${o.propShortfall > 0 ? 'Shortfall' : 'Excess'}">${o.propShortfall > 0 ? 'Shortfall: ' : 'Excess: '}${Math.abs(Math.round(o.propShortfall)).toLocaleString('en-IN')}</td>`;
+          case 'overallShortfall': return `<td class="num ${o.overallShortfall > 0 ? 'shortfall-display' : 'excess-display'}" title="${o.overallShortfall > 0 ? 'Shortfall' : 'Excess'}">${o.overallShortfall > 0 ? 'Shortfall: ' : 'Excess: '}${Math.abs(Math.round(o.overallShortfall)).toLocaleString('en-IN')}</td>`;
           case 'action': return `<td style="text-align:center;"><button class="edit-btn" onclick="editOfficeFigures(${JSON.stringify(o.officeName)}, ${JSON.stringify(o.division)}, ${Number(o.opened)||0}, ${Number(o.closed)||0})">✏️ Figures</button></td>`;
           default: return '<td></td>';
         }
@@ -6260,7 +6395,7 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
               <td class="num">${Math.round(d.target).toLocaleString()}</td>
               <td class="num">${d.propTgt.toLocaleString()}</td>
               <td class="num" style="color:${d.net >= 0 ? '#059669' : '#dc2626'};font-weight:800;">${Math.round(d.net).toLocaleString()}</td>
-              <td class="num" style="color:${balance >= 0 ? '#059669' : '#dc2626'};font-weight:800;">${Math.round(balance).toLocaleString()}</td>
+              <td class="num ${balance > 0 ? 'excess-display' : 'shortfall-display'}">${balance > 0 ? 'Excess: ' : 'Shortfall: '}${Math.abs(Math.round(balance)).toLocaleString('en-IN')}</td>
               <td class="num" style="color:${d.propPct >= 100 ? '#059669' : '#2563eb'};font-weight:800;">${d.propPct.toFixed(1)}%</td>
               <td class="num">${annualPct.toFixed(1)}%</td>
             </tr>`;
@@ -6281,7 +6416,7 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
             <td class="num"><strong>${Math.round(regionalAnnual).toLocaleString()}</strong></td>
             <td class="num"><strong>${Math.round(regionalProp).toLocaleString()}</strong></td>
             <td class="num" style="color:${regionalNet >= 0 ? '#059669' : '#dc2626'};font-weight:900;">${Math.round(regionalNet).toLocaleString()}</td>
-            <td class="num" style="color:${regionalBalance >= 0 ? '#059669' : '#dc2626'};font-weight:900;">${Math.round(regionalBalance).toLocaleString()}</td>
+            <td class="num ${regionalBalance > 0 ? 'excess-display' : 'shortfall-display'}">${regionalBalance > 0 ? 'Excess: ' : 'Shortfall: '}${Math.abs(Math.round(regionalBalance)).toLocaleString('en-IN')}</td>
             <td class="num" style="color:#2563eb;font-weight:900;">${regionalPropPct.toFixed(1)}%</td>
             <td class="num">${regionalAnnualPct.toFixed(1)}%</td>
           </tr>`;
@@ -8064,8 +8199,8 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
           <td class="num">${Math.round(s.target).toLocaleString()}</td>
           <td class="num">${s.propTgt.toLocaleString()}</td>
           <td class="num" style="color:${s.net >= 0 ? '#059669' : '#dc2626'}; font-weight:700;">${Math.round(s.net).toLocaleString()}</td>
-          <td class="num" class="shortfall-value">${Math.max(0, Math.round(propShortfall)).toLocaleString()}</td>
-          <td class="num" class="shortfall-value">${Math.max(0, Math.round(overallShortfall)).toLocaleString()}</td>
+          <td class="num ${propShortfall > 0 ? 'shortfall-display' : 'excess-display'}">${propShortfall > 0 ? 'Shortfall: ' : 'Excess: '}${Math.abs(Math.round(propShortfall)).toLocaleString('en-IN')}</td>
+          <td class="num ${overallShortfall > 0 ? 'shortfall-display' : 'excess-display'}">${overallShortfall > 0 ? 'Shortfall: ' : 'Excess: '}${Math.abs(Math.round(overallShortfall)).toLocaleString('en-IN')}</td>
           <td class="num" style="color:${s.propPct >= 100 ? '#059669' : '#dc2626'}; font-weight:700;">${s.propPct.toFixed(1)}%</td>
           <td class="num">${s.annPct.toFixed(1)}%</td>
         </tr>`;
@@ -8472,7 +8607,12 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
       });
 
       let html = '';
-      const divKeys = Object.keys(divTree).sort();
+      const divKeys = Object.keys(divTree).sort((a,b)=>{
+        const da=divTree[a], db=divTree[b];
+        const pa=(da.target*propFactor)>0 ? da.net/(da.target*propFactor)*100 : -Infinity;
+        const pb=(db.target*propFactor)>0 ? db.net/(db.target*propFactor)*100 : -Infinity;
+        return pb-pa || String(a).localeCompare(String(b));
+      });
 
       divKeys.forEach(divKey => {
         const d = divTree[divKey];
@@ -8497,14 +8637,19 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
             </td>
             <td class="num">${propTgt.toLocaleString()}</td>
             <td class="num font-bold" style="color:${d.net >= 0 ? '#059669' : '#dc2626'};">${Math.round(d.net).toLocaleString()}</td>
-            <td class="num font-bold" style="color:${(propTgt-d.net)>0?'#dc2626':'#059669'};">${Math.round(propTgt-d.net).toLocaleString()}</td>
+            <td class="num ${propTgt-d.net > 0 ? 'shortfall-display' : 'excess-display'}">${propTgt-d.net > 0 ? 'Shortfall: ' : 'Excess: '}${Math.abs(Math.round(propTgt-d.net)).toLocaleString('en-IN')}</td>
             <td class="num font-bold" style="color:#2563eb;">${propPct}%</td>
             <td class="num">${annPct}%</td>
           </tr>
         `;
 
         if (isDivExp) {
-          const subKeys = Object.keys(d.subs).sort();
+          const subKeys = Object.keys(d.subs).sort((a,b)=>{
+            const sa=d.subs[a], sb=d.subs[b];
+            const pa=(sa.target*propFactor)>0 ? sa.net/(sa.target*propFactor)*100 : -Infinity;
+            const pb=(sb.target*propFactor)>0 ? sb.net/(sb.target*propFactor)*100 : -Infinity;
+            return pb-pa || String(a).localeCompare(String(b));
+          });
           subKeys.forEach(subKey => {
             const sub = d.subs[subKey];
             const subId = `${divKey}__${subKey}`;
@@ -8529,14 +8674,19 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
                 </td>
                 <td class="num">${subPropTgt ? subPropTgt.toLocaleString() : '-'}</td>
                 <td class="num font-bold" style="color:${sub.net >= 0 ? '#059669' : '#dc2626'};">${Math.round(sub.net).toLocaleString()}</td>
-                <td class="num font-bold" style="color:${(subPropTgt-sub.net)>0?'#dc2626':'#059669'};">${Math.round(subPropTgt-sub.net).toLocaleString()}</td>
+                <td class="num ${subPropTgt-sub.net > 0 ? 'shortfall-display' : 'excess-display'}">${subPropTgt-sub.net > 0 ? 'Shortfall: ' : 'Excess: '}${Math.abs(Math.round(subPropTgt-sub.net)).toLocaleString('en-IN')}</td>
                 <td class="num font-bold" style="color:#0284c7;">${subPropPct}</td>
                 <td class="num">${subAnnPct}</td>
               </tr>
             `;
 
             if (isSubExp) {
-              const soKeys = Object.keys(sub.sos).sort();
+              const soKeys = Object.keys(sub.sos).sort((a,b)=>{
+                const sa=sub.sos[a], sb=sub.sos[b];
+                const pa=(sa.target*propFactor)>0 ? sa.net/(sa.target*propFactor)*100 : -Infinity;
+                const pb=(sb.target*propFactor)>0 ? sb.net/(sb.target*propFactor)*100 : -Infinity;
+                return pb-pa || String(a).localeCompare(String(b));
+              });
               soKeys.forEach(soKey => {
                 const so = sub.sos[soKey];
                 const soId = `${subId}__${soKey}`;
@@ -8558,14 +8708,19 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
                     <td class="num">${so.target ? so.target.toLocaleString() : '-'}</td>
                     <td class="num">${soPropTgt ? soPropTgt.toLocaleString() : '-'}</td>
                     <td class="num font-bold" style="color:${so.net >= 0 ? '#059669' : '#dc2626'};">${Math.round(so.net).toLocaleString()}</td>
-                    <td class="num font-bold" style="color:${(soPropTgt-so.net)>0?'#dc2626':'#059669'};">${Math.round(soPropTgt-so.net).toLocaleString()}</td>
+                    <td class="num ${soPropTgt-so.net > 0 ? 'shortfall-display' : 'excess-display'}">${soPropTgt-so.net > 0 ? 'Shortfall: ' : 'Excess: '}${Math.abs(Math.round(soPropTgt-so.net)).toLocaleString('en-IN')}</td>
                     <td class="num font-bold" style="color:#7c3aed;">${soPropPct}</td>
                     <td class="num">${soAnnPct}</td>
                   </tr>
                 `;
 
                 if (isSoExp) {
-                  const boKeys = Object.keys(so.bos).sort();
+                  const boKeys = Object.keys(so.bos).sort((a,b)=>{
+                    const ba=so.bos[a], bb=so.bos[b];
+                    const pa=(ba.target*propFactor)>0 ? ba.net/(ba.target*propFactor)*100 : -Infinity;
+                    const pb=(bb.target*propFactor)>0 ? bb.net/(bb.target*propFactor)*100 : -Infinity;
+                    return pb-pa || String(a).localeCompare(String(b));
+                  });
                   boKeys.forEach(boKey => {
                     const bo = so.bos[boKey];
                     const boPropTgt = Math.round(bo.target * propFactor);
@@ -8584,7 +8739,7 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
                         <td class="num">${bo.target ? bo.target.toLocaleString() : '-'}</td>
                         <td class="num">${boPropTgt ? boPropTgt.toLocaleString() : '-'}</td>
                         <td class="num font-bold" style="color:${bo.net >= 0 ? '#059669' : '#dc2626'};">${Math.round(bo.net).toLocaleString()}</td>
-                        <td class="num font-bold" style="color:${(boPropTgt-bo.net)>0?'#dc2626':'#059669'};">${Math.round(boPropTgt-bo.net).toLocaleString()}</td>
+                        <td class="num ${boPropTgt-bo.net > 0 ? 'shortfall-display' : 'excess-display'}">${boPropTgt-bo.net > 0 ? 'Shortfall: ' : 'Excess: '}${Math.abs(Math.round(boPropTgt-bo.net)).toLocaleString('en-IN')}</td>
                         <td class="num">${boPropPct}</td>
                         <td class="num">${boAnnPct}</td>
                       </tr>
@@ -8613,7 +8768,7 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
           <td class="num">${totalAnnualTarget.toLocaleString()}</td>
           <td class="num">${totalPropTarget.toLocaleString()}</td>
           <td class="num" style="color:${totalNet >= 0 ? '#059669' : '#dc2626'};">${Math.round(totalNet).toLocaleString()}</td>
-          <td class="num" class="shortfall-value">${Math.max(0, Math.round(totalShortfall)).toLocaleString()}</td>
+          <td class="num ${totalShortfall > 0 ? 'shortfall-display' : 'excess-display'}">${totalShortfall > 0 ? 'Shortfall: ' : 'Excess: '}${Math.abs(Math.round(totalShortfall)).toLocaleString('en-IN')}</td>
           <td class="num" style="color:#2563eb;">${totalPropPct}%</td>
           <td class="num">${totalAnnPct}%</td>
         </tr>`;
@@ -8719,9 +8874,654 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
       return `<span class="metric-bubble ${cls}">${val.toLocaleString()}</span>`;
     }
 
+    // =========================================================
+    // DEDICATED OFFICES-WISE MONTHLY / 6-DAY REPORT
+    // This report is deliberately independent from all existing
+    // Day-wise / Month-wise subsections and their top filters.
+    // =========================================================
+    function getDaywiseBottomFilters(){
+      return {
+        division: document.getElementById('daywiseBottomDivision')?.value || 'ALL',
+        subDivision: document.getElementById('daywiseBottomSubDivision')?.value || 'ALL',
+        soName: document.getElementById('daywiseBottomSoName')?.value || 'ALL',
+        officeType: document.getElementById('daywiseBottomOfficeType')?.value || 'ALL',
+        reportType: document.getElementById('daywiseBottomReportType')?.value || '6DAYS'
+      };
+    }
+
+    function populateDaywiseBottomFilters(){
+      const divEl=document.getElementById('daywiseBottomDivision'), subEl=document.getElementById('daywiseBottomSubDivision'), soEl=document.getElementById('daywiseBottomSoName');
+      if(!divEl||!subEl||!soEl||!Array.isArray(rawTransactions)||!rawTransactions.length)return;
+      const oldDiv=divEl.value||'ALL', oldSub=subEl.value||'ALL', oldSo=soEl.value||'ALL';
+      const divs=[...new Set(rawTransactions.map(r=>String(r.division||'').trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
+      divEl.innerHTML='<option value="ALL">All Divisions</option>'+divs.map(v=>`<option value="${weeklyEsc(v)}">${weeklyEsc(v)}</option>`).join('');
+      divEl.value=divs.includes(oldDiv)?oldDiv:'ALL';
+
+      const subRows=rawTransactions.filter(r=>divEl.value==='ALL'||String(r.division||'').trim()===divEl.value);
+      const subs=[...new Set(subRows.map(r=>String(r.subDivision||'').trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
+      subEl.innerHTML='<option value="ALL">All Sub Divisions</option>'+subs.map(v=>`<option value="${weeklyEsc(v)}">${weeklyEsc(v)}</option>`).join('');
+      subEl.value=subs.includes(oldSub)?oldSub:'ALL';
+
+      const soRows=subRows.filter(r=>subEl.value==='ALL'||String(r.subDivision||'').trim()===subEl.value);
+      const sos=[...new Set(soRows.map(r=>String(r.soName||'').trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
+      soEl.innerHTML='<option value="ALL">All SO Names</option>'+sos.map(v=>`<option value="${weeklyEsc(v)}">${weeklyEsc(v)}</option>`).join('');
+      soEl.value=sos.includes(oldSo)?oldSo:'ALL';
+    }
+
+    function onDaywiseBottomDivisionChange(){
+      // Selecting a Division refreshes only the dedicated report controls/report.
+      populateDaywiseBottomFilters();
+      renderDedicatedDaywiseOfficeReport();
+    }
+    function onDaywiseBottomSubDivisionChange(){
+      populateDaywiseBottomFilters();
+      renderDedicatedDaywiseOfficeReport();
+    }
+
+    function dedicatedOfficeType(r){
+      const t=officeCountType(r);
+      if(t==='SPO') return 'SO';
+      if(t==='BPO') return 'BO';
+      return t;
+    }
+
+    function dedicatedFormatDate(iso){
+      if(!iso)return '';
+      const p=String(iso).slice(0,10).split('-');
+      return p.length===3 ? `${p[2]}-${p[1]}-${p[0]}` : String(iso);
+    }
+
+    function dedicatedFormatMonth(month){
+      const d=new Date(`${month}-01T00:00:00`);
+      return Number.isNaN(d.getTime()) ? month : d.toLocaleString('en-US',{month:'short',year:'numeric'});
+    }
+
+    function dedicatedRemainingFYDays(asOfISO){
+      const elapsed=universalFYElapsedDays(asOfISO);
+      return Math.max(0, UNIVERSAL_FY_DAYS-elapsed);
+    }
+
+    function dedicatedRemainingFYMonths(asOfISO){
+      const d=new Date(`${String(asOfISO||'').slice(0,10)}T00:00:00`);
+      if(Number.isNaN(d.getTime()))return 0;
+      const fyEnd=new Date(`${TARGET_FY_END}T00:00:00`);
+      let count=0;
+      let cur=new Date(d.getFullYear(),d.getMonth()+1,1);
+      while(cur<=fyEnd){count++;cur=new Date(cur.getFullYear(),cur.getMonth()+1,1);}
+      return count;
+    }
+
+    // Dedicated report target source is deliberately tied to the same target stores
+    // used by the two dashboard sections requested by the user:
+    //   • Division / Sub Division -> Target Vs Achievement target settings
+    //   • SO / individual office -> Sub Dn Target Monitoring office targets
+    // Matching is tolerant of case/extra spaces so the report does not silently
+    // return zero when the visible transaction name differs only in formatting.
+    function dedicatedTargetFromMap(map, name){
+      if(!map || !name) return 0;
+      const raw=String(name).trim();
+      if(Object.prototype.hasOwnProperty.call(map,raw)) return Number(map[raw])||0;
+      const key=raw.toLowerCase().replace(/\s+/g,' ');
+      const hit=Object.keys(map).find(k=>String(k).trim().toLowerCase().replace(/\s+/g,' ')===key);
+      return hit!==undefined ? (Number(map[hit])||0) : 0;
+    }
+
+    function dedicatedDivisionTarget(name){
+      const custom=dedicatedTargetFromMap(customTargets?.divisions,name);
+      return custom>0 ? custom : Math.max(0,Number(DEFAULT_DIVISION_TARGETS?.[name])||0);
+    }
+
+    function dedicatedSubDivisionTarget(name){
+      const custom=dedicatedTargetFromMap(customTargets?.subDivisions,name);
+      if(custom>0) return custom;
+      const direct=Number(DEFAULT_SUB_DIVISION_TARGETS?.[name])||0;
+      if(direct>0) return direct;
+      return Math.max(0,dedicatedTargetFromMap(DEFAULT_SUB_DIVISION_TARGETS,name));
+    }
+
+    function dedicatedOfficeTarget(row){
+      const sol=String(row?.solId||'').trim();
+      const office=String(row?.officeName||'').trim();
+      const bySol=dedicatedTargetFromMap(customTargets?.offices,sol);
+      if(bySol>0) return bySol;
+      return Math.max(0,dedicatedTargetFromMap(customTargets?.offices,office));
+    }
+
+    function dedicatedReportDisplayName(group, filters){
+      const name=String(group?.name||'Unassigned').trim()||'Unassigned';
+      const div=String(group?.division||filters?.division||'').trim();
+      const selectedDiv=filters?.division && filters.division!=='ALL' ? filters.division : '';
+      if(group?.level==='DIVISION') return name;
+      if(group?.level==='SUB-DIVISION') return `${name}${div ? ` (${div})` : selectedDiv ? ` (${selectedDiv})` : ''}`;
+      if(group?.level==='SO') return `${name}${div ? ` (${div})` : selectedDiv ? ` (${selectedDiv})` : ''}`;
+      // Individual office row: always carry the parent Division in the displayed
+      // report/export name, e.g. Gurukunj Ashram S.O (Amravati Division).
+      return `${name}${div ? ` (${div})` : selectedDiv ? ` (${selectedDiv})` : ''}`;
+    }
+
+    function dedicatedExportContext(filters, reportType){
+      const div=filters?.division && filters.division!=='ALL' ? filters.division : '';
+      const sub=filters?.subDivision && filters.subDivision!=='ALL' ? filters.subDivision : '';
+      const so=filters?.soName && filters.soName!=='ALL' ? filters.soName : '';
+      let level='Division-wise';
+      let parent='';
+      if(so){ level='Office-wise'; parent=div || ''; }
+      else if(sub){ level='SO Name-wise'; parent=div || ''; }
+      else if(div){ level='Sub Division-wise'; parent=div; }
+      const period=reportType==='6DAYS'?'6 Days':'Month Wise';
+      return {level,parent,period};
+    }
+
+    function dedicatedAnnualTargetForGroup(group){
+      if(!group) return 0;
+      const level=String(group.level||'').toUpperCase();
+      if(level==='DIVISION') return Math.max(0, dedicatedDivisionTarget(group.name));
+      if(level==='SUB-DIVISION') return Math.max(0, dedicatedSubDivisionTarget(group.name));
+      const seen=new Set();
+      let total=0;
+      const rows=Array.isArray(group.rows)?group.rows:[];
+      rows.forEach(r=>{
+        const key=canonicalOfficeKey(r);
+        if(!key || seen.has(key)) return;
+        seen.add(key);
+        total += Math.max(0, dedicatedOfficeTarget(r));
+      });
+      return Math.max(0,total);
+    }
+
+    function dedicatedAggregateRows(dataset, filters){
+      const rows=Array.isArray(dataset)?dataset:[];
+      const selectedSo=filters.soName!=='ALL';
+      const selectedSub=filters.subDivision!=='ALL';
+      const selectedDiv=filters.division!=='ALL';
+      const typeFilter=filters.officeType;
+      const base=rows.filter(r=>{
+        if(filters.division!=='ALL' && String(r.division||'').trim()!==filters.division)return false;
+        if(filters.subDivision!=='ALL' && String(r.subDivision||'').trim()!==filters.subDivision)return false;
+        if(filters.soName!=='ALL' && String(r.soName||'').trim()!==filters.soName)return false;
+        if(typeFilter!=='ALL' && dedicatedOfficeType(r)!==typeFilter)return false;
+        return true;
+      });
+
+      // Display hierarchy requested for this dedicated report:
+      // 1) default = Division-wise
+      // 2) Division selected = Sub-Division-wise
+      // 3) Sub-Division selected = SO-wise
+      // 4) SO selected = offices under that SO
+      const level=selectedSo?'OFFICE':selectedSub?'SO':selectedDiv?'SUB-DIVISION':'DIVISION';
+      const map=new Map();
+      const officeTargetSeen=new Map();
+      const make=(key,meta)=>{
+        if(!map.has(key))map.set(key,{key,...meta,dates:{},months:{},total:0,annualTarget:0});
+        return map.get(key);
+      };
+      const add=(g,r)=>{
+        const dt=String(r.iso||'').slice(0,10), mo=String(r.month||dt.slice(0,7));
+        if(dt){if(!g.dates[dt])g.dates[dt]={opened:0,closed:0,net:0};g.dates[dt].opened+=Number(r.opened)||0;g.dates[dt].closed+=Number(r.closed)||0;g.dates[dt].net+=Number(r.net)||0;}
+        if(mo){if(!g.months[mo])g.months[mo]={opened:0,closed:0,net:0};g.months[mo].opened+=Number(r.opened)||0;g.months[mo].closed+=Number(r.closed)||0;g.months[mo].net+=Number(r.net)||0;}
+        g.total+=Number(r.net)||0;
+        const ok=canonicalOfficeKey(r);
+        if(ok&&!officeTargetSeen.has(ok))officeTargetSeen.set(ok,Math.max(0,Number(getTargetForOffice(r.solId,r.officeName))||0));
+        if(ok){if(!g._officeKeys)g._officeKeys=new Set();g._officeKeys.add(ok);}
+      };
+
+      base.forEach(r=>{
+        let key='',meta={};
+        if(level==='DIVISION'){
+          const name=String(r.division||'Unassigned').trim()||'Unassigned';
+          key=`DIV:${name}`; meta={name,level:'DIVISION',division:name,subDivision:'-',officeType:'DIVISION'};
+        }else if(level==='SUB-DIVISION'){
+          const name=String(r.subDivision||'Unassigned').trim()||'Unassigned';
+          key=`SUB:${name}`; meta={name,level:'SUB-DIVISION',division:filters.division,subDivision:name,officeType:'SUB-DIVISION'};
+        }else if(level==='SO'){
+          const name=String(r.soName||'Unassigned').trim()||'Unassigned';
+          key=`SO:${name}`; meta={name,level:'SO',division:r.division||filters.division,subDivision:r.subDivision||filters.subDivision,officeType:'SO'};
+        }else{
+          const name=String(r.officeName||canonicalOfficeKey(r)||'Unassigned').trim()||'Unassigned';
+          key=`OFFICE:${canonicalOfficeKey(r)}`; meta={name,level:dedicatedOfficeType(r),division:r.division||'-',subDivision:r.subDivision||'-',officeType:dedicatedOfficeType(r),solId:r.solId||'-'};
+        }
+        add(make(key,meta),r);
+      });
+
+      map.forEach(g=>{
+        g.rows = [];
+      });
+      // Rebuild each group's source rows from the filtered dataset so the
+      // configured Division/Sub-Division targets can be used without double
+      // counting office targets.
+      base.forEach(r=>{
+        let key='';
+        if(level==='DIVISION'){
+          const name=String(r.division||'Unassigned').trim()||'Unassigned'; key=`DIV:${name}`;
+        }else if(level==='SUB-DIVISION'){
+          const name=String(r.subDivision||'Unassigned').trim()||'Unassigned'; key=`SUB:${name}`;
+        }else if(level==='SO'){
+          const name=String(r.soName||'Unassigned').trim()||'Unassigned';
+          key=`SO:${name}`;
+        }else{
+          key=`OFFICE:${canonicalOfficeKey(r)}`;
+        }
+        if(map.has(key)) map.get(key).rows.push(r);
+      });
+      map.forEach(g=>{
+        g.annualTarget = dedicatedAnnualTargetForGroup(g);
+        delete g._officeKeys;
+      });
+      return [...map.values()].filter(g=>Object.keys(g.dates).length||Object.keys(g.months).length);
+    }
+
+    function dedicatedCumulativeAchievementForTarget(row, asOfISO){
+      // Reconstruct the row's cumulative achievement through the latest data date.
+      // The row's displayed period values are already filtered/aggregated, so this
+      // helper uses its monthly/date aggregates where available.
+      let total=0;
+      Object.entries(row.dates||{}).forEach(([dt,v])=>{if(dt<=asOfISO)total+=Number(v.net)||0;});
+      if(Object.keys(row.dates||{}).length)return total;
+      return Number(row.total)||0;
+    }
+
+    function dedicatedShortfallCell(value){
+      const n=Math.round(Number(value)||0);
+      const abs=Math.abs(n).toLocaleString('en-IN');
+      if(n>0)return `<span class="dedicated-shortfall">${abs}</span>`;
+      if(n<0)return `<span class="dedicated-excess">${abs}</span>`;
+      return `<span style="font-weight:900;">0</span>`;
+    }
+
+    // Balance display for the requested formula: Average - Required.
+    // Positive = Excess (green), Negative = Shortfall (red); the minus sign is hidden.
+    function dedicatedTotalBalanceClass(value){
+      const n=Number(value)||0;
+      return n>0?'dedicated-total-shortfall':n<0?'dedicated-total-excess':'';
+    }
+
+    function dedicatedDailyBalanceCell(value){
+      const n=Math.round(Number(value)||0);
+      const abs=Math.abs(n).toLocaleString('en-IN');
+      if(n>0)return `<span class="dedicated-excess">${abs}</span>`;
+      if(n<0)return `<span class="dedicated-shortfall">${abs}</span>`;
+      return `<span style="font-weight:900;">0</span>`;
+    }
+
+    function resetDedicatedReportFilters(){
+      const ids=['daywiseBottomDivision','daywiseBottomSubDivision','daywiseBottomSoName','daywiseBottomOfficeType'];
+      ids.forEach(id=>{const el=document.getElementById(id);if(el)el.value='ALL';});
+      const report=document.getElementById('daywiseBottomReportType');
+      if(report) report.value='6DAYS';
+      populateDaywiseBottomFilters();
+      const d=document.getElementById('daywiseBottomDivision'); if(d)d.value='ALL';
+      const sd=document.getElementById('daywiseBottomSubDivision'); if(sd)sd.value='ALL';
+      const so=document.getElementById('daywiseBottomSoName'); if(so)so.value='ALL';
+      const ot=document.getElementById('daywiseBottomOfficeType'); if(ot)ot.value='ALL';
+      if(report)report.value='6DAYS';
+      renderDedicatedDaywiseOfficeReport();
+    }
+
+    function dedicatedPart1OfficeRows(filters){
+      const base=(Array.isArray(rawTransactions)?rawTransactions:[]).filter(r=>{
+        if(filters.division!=='ALL' && String(r.division||'').trim()!==filters.division)return false;
+        if(filters.subDivision!=='ALL' && String(r.subDivision||'').trim()!==filters.subDivision)return false;
+        if(filters.soName!=='ALL' && String(r.soName||'').trim()!==filters.soName)return false;
+        if(filters.officeType!=='ALL' && dedicatedOfficeType(r)!==filters.officeType)return false;
+        return true;
+      });
+
+      // Hierarchy for BOTH Part I and Part II:
+      // ALL → Division → Sub Division → SO Name → offices under selected SO.
+      const level=filters.soName!=='ALL'?'OFFICE':filters.subDivision!=='ALL'?'SO':filters.division!=='ALL'?'SUB-DIVISION':'DIVISION';
+      const groups=new Map();
+      base.forEach(r=>{
+        const officeKey=canonicalOfficeKey(r);
+
+        let key='',name='',meta={};
+        if(level==='DIVISION'){
+          name=String(r.division||'Unassigned').trim()||'Unassigned'; key=`DIV:${name}`;
+          meta={division:name,subDivision:'-',soName:'-',officeType:'DIVISION'};
+        }else if(level==='SUB-DIVISION'){
+          name=String(r.subDivision||'Unassigned').trim()||'Unassigned'; key=`SUB:${name}`;
+          meta={division:filters.division,subDivision:name,soName:'-',officeType:'SUB-DIVISION'};
+        }else if(level==='SO'){
+          name=String(r.soName||'Unassigned').trim()||'Unassigned'; key=`SO:${name}`;
+          meta={division:r.division||filters.division,subDivision:r.subDivision||filters.subDivision,soName:name,officeType:'SO'};
+        }else{
+          name=String(r.officeName||canonicalOfficeKey(r)||'Unassigned').trim()||'Unassigned'; key=`OFFICE:${canonicalOfficeKey(r)}`;
+          meta={division:r.division||'-',subDivision:r.subDivision||'-',soName:r.soName||filters.soName,officeType:dedicatedOfficeType(r),solId:r.solId||'-'};
+        }
+        if(!groups.has(key))groups.set(key,{key,name,...meta,rows:[],annualTarget:0});
+        const g=groups.get(key);
+        g.rows.push(r);
+      });
+      groups.forEach(g=>{
+        g.level = g.officeType==='DIVISION' ? 'DIVISION' : g.officeType==='SUB-DIVISION' ? 'SUB-DIVISION' : g.officeType==='SO' ? 'SO' : 'OFFICE';
+        g.annualTarget = dedicatedAnnualTargetForGroup(g);
+      });
+      return [...groups.values()].sort((a,b)=>a.name.localeCompare(b.name));
+    }
+
+    function dedicatedDateNet(rows, iso){
+      return rows.reduce((sum,r)=>sum+(String(r.iso||'').slice(0,10)===iso?(Number(r.net)||0):0),0);
+    }
+
+    function dedicatedCumulativeRows(rows, asOfISO){
+      return rows.reduce((sum,r)=>{
+        const dt=String(r.iso||'').slice(0,10);
+        return sum + (dt && dt<=asOfISO ? (Number(r.net)||0) : 0);
+      },0);
+    }
+
+    function renderDedicatedOfficePart1(filters){
+      const head=document.getElementById('dedicatedOfficePart1Head');
+      const body=document.getElementById('dedicatedOfficePart1Body');
+      if(!head||!body)return {latest:'',previous:'',baseline:''};
+      const allDates=[...new Set((rawTransactions||[]).map(r=>String(r.iso||'').slice(0,10)).filter(Boolean))].sort();
+      const latest=allDates.length?allDates[allDates.length-1]:'';
+      const previous=allDates.length>1?allDates[allDates.length-2]:latest;
+      const baselineDate=previous?(()=>{const d=new Date(`${previous}T00:00:00`);d.setDate(d.getDate()-1);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;})():'';
+      const asOf=latest||'2026-09-28';
+      const rows=dedicatedPart1OfficeRows(filters);
+      const propFactor=universalPropFactor(asOf);
+      // Part I default order: highest % Achievement of Proportionate Target first.
+      // The Total row is rendered separately below, so it is never included in sorting.
+      const sortedRows=[...rows].sort((a,b)=>{
+        const aTarget=Math.round(a.annualTarget||0);
+        const bTarget=Math.round(b.annualTarget||0);
+        const aProp=Math.round(aTarget*propFactor);
+        const bProp=Math.round(bTarget*propFactor);
+        const aAchievement=Math.round(dedicatedCumulativeRows(a.rows,asOf));
+        const bAchievement=Math.round(dedicatedCumulativeRows(b.rows,asOf));
+        const aPct=aProp>0?(aAchievement/aProp)*100:0;
+        const bPct=bProp>0?(bAchievement/bProp)*100:0;
+        return (bPct-aPct) || a.name.localeCompare(b.name);
+      });
+      head.innerHTML=`<tr>
+        <th>${filters.soName!=='ALL'?'Office Name':filters.subDivision!=='ALL'?'SO Name':filters.division!=='ALL'?'Sub Division Name':'Division Name'}</th>
+        <th class="num">Target</th>
+        <th class="num">Prop. Target,<br>Upto ${dedicatedFormatDate(asOf)}</th>
+        <th class="num">Achievement Till<br>${dedicatedFormatDate(baselineDate)}</th>
+        <th class="num">Net Addition on<br>${dedicatedFormatDate(previous)}</th>
+        <th class="num">Net Addition on<br>${dedicatedFormatDate(latest)}</th>
+        <th class="num">Achievement<br>Up to ${dedicatedFormatDate(asOf)}</th>
+        <th class="num">% Achievement of<br>Prop.Target</th>
+        <th class="num">Shortfall against<br>Prop. Target</th>
+        <th class="num">% Achievement of<br>Total Target</th>
+        <th class="num">Total Shortfall</th>
+      </tr>`;
+      let totals={target:0,prop:0,ach25:0,netPrev:0,netLatest:0,achievement:0,propShortfall:0,totalShortfall:0};
+      const rendered=sortedRows.map(g=>{
+        const target=Math.round(g.annualTarget||0);
+        const propTarget=Math.round(target*propFactor);
+        const achievementTillBaseline=Math.round(dedicatedCumulativeRows(g.rows,baselineDate));
+        const netPrev=Math.round(dedicatedDateNet(g.rows,previous));
+        const netLatest=Math.round(dedicatedDateNet(g.rows,latest));
+        const achievement=Math.round(dedicatedCumulativeRows(g.rows,asOf));
+        const propPct=propTarget>0?(achievement/propTarget)*100:0;
+        const propShortfall=propTarget-achievement;
+        const totalPct=target>0?(achievement/target)*100:0;
+        const totalShortfall=target-achievement;
+        totals.target+=target; totals.prop+=propTarget; totals.ach25+=achievementTillBaseline; totals.netPrev+=netPrev; totals.netLatest+=netLatest; totals.achievement+=achievement; totals.propShortfall+=propShortfall; totals.totalShortfall+=totalShortfall;
+        const netCell=(v)=>`<span class="${v<0?'dedicated-net-negative':v>0?'dedicated-net-positive':'dedicated-net-zero'}">${v.toLocaleString('en-IN')}</span>`;
+        const pctCell=(v)=>`${v.toFixed(1)}%`;
+        return `<tr>
+          <td><strong>${weeklyEsc(dedicatedReportDisplayName(g,filters))}</strong></td>
+          <td class="num">${target.toLocaleString('en-IN')}</td>
+          <td class="num">${propTarget.toLocaleString('en-IN')}</td>
+          <td class="num">${achievementTillBaseline.toLocaleString('en-IN')}</td>
+          <td class="num">${netCell(netPrev)}</td>
+          <td class="num">${netCell(netLatest)}</td>
+          <td class="num">${achievement.toLocaleString('en-IN')}</td>
+          <td class="num">${pctCell(propPct)}</td>
+          <td class="num">${dedicatedShortfallCell(propShortfall)}</td>
+          <td class="num">${pctCell(totalPct)}</td>
+          <td class="num">${dedicatedShortfallCell(totalShortfall)}</td>
+        </tr>`;
+      }).join('');
+      const totalPropPct=totals.prop>0?(totals.achievement/totals.prop)*100:0;
+      const totalPct=totals.target>0?(totals.achievement/totals.target)*100:0;
+      const totalRow=rows.length?`<tr class="dedicated-total-row">
+        <td><strong>Total</strong></td>
+        <td class="num"><strong>${totals.target.toLocaleString('en-IN')}</strong></td>
+        <td class="num"><strong>${totals.prop.toLocaleString('en-IN')}</strong></td>
+        <td class="num"><strong>${totals.ach25.toLocaleString('en-IN')}</strong></td>
+        <td class="num"><strong>${totals.netPrev.toLocaleString('en-IN')}</strong></td>
+        <td class="num"><strong>${totals.netLatest.toLocaleString('en-IN')}</strong></td>
+        <td class="num"><strong>${totals.achievement.toLocaleString('en-IN')}</strong></td>
+        <td class="num"><strong>${totalPropPct.toFixed(1)}%</strong></td>
+        <td class="num ${dedicatedTotalBalanceClass(totals.propShortfall)}"><strong>${Math.abs(Math.round(totals.propShortfall)).toLocaleString('en-IN')}</strong></td>
+        <td class="num"><strong>${totalPct.toFixed(1)}%</strong></td>
+        <td class="num ${dedicatedTotalBalanceClass(totals.totalShortfall)}"><strong>${Math.abs(Math.round(totals.totalShortfall)).toLocaleString('en-IN')}</strong></td>
+      </tr>`:'';
+      body.innerHTML=rendered+totalRow || `<tr><td colspan="11" style="text-align:center;padding:18px;color:#64748b;">No data available for the selected filters.</td></tr>`;
+      return {latest,previous,baseline:baselineDate};
+    }
+
+    function buildDedicatedCombinedExportTable(){
+      const combined=document.getElementById('dedicatedOfficeCombinedExportTable');
+      const p1=document.getElementById('dedicatedOfficePart1Table');
+      const p2=document.getElementById('dedicatedOfficeReportTable');
+      if(!combined||!p1||!p2)return null;
+      const filters=getDaywiseBottomFilters();
+      const reportType=filters.reportType||'6DAYS';
+      const ctx=dedicatedExportContext(filters,reportType);
+      const suffix=ctx.parent ? ` (${ctx.parent})` : '';
+      const p1Title=`Part I — Office-wise Achievement & Target Position (Last 2 Reporting Days)${suffix}`;
+      const p2Title=`Part II — Office wise Daily/Monthly Required Net Addition (${ctx.period})${suffix}`;
+      combined.innerHTML='';
+      combined.setAttribute('data-export-subsection', `${ctx.level} Dedicated Report${suffix}`);
+      combined.setAttribute('aria-label', `${ctx.level} Dedicated Report${suffix}`);
+
+      // Build a real THEAD/TBODY export table.  Keeping the export table in the
+      // DOM (rather than exporting a display:none fragment) fixes blank PDF/XLSX
+      // output in browsers that refuse to measure hidden table content.
+      const thead=document.createElement('thead');
+      const tbody=document.createElement('tbody');
+      combined.appendChild(thead); combined.appendChild(tbody);
+      const p1Rows=Array.from(p1.querySelectorAll('tr'));
+      const p2Rows=Array.from(p2.querySelectorAll('tr'));
+      const maxCols=Math.max(1, ...p1Rows.map(r=>r.children.length), ...p2Rows.map(r=>r.children.length));
+      const titleRow=(txt)=>{
+        const tr=document.createElement('tr');
+        const th=document.createElement('th');
+        th.colSpan=maxCols; th.textContent=txt;
+        th.style.background='#9e3434'; th.style.color='#fff'; th.style.fontWeight='900'; th.style.textAlign='left'; th.style.padding='7px';
+        tr.appendChild(th); return tr;
+      };
+      tbody.appendChild(titleRow(p1Title));
+      p1Rows.forEach(r=>tbody.appendChild(r.cloneNode(true)));
+      const spacer=document.createElement('tr');
+      const spacerCell=document.createElement('td'); spacerCell.colSpan=maxCols; spacerCell.textContent=''; spacerCell.style.height='8px';
+      spacer.appendChild(spacerCell); tbody.appendChild(spacer);
+      tbody.appendChild(titleRow(p2Title));
+      p2Rows.forEach(r=>tbody.appendChild(r.cloneNode(true)));
+      combined.style.display='table';
+      combined.style.visibility='visible';
+      combined.style.position='static';
+      combined.style.left='auto';
+      combined.style.top='auto';
+      combined.style.width='100%';
+      return combined;
+    }
+
+    function cleanupDedicatedCombinedExport(table){
+      if(!table)return;
+      table.style.display='none';
+      table.style.visibility='hidden';
+      table.style.position='static';
+      table.style.left=''; table.style.top=''; table.style.width='';
+    }
+
+    function exportDedicatedOfficeReportPDF(){
+      const p1=document.getElementById('dedicatedOfficePart1Table');
+      const p2=document.getElementById('dedicatedOfficeReportTable');
+      if(!p1 || !p2){ alert('Dedicated report tables are not available yet.'); return; }
+
+      const filters=getDaywiseBottomFilters();
+      const reportType=filters.reportType||'6DAYS';
+      const ctx=dedicatedExportContext(filters,reportType);
+      const suffix=ctx.parent ? ` (${ctx.parent})` : '';
+      const p1Title=`Part I — Office-wise Achievement & Target Position (Last 2 Reporting Days)${suffix}`;
+      const p2Title=`Part II — Office wise Daily/Monthly Required Net Addition (${ctx.period})${suffix}`;
+
+      // Export the two rendered tables directly. Do not export the hidden/off-screen
+      // combined table because its positioning can be inherited by the print clone.
+      const cleanTable=(source)=>{
+        const clone=source.cloneNode(true);
+        clone.removeAttribute('id');
+        clone.style.cssText='width:100%;display:table;position:static;left:auto;top:auto;visibility:visible;opacity:1;margin:0 0 10px 0;';
+        clone.querySelectorAll('[onclick]').forEach(el=>el.removeAttribute('onclick'));
+        clone.querySelectorAll('.sort-arrow').forEach(el=>el.remove());
+        clone.querySelectorAll('button').forEach(el=>el.remove());
+        preserveReportCellStyles(source,clone);
+        clone.querySelectorAll('th,td').forEach(cell=>{ cell.style.textAlign='center'; });
+        return clone.outerHTML;
+      };
+
+      const now=new Date();
+      const generated=now.toLocaleString('en-IN',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+      const mainSection=getPdfMainSection();
+      const criteria=getPdfFilterCriteria();
+      const criteriaHtml=criteria.map(x=>'<span class="criterion">'+pdfEscape(x)+'</span>').join('');
+      const safeFile='Office_Wise_Daily_Monthly_Required_Net_Addition_Part_I_Part_II';
+      const reportPeriod=getReportPeriodForTable(p2);
+      const logo=getIndiaPostLogoDataUrl();
+      const win=window.open('', '_blank', 'width=1400,height=900');
+      if(!win){ alert('Please allow pop-ups for this dashboard to export PDF.'); return; }
+
+      win.document.open();
+      win.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>${pdfEscape(safeFile)}</title>
+<style>
+@page{size:A4 landscape;margin:9mm 8mm 11mm 8mm;}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;background:#fff;color:#0f172a;font-family:Arial,Helvetica,sans-serif;}
+body{font-size:9px;}
+.report-header{border-bottom:2px solid #0f172a;padding:0 0 7px;margin-bottom:7px;position:relative;min-height:58px;padding-right:95px;}
+.report-logo{position:absolute;right:0;top:0;width:82px;height:54px;object-fit:contain;}
+.report-brand{font-size:14px;font-weight:900;text-align:center;}
+.report-main{font-size:11px;font-weight:800;margin-top:2px;text-align:center;}
+.report-sub{font-size:10px;font-weight:800;margin-top:2px;text-align:center;}
+.report-period{font-size:9px;font-weight:900;margin-top:3px;text-align:center;}
+.report-meta{display:flex;justify-content:space-between;gap:8px;margin-top:4px;color:#475569;font-size:8px;}
+.criteria{display:flex;flex-wrap:wrap;gap:3px 5px;margin:5px 0 7px;}
+.criterion{border:1px solid #cbd5e1;background:#f8fafc;border-radius:3px;padding:2px 5px;font-size:7.5px;font-weight:700;}
+.export-section-title{background:#9e3434;color:#fff;font-weight:900;padding:6px 7px;margin:7px 0 4px;border:1px solid #6f2323;page-break-after:avoid;}
+table{width:100%;border-collapse:collapse;table-layout:auto;page-break-inside:auto;margin:0 0 8px;}
+thead{display:table-header-group;}
+tr{page-break-inside:avoid;page-break-after:auto;}
+th{background:#9e3434!important;color:#fff!important;font-weight:900;text-align:center;border:1px solid #6f2323;padding:4px 5px;white-space:normal;line-height:1.15;}
+td{border:1px solid #cbd5e1;padding:3px 5px;vertical-align:middle;text-align:center;}
+.report-footer{margin-top:6px;padding-top:4px;border-top:1px solid #cbd5e1;font-size:7.5px;color:#64748b;text-align:center;}
+@media print{.no-print{display:none!important;}}
+</style></head><body>
+<div class="report-header">
+${logo?`<img class="report-logo" src="${logo}" alt="India Post">`:''}
+<div class="report-brand">POSB Performance Monitoring Dashboard • Nagpur Postal Region</div>
+<div class="report-main">Main Section: ${pdfEscape(mainSection)}</div>
+<div class="report-sub">Sub Section: ${pdfEscape(ctx.level)}${pdfEscape(suffix)}</div>
+<div class="report-period">Report Period: ${pdfEscape(reportPeriod)}</div>
+<div class="report-meta"><span>Generated: ${pdfEscape(generated)}</span><span>Report: ${pdfEscape(safeFile)}</span></div>
+</div>
+<div><strong>Filtered Criteria</strong></div>
+<div class="criteria">${criteriaHtml}</div>
+<div class="export-section-title">${pdfEscape(p1Title)}</div>
+${cleanTable(p1)}
+<div class="export-section-title">${pdfEscape(p2Title)}</div>
+${cleanTable(p2)}
+<div class="report-footer">Nagpur Postal Region • POSB Monitoring System • Printed from the currently displayed dashboard report</div>
+<script>window.onload=function(){setTimeout(function(){window.focus();window.print();},350);};<\/script>
+</body></html>`);
+      win.document.close();
+    }
+
+    async function exportDedicatedOfficeReportExcel(){
+      const table=buildDedicatedCombinedExportTable();
+      if(!table){alert('Dedicated report is not available yet.');return;}
+      // Keep the combined table measurable for Excel, but never move it off-page.
+      table.style.display='table';
+      table.style.position='static';
+      table.style.left='auto';
+      table.style.top='auto';
+      table.style.visibility='visible';
+      try {
+        await downloadTableAsExcel('dedicatedOfficeCombinedExportTable','Office_Wise_Daily_Monthly_Required_Net_Addition_Part_I_Part_II');
+      } finally {
+        cleanupDedicatedCombinedExport(table);
+      }
+    }
+
+    function renderDedicatedDaywiseOfficeReport(){
+      const head=document.getElementById('dedicatedOfficeReportHead'), body=document.getElementById('dedicatedOfficeReportBody'), summary=document.getElementById('dedicatedOfficeReportSummary');
+      if(!head||!body)return;
+      if(!Array.isArray(rawTransactions)||!rawTransactions.length){
+        head.innerHTML=''; body.innerHTML='<tr><td style="text-align:center;padding:18px;color:#64748b;">No transaction data available.</td></tr>'; if(summary)summary.textContent='No data available.'; return;
+      }
+      populateDaywiseBottomFilters();
+      const filters=getDaywiseBottomFilters();
+      const latest=getLatestDataISO(rawTransactions)||TARGET_FY_START;
+      renderDedicatedOfficePart1(filters);
+      const rows=dedicatedAggregateRows(rawTransactions,filters);
+      const reportType=filters.reportType;
+      const part2Heading=document.getElementById('dedicatedPart2Heading');
+      const exportCtx=dedicatedExportContext(filters,reportType);
+      if(part2Heading) part2Heading.textContent=`Part II — Office wise Daily/Monthly Required Net Addition (${exportCtx.period})`;
+
+      if(reportType==='6DAYS'){
+        const dates=[...new Set(rawTransactions.map(r=>String(r.iso||'').slice(0,10)).filter(Boolean))].sort().slice(-6);
+        const dayCount=6;
+        const remainingDays=dedicatedRemainingFYDays(latest);
+        head.innerHTML=`<tr><th>${filters.soName!=='ALL'?'Office Name':filters.subDivision!=='ALL'?'SO Name':filters.division!=='ALL'?'Sub Division Name':'Division Name'}</th>${dates.map((d,i)=>`<th class="num">Day-${i+1}<br><span style="font-size:10px;">${dedicatedFormatDate(d)}</span></th>`).join('')}<th class="num">Total</th><th class="num">Average<br>Daily Net Addition</th><th class="num">Total Shortfall<br>(as on date)</th><th class="num">Daily<br>Required</th><th class="num">Daily Shortfall</th></tr>`;
+        let totalPeriod=0,totalShortfallAsOnDate=0;
+        const rendered=rows.sort((a,b)=>b.total-a.total||a.name.localeCompare(b.name)).map(g=>{
+          const rowPeriodTotal=dates.reduce((sum,d)=>sum+(Number(g.dates[d]?.net)||0),0);
+          const avg=rowPeriodTotal/dayCount;
+          const cumulative=dedicatedCumulativeAchievementForTarget(g,latest);
+          const shortfallAsOnDate=Number(g.annualTarget||0)-cumulative;
+          const dailyRequired=remainingDays>0?shortfallAsOnDate/remainingDays:0;
+          const dailyShortfall=avg-dailyRequired;
+          totalPeriod+=rowPeriodTotal; totalShortfallAsOnDate+=shortfallAsOnDate;
+          return `<tr><td><strong>${weeklyEsc(dedicatedReportDisplayName(g,filters))}</strong>${g.level==='OFFICE'&&g.solId?` <span class="weekly-muted">${weeklyEsc(g.solId||'')}</span>`:''}</td>${dates.map(d=>{const v=Number(g.dates[d]?.net)||0;const cls=v<0?'dedicated-net-negative':v>0?'dedicated-net-positive':'dedicated-net-zero';return `<td class="num ${cls}">${Math.round(v).toLocaleString('en-IN')}</td>`;}).join('')}<td class="num" style="font-weight:900;">${Math.round(rowPeriodTotal).toLocaleString('en-IN')}</td><td class="num" style="font-weight:900;">${Math.round(avg).toLocaleString('en-IN')}</td><td class="num">${dedicatedShortfallCell(shortfallAsOnDate)}</td><td class="num" style="font-weight:900;">${Math.round(dailyRequired).toLocaleString('en-IN')}</td><td class="num">${dedicatedDailyBalanceCell(dailyShortfall)}</td></tr>`;
+        }).join('');
+        const totalAvg=totalPeriod/dayCount;
+        const totalDailyRequired=remainingDays>0?totalShortfallAsOnDate/remainingDays:0;
+        const totalDailyShortfall=totalAvg-totalDailyRequired;
+        const totalRow=rows.length?`<tr class="dedicated-total-row"><td><strong>Total</strong></td>${dates.map(d=>{const v=rows.reduce((sum,g)=>sum+(Number(g.dates[d]?.net)||0),0);return `<td class="num"><strong>${Math.round(v).toLocaleString('en-IN')}</strong></td>`;}).join('')}<td class="num"><strong>${Math.round(totalPeriod).toLocaleString('en-IN')}</strong></td><td class="num"><strong>${Math.round(totalAvg).toLocaleString('en-IN')}</strong></td><td class="num ${dedicatedTotalBalanceClass(totalShortfallAsOnDate)}">${dedicatedShortfallCell(totalShortfallAsOnDate)}</td><td class="num"><strong>${Math.round(totalDailyRequired).toLocaleString('en-IN')}</strong></td><td class="num ${dedicatedTotalBalanceClass(totalDailyShortfall)}">${dedicatedDailyBalanceCell(totalDailyShortfall)}</td></tr>`:'';
+        body.innerHTML=(rendered+totalRow)||`<tr><td colspan="${dates.length+5}" style="text-align:center;padding:18px;color:#64748b;">No data available for the selected filters.</td></tr>`;
+        const filterText=`Division: ${filters.division==='ALL'?'All':filters.division} • Sub Division: ${filters.subDivision==='ALL'?'All':filters.subDivision} • SO Name: ${filters.soName==='ALL'?'All':filters.soName} • Office Type: ${filters.officeType==='ALL'?'All':filters.officeType} • Report Type: 6 Days`;
+        if(summary)summary.innerHTML=`<strong>Last 6 reporting days:</strong> ${dates.map(d=>dedicatedFormatDate(d)).join(' → ')} &nbsp; | &nbsp; <strong>As on:</strong> ${dedicatedFormatDate(latest)} &nbsp; | &nbsp; ${weeklyEsc(filterText)}`;
+      } else {
+        const months=[...new Set(rawTransactions.map(r=>String(r.month||r.iso||'').slice(0,7)).filter(Boolean))].sort();
+        const monthCount=Math.max(1,months.length);
+        const remainingMonths=dedicatedRemainingFYMonths(latest);
+        head.innerHTML=`<tr><th>${filters.soName!=='ALL'?'Office Name':filters.subDivision!=='ALL'?'SO Name':filters.division!=='ALL'?'Sub Division Name':'Division Name'}</th>${months.map((m,i)=>`<th class="num">${dedicatedFormatMonth(m)}</th>`).join('')}<th class="num">Total</th><th class="num">Average<br>Monthly Net Addition</th><th class="num">Total Shortfall<br>(as on date)</th><th class="num">Monthly<br>Required</th><th class="num">Monthly Shortfall</th></tr>`;
+        let totalPeriod=0,totalShortfallAsOnDate=0;
+        const rendered=rows.sort((a,b)=>b.total-a.total||a.name.localeCompare(b.name)).map(g=>{
+          const rowPeriodTotal=months.reduce((sum,m)=>sum+(Number(g.months[m]?.net)||0),0);
+          const avg=rowPeriodTotal/monthCount;
+          const cumulative=dedicatedCumulativeAchievementForTarget(g,latest);
+          const shortfallAsOnDate=Number(g.annualTarget||0)-cumulative;
+          const monthlyRequired=remainingMonths>0?shortfallAsOnDate/remainingMonths:0;
+          const monthlyShortfall=avg-monthlyRequired;
+          totalPeriod+=rowPeriodTotal; totalShortfallAsOnDate+=shortfallAsOnDate;
+          return `<tr><td><strong>${weeklyEsc(dedicatedReportDisplayName(g,filters))}</strong>${g.level==='OFFICE'&&g.solId?` <span class="weekly-muted">${weeklyEsc(g.solId||'')}</span>`:''}</td>${months.map(m=>{const v=Number(g.months[m]?.net)||0;const cls=v<0?'dedicated-net-negative':v>0?'dedicated-net-positive':'dedicated-net-zero';return `<td class="num ${cls}">${Math.round(v).toLocaleString('en-IN')}</td>`;}).join('')}<td class="num" style="font-weight:900;">${Math.round(rowPeriodTotal).toLocaleString('en-IN')}</td><td class="num" style="font-weight:900;">${Math.round(avg).toLocaleString('en-IN')}</td><td class="num">${dedicatedShortfallCell(shortfallAsOnDate)}</td><td class="num" style="font-weight:900;">${Math.round(monthlyRequired).toLocaleString('en-IN')}</td><td class="num">${dedicatedDailyBalanceCell(monthlyShortfall)}</td></tr>`;
+        }).join('');
+        const totalAvg=totalPeriod/monthCount;
+        const totalMonthlyRequired=remainingMonths>0?totalShortfallAsOnDate/remainingMonths:0;
+        const totalMonthlyShortfall=totalAvg-totalMonthlyRequired;
+        const totalRow=rows.length?`<tr class="dedicated-total-row"><td><strong>Total</strong></td>${months.map(m=>{const v=rows.reduce((sum,g)=>sum+(Number(g.months[m]?.net)||0),0);return `<td class="num"><strong>${Math.round(v).toLocaleString('en-IN')}</strong></td>`;}).join('')}<td class="num"><strong>${Math.round(totalPeriod).toLocaleString('en-IN')}</strong></td><td class="num"><strong>${Math.round(totalAvg).toLocaleString('en-IN')}</strong></td><td class="num ${dedicatedTotalBalanceClass(totalShortfallAsOnDate)}">${dedicatedShortfallCell(totalShortfallAsOnDate)}</td><td class="num"><strong>${Math.round(totalMonthlyRequired).toLocaleString('en-IN')}</strong></td><td class="num">${dedicatedDailyBalanceCell(totalMonthlyShortfall)}</td></tr>`:'';
+        body.innerHTML=(rendered+totalRow)||`<tr><td colspan="${months.length+5}" style="text-align:center;padding:18px;color:#64748b;">No data available for the selected filters.</td></tr>`;
+        const filterText=`Division: ${filters.division==='ALL'?'All':filters.division} • Sub Division: ${filters.subDivision==='ALL'?'All':filters.subDivision} • SO Name: ${filters.soName==='ALL'?'All':filters.soName} • Office Type: ${filters.officeType==='ALL'?'All':filters.officeType} • Report Type: Monthly`;
+        if(summary)summary.innerHTML=`<strong>Available FY months:</strong> ${months.map(dedicatedFormatMonth).join(' • ')} &nbsp; | &nbsp; <strong>As on:</strong> ${dedicatedFormatDate(latest)} &nbsp; | &nbsp; ${weeklyEsc(filterText)}`;
+      }
+    }
+
+    function applyDaywiseBottomVisibility(){
+      // Intentionally empty. The dedicated filter/report must never hide or alter
+      // the existing Last-6-Days cards, Month KPI cards, Month hierarchy, HPO/GPO
+      // month table, or existing Day-wise tables.
+    }
+
     function renderDaywiseModule() {
       if (!rawTransactions.length) return;
-
+      // IMPORTANT: the dedicated bottom report has its own independent dataset/filter.
+      // Existing sections continue to use the original Day-wise top filters.
       const selDiv = document.getElementById('daywiseDivSelect')?.value || 'ALL';
       const selSub = document.getElementById('daywiseSubSelect')?.value || 'ALL';
       const searchQ = (document.getElementById('daywiseSearchInput')?.value || '').trim().toLowerCase();
@@ -8730,11 +9530,11 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
       if (selDiv !== 'ALL') dataset = dataset.filter(r => r.division === selDiv);
       if (selSub !== 'ALL') dataset = dataset.filter(r => r.subDivision === selSub);
       if (searchQ) {
-        dataset = dataset.filter(r => 
-          r.officeName.toLowerCase().includes(searchQ) ||
-          r.soName.toLowerCase().includes(searchQ) ||
-          (r.solId || '').toLowerCase().includes(searchQ) ||
-          r.division.toLowerCase().includes(searchQ)
+        dataset = dataset.filter(r =>
+          String(r.officeName||'').toLowerCase().includes(searchQ) ||
+          String(r.soName||'').toLowerCase().includes(searchQ) ||
+          String(r.solId||'').toLowerCase().includes(searchQ) ||
+          String(r.division||'').toLowerCase().includes(searchQ)
         );
       }
 
@@ -8743,43 +9543,24 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
 
       const cardsContainer = document.getElementById('last6DaysCardsContainer');
       if (cardsContainer) {
+        cardsContainer.style.display = '';
         cardsContainer.innerHTML = last6Dates.map(dt => {
           const rows = dataset.filter(r => r.iso === dt);
           let op = 0, cl = 0, net = 0;
           const distinctOffices = new Set();
-          rows.forEach(r => {
-            op += r.opened;
-            cl += r.closed;
-            net += r.net;
-            distinctOffices.add(r.solId || r.officeName);
-          });
+          rows.forEach(r => { op += r.opened; cl += r.closed; net += r.net; distinctOffices.add(r.solId || r.officeName); });
           const dObj = new Date(dt);
           const formattedDate = `${String(dObj.getDate()).padStart(2, '0')}-${String(dObj.getMonth() + 1).padStart(2, '0')}-${dObj.getFullYear()}`;
           const isPos = net >= 0;
-
-          return `
-            <div class="stat-mini-card day-kpi-card" style="background:linear-gradient(135deg,#eff6ff 0%,#dbeafe 100%);border:1px solid #93c5fd;box-shadow:0 5px 14px rgba(37,99,235,.12);">
-              <div class="stat-mini-top">
-                <span class="stat-mini-badge">${dt}</span>
-                <span class="stat-mini-offices">${distinctOffices.size} Offices</span>
-              </div>
-              <div>
-                <div class="stat-mini-date">${formattedDate}</div>
-                <div class="stat-mini-label">Net Addition</div>
-                <div class="stat-mini-val" style="color: ${isPos ? '#059669' : '#dc2626'};">${isPos ? '+' : ''}${Math.round(net).toLocaleString()}</div>
-              </div>
-              <div class="stat-mini-footer">
-                <span>Opened: <strong style="color:#1d4ed8;">${Math.round(op).toLocaleString()}</strong></span>
-                <span>Closed: <strong style="color:#dc2626;">${Math.round(cl).toLocaleString()}</strong></span>
-              </div>
-            </div>
-          `;
+          return `<div class="stat-mini-card day-kpi-card" style="background:linear-gradient(135deg,#eff6ff 0%,#dbeafe 100%);border:1px solid #93c5fd;box-shadow:0 5px 14px rgba(37,99,235,.12);"><div class="stat-mini-top"><span class="stat-mini-badge">${dt}</span><span class="stat-mini-offices">${distinctOffices.size} Offices</span></div><div><div class="stat-mini-date">${formattedDate}</div><div class="stat-mini-label">Net Addition</div><div class="stat-mini-val" style="color: ${isPos ? '#059669' : '#dc2626'};">${isPos ? '+' : ''}${Math.round(net).toLocaleString()}</div></div><div class="stat-mini-footer"><span>Opened: <strong style="color:#1d4ed8;">${Math.round(op).toLocaleString()}</strong></span><span>Closed: <strong style="color:#dc2626;">${Math.round(cl).toLocaleString()}</strong></span></div></div>`;
         }).join('');
       }
 
+      // Month KPI cards are ALWAYS rendered below the Last-6-Days cards in All Views / Month View.
       const allMonths = [...new Set(dataset.map(r => r.month).filter(Boolean))].sort();
       const monthsContainer = document.getElementById('monthsCardsContainer');
       if (monthsContainer) {
+        monthsContainer.style.display = '';
         monthsContainer.innerHTML = allMonths.map(m => {
           const rows = dataset.filter(r => r.month === m);
           let op = 0, cl = 0, net = 0;
@@ -8787,30 +9568,18 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
           const dObj = new Date(m + '-01');
           const monthName = dObj.toLocaleString('en-US', { month: 'short', year: 'numeric' });
           const isPos = net >= 0;
-          return `
-            <div class="stat-mini-card month-kpi-card" style="background:linear-gradient(135deg,#f5f3ff 0%,#ede9fe 100%);border:1px solid #c4b5fd;box-shadow:0 5px 14px rgba(124,58,237,.12);">
-              <div class="stat-mini-top">
-                <span class="stat-mini-badge" style="background:#f1f5f9; color:#475569;">MONTH</span>
-                <span class="stat-mini-offices">${rows.length} logs</span>
-              </div>
-              <div>
-                <div class="stat-mini-date">${monthName}</div>
-                <div class="stat-mini-label">Net Addition</div>
-                <div class="stat-mini-val" style="color: ${isPos ? '#059669' : '#dc2626'};">${isPos ? '+' : ''}${Math.round(net).toLocaleString()}</div>
-              </div>
-              <div class="stat-mini-footer">
-                <span>Op: <strong style="color:#1d4ed8;">${Math.round(op).toLocaleString()}</strong></span>
-                <span>Cl: <strong style="color:#dc2626;">${Math.round(cl).toLocaleString()}</strong></span>
-              </div>
-            </div>
-          `;
+          return `<div class="stat-mini-card month-kpi-card" style="background:linear-gradient(135deg,#f5f3ff 0%,#ede9fe 100%);border:1px solid #c4b5fd;box-shadow:0 5px 14px rgba(124,58,237,.12);"><div class="stat-mini-top"><span class="stat-mini-badge" style="background:#f1f5f9; color:#475569;">MONTH</span><span class="stat-mini-offices">${rows.length} logs</span></div><div><div class="stat-mini-date">${monthName}</div><div class="stat-mini-label">Net Addition</div><div class="stat-mini-val" style="color: ${isPos ? '#059669' : '#dc2626'};">${isPos ? '+' : ''}${Math.round(net).toLocaleString()}</div></div><div class="stat-mini-footer"><span>Op: <strong style="color:#1d4ed8;">${Math.round(op).toLocaleString()}</strong></span><span>Cl: <strong style="color:#dc2626;">${Math.round(cl).toLocaleString()}</strong></span></div></div>`;
         }).join('');
       }
 
+      // Existing sections remain controlled only by their existing sub-tab selector.
       renderMonthWiseHierarchyTable(dataset, allMonths);
       renderHpoGpoMonthWiseTable(dataset, allMonths);
       renderDivisionDaywiseTable(dataset, last6Dates);
       renderHpoDaywiseTable(dataset, last6Dates);
+
+      // Render the independent new report without changing any existing subsection visibility.
+      renderDedicatedDaywiseOfficeReport();
     }
 
     function renderMonthWiseHierarchyTable(dataset, months) {
@@ -9099,6 +9868,17 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
         return;
       }
 
+      const totalValues = {};
+      let totalNet = 0;
+      rows.forEach(o => {
+        monthList.forEach(m => { totalValues[m] = (totalValues[m] || 0) + (Number(o.values[m]) || 0); });
+        totalNet += Number(o.total) || 0;
+      });
+      const totalRow = `<tr class="hpo-region-total-row">
+        <td colspan="4"><strong>TOTAL</strong></td>
+        ${monthList.map(m => { const v=totalValues[m]||0; return `<td class="num"><strong>${Math.round(v).toLocaleString()}</strong></td>`; }).join('')}
+        <td class="num"><strong>${Math.round(totalNet).toLocaleString()}</strong></td>
+      </tr>`;
       tbody.innerHTML = rows.map(o => `<tr>
         <td class="left office-name-link" data-office-name="${weeklyEsc(o.officeName)}" data-sol-id="${weeklyEsc(o.solId||'')}"><strong>${weeklyEsc(o.officeName)}</strong></td>
         <td class="left"><span class="badge" style="background:${o.type==='GPO'?'#fef3c7':'#dcfce7'};color:${o.type==='GPO'?'#92400e':'#166534'};">${o.type}</span></td>
@@ -9106,7 +9886,7 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
         <td class="left">${weeklyEsc(o.solId)}</td>
         ${monthList.map(m => { const v=o.values[m]||0; return `<td class="num" style="font-weight:800;color:${v<0?'#dc2626':'#047857'};">${v<0?'−':''}${Math.round(Math.abs(v)).toLocaleString()}</td>`; }).join('')}
         <td class="num" style="font-weight:900;color:${o.total<0?'#dc2626':'#047857'};">${o.total<0?'−':''}${Math.round(Math.abs(o.total)).toLocaleString()}</td>
-      </tr>`).join('');
+      </tr>`).join('') + totalRow;
     }
 
     function renderDivisionDaywiseTable(dataset, dates) {
@@ -9184,6 +9964,12 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
         });
       });
 
+      if(html){
+        const totalByDate={}; let regionTotal=0;
+        dates.forEach(dt=>{ totalByDate[dt]=0; });
+        dataset.forEach(r=>{ if(totalByDate[r.iso]!==undefined) totalByDate[r.iso]+=Number(r.net)||0; regionTotal+=Number(r.net)||0; });
+        html += `<tr class="daywise-region-total-row"><td><strong>TOTAL</strong></td>${dates.map(dt=>`<td class="num"><strong>${Math.round(totalByDate[dt]||0).toLocaleString()}</strong></td>`).join('')}<td class="num"><strong>${Math.round(regionTotal).toLocaleString()}</strong></td></tr>`;
+      }
       tbody.innerHTML=html||`<tr><td colspan="${dates.length+2}" style="text-align:center;padding:16px;color:#64748b">No data available.</td></tr>`;
     }
 
@@ -9267,6 +10053,10 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
       const list = Object.values(hpoMap).sort((a, b) => b.total - a.total);
       document.getElementById('badgeHpoCount').innerText = `${list.length} Head Offices & GPO`;
 
+      const totalByDate={}; let hpoGrandTotal=0;
+      dates.forEach(dt=>{ totalByDate[dt]={opened:0,closed:0,net:0}; });
+      list.forEach(h=>{ dates.forEach(dt=>{ const o=h.dates[dt]||{opened:0,closed:0,net:0}; totalByDate[dt].opened+=Number(o.opened)||0; totalByDate[dt].closed+=Number(o.closed)||0; totalByDate[dt].net+=Number(o.net)||0; }); hpoGrandTotal+=Number(h.total)||0; });
+      const totalRow=`<tr class="hpo-region-total-row"><td colspan="3"><strong>TOTAL</strong></td>${dates.map(dt=>{const o=totalByDate[dt]||{opened:0,closed:0,net:0};return `<td class="num"><strong>${formatMetricCell(o.opened,o.closed,o.net)}</strong></td>`;}).join('')}<td class="num"><strong>${Math.round(hpoGrandTotal).toLocaleString()}</strong></td></tr>`;
       tbody.innerHTML = list.map(h => `
         <tr>
           <td><strong>${h.name}</strong></td>
@@ -9278,7 +10068,7 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
           }).join('')}
           <td class="num font-bold" style="color:${h.total >= 0 ? '#059669' : '#dc2626'};">${Math.round(h.total).toLocaleString()}</td>
         </tr>
-      `).join('');
+      `).join('') + totalRow;
     }
 
     // --- SUB DN MONITORING TABLE ---
@@ -9450,10 +10240,10 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
       renderSubDnTopOfficeKpis(filtered, propFactor);
 
       const tbody=document.getElementById('subDnMonitoringTableBody'); if(!tbody)return;
-      tbody.innerHTML=filtered.slice(0,400).map(o=>{const tgt=getTargetForOffice(o.solId,o.officeName),pt=Math.round(tgt*propFactor),pct=pt>0?o.net/pt*100:0,ann=tgt>0?o.net/tgt*100:0,short=pt-o.net;return `<tr><td><strong>${weeklyEsc(o.officeName)}</strong><button class="edit-btn" onclick='editOfficeTarget(${JSON.stringify(o.solId)}, ${JSON.stringify(o.officeName)}, ${tgt})'>✏️ Target</button></td><td style="font-family:monospace;color:#64748b;">${weeklyEsc(o.solId||'-')}</td><td><span class="badge-level level-so">${weeklyEsc(o.officeType)}</span></td><td class="num">${Math.round(tgt).toLocaleString('en-IN')}</td><td class="num">${pt.toLocaleString('en-IN')}</td><td class="num font-bold" style="color:${o.net>=0?'#059669':'#dc2626'};">${Math.round(o.net).toLocaleString('en-IN')}</td><td class="num" style="color:${short>0?'#dc2626':'#059669'};font-weight:900;">${Math.abs(Math.round(short)).toLocaleString('en-IN')}</td><td class="num">${pct.toFixed(1)}%</td><td class="num">${ann.toFixed(1)}%</td><td style="font-size:11px;color:#64748b;">${weeklyEsc(o.subDivision)} &bull; ${weeklyEsc(o.division)}</td></tr>`}).join('');
+      tbody.innerHTML=filtered.slice(0,400).map(o=>{const tgt=getTargetForOffice(o.solId,o.officeName),pt=Math.round(tgt*propFactor),pct=pt>0?o.net/pt*100:0,ann=tgt>0?o.net/tgt*100:0,short=pt-o.net;return `<tr><td><strong>${weeklyEsc(o.officeName)}</strong><button class="edit-btn" onclick='editOfficeTarget(${JSON.stringify(o.solId)}, ${JSON.stringify(o.officeName)}, ${tgt})'>✏️ Target</button></td><td style="font-family:monospace;color:#64748b;">${weeklyEsc(o.solId||'-')}</td><td><span class="badge-level level-so">${weeklyEsc(o.officeType)}</span></td><td class="num">${Math.round(tgt).toLocaleString('en-IN')}</td><td class="num">${pt.toLocaleString('en-IN')}</td><td class="num font-bold" style="color:${o.net>=0?'#059669':'#dc2626'};">${Math.round(o.net).toLocaleString('en-IN')}</td><td class="num ${short > 0 ? 'shortfall-display' : 'excess-display'}">${short > 0 ? 'Shortfall: ' : 'Excess: '}${Math.abs(Math.round(short)).toLocaleString('en-IN')}</td><td class="num">${pct.toFixed(1)}%</td><td class="num">${ann.toFixed(1)}%</td><td style="font-size:11px;color:#64748b;">${weeklyEsc(o.subDivision)} &bull; ${weeklyEsc(o.division)}</td></tr>`}).join('');
       const foot=document.getElementById('subDnMonitoringTableFoot');
       if(foot){
-        foot.innerHTML=`<tr style="font-weight:950;background:#eef2ff;border-top:3px solid #6366f1;"><td colspan="3" style="text-align:left;">TOTAL — Selected Filter Result (${filtered.length.toLocaleString('en-IN')} Offices)</td><td class="num">${Math.round(totalAnnualTgt).toLocaleString('en-IN')}</td><td class="num">${totalPropTgt.toLocaleString('en-IN')}</td><td class="num" style="color:${totalAch>=0?'#059669':'#dc2626'};">${Math.round(totalAch).toLocaleString('en-IN')}</td><td class="num" style="color:${totalShort>0?'#dc2626':'#059669'};">${Math.abs(Math.round(totalShort)).toLocaleString('en-IN')}</td><td class="num">${totalPct.toFixed(1)}%</td><td class="num">${totalAnnualTgt>0?(totalAch/totalAnnualTgt*100).toFixed(1):'0.0'}%</td><td>Filtered Total</td></tr>`;
+        foot.innerHTML=`<tr style="font-weight:950;background:#eef2ff;border-top:3px solid #6366f1;"><td colspan="3" style="text-align:left;">TOTAL — Selected Filter Result (${filtered.length.toLocaleString('en-IN')} Offices)</td><td class="num">${Math.round(totalAnnualTgt).toLocaleString('en-IN')}</td><td class="num">${totalPropTgt.toLocaleString('en-IN')}</td><td class="num" style="color:${totalAch>=0?'#059669':'#dc2626'};">${Math.round(totalAch).toLocaleString('en-IN')}</td><td class="num ${totalShort > 0 ? 'shortfall-display' : 'excess-display'}">${totalShort > 0 ? 'Shortfall: ' : 'Excess: '}${Math.abs(Math.round(totalShort)).toLocaleString('en-IN')}</td><td class="num">${totalPct.toFixed(1)}%</td><td class="num">${totalAnnualTgt>0?(totalAch/totalAnnualTgt*100).toFixed(1):'0.0'}%</td><td>Filtered Total</td></tr>`;
       }
     }
 
@@ -9777,7 +10567,7 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
       const regionalOpened = cmpRows.reduce((sum, r) => sum + (getCampaignRecordMetrics(r, cmp).opened || 0), 0);
       const regionalClosed = cmpRows.reduce((sum, r) => sum + (getCampaignRecordMetrics(r, cmp).closed || 0), 0);
       const regionalNet = cmpRows.reduce((sum, r) => sum + (getCampaignRecordMetrics(r, cmp).net || 0), 0);
-      const regionalShortfall = Math.max(regionalTarget - regionalNet, 0);
+      const regionalShortfall = regionalTarget - regionalNet;
       const regionalPct = regionalTarget > 0 ? (regionalNet / regionalTarget) * 100 : 0;
       html += `
         <tr class="campaign-region-total-row" style="background:#dff3ec;font-weight:900;">
@@ -9788,7 +10578,7 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
           <td class="num" style="color:#2563eb;">${Math.round(regionalOpened).toLocaleString()}</td>
           <td class="num" style="color:#dc2626;">${Math.round(regionalClosed).toLocaleString()}</td>
           <td class="num font-bold" style="color:${regionalNet>=0?'#059669':'#dc2626'};">${Math.round(regionalNet).toLocaleString()}</td>
-          <td class="num font-bold shortfall-value">${Math.max(0, regionalShortfall).toLocaleString()}</td>
+          <td class="num font-bold ${regionalShortfall > 0 ? 'shortfall-display' : 'excess-display'}">${regionalShortfall > 0 ? 'Shortfall: ' : 'Excess: '}${Math.abs(Math.round(regionalShortfall)).toLocaleString('en-IN')}</td>
           <td class="num font-bold" style="color:#b45309;">${regionalPct.toFixed(1)}%</td>
           <td>-</td>
         </tr>`;
@@ -10775,7 +11565,7 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
     }
 
     function getPdfFilterCriteria() {
-      const controls = Array.from(document.querySelectorAll('#globalFilterSection select, #globalFilterSection input:not([type="radio"]), #weekly-filter-section select, .weekly-filter-section select, .weekly-filter-section input:not([type="radio"]), .hmosc-filter-section select, .hmosc-filter-section input:not([type="radio"]), #activeCampaignSelect'));
+      const controls = Array.from(document.querySelectorAll('#globalFilterSection select, #globalFilterSection input:not([type="radio"]), #weekly-filter-section select, .weekly-filter-section select, .weekly-filter-section input:not([type="radio"]), .hmosc-filter-section select, .hmosc-filter-section input:not([type="radio"]), #activeCampaignSelect, #daywiseBottomFilter select'));
       const seen = new Set();
       const items = [];
       controls.forEach(control => {
@@ -12198,6 +12988,111 @@ body{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!importa
       return `<span class="hmosc-click-count" onclick="openHmoscComparisonModal('${category}','${period}','${hmoscEscape(nodeKey)}')" title="Click to view offices">${Number(count).toLocaleString('en-IN')}</span>`;
     }
 
+    function hmoscAccountRange(o){
+      const n=Math.round(Number(o?.opened)||0);
+      if(n>=1 && n<=3) return 'R1_3';
+      if(n>=4 && n<=7) return 'R4_7';
+      if(n>=8 && n<=10) return 'R8_10';
+      return '';
+    }
+
+    function hmoscRangeCounts(offices){
+      const m={R1_3:0,R4_7:0,R8_10:0};
+      (offices||[]).forEach(o=>{ const k=hmoscAccountRange(o); if(k)m[k]++; });
+      return m;
+    }
+
+    function hmoscRangeClickableCount(count, range, nodeKey){
+      if(!count) return '<span>0</span>';
+      return `<span class="hmosc-click-count" onclick="openHmoscRangeModal('${range}','${hmoscEscape(nodeKey || 'ALL')}')" title="Click to view BO office list">${Number(count).toLocaleString('en-IN')}</span>`;
+    }
+
+    function hmoscRangeRow(obj,key,label,level,extra=''){
+      const c=hmoscRangeCounts(obj||[]);
+      const total=c.R1_3+c.R4_7+c.R8_10;
+      const set=level==='div'?hmoscExpandedDivs:level==='sub'?hmoscExpandedSubs:hmoscExpandedSos;
+      return `<tr class="${extra}"><td class="left">${hmoscRenderNodeCell(level,label,key,set.has(key),level.toUpperCase())}</td><td class="hmosc-current-cell">${hmoscRangeClickableCount(c.R1_3,'R1_3',key)}</td><td class="hmosc-current-cell">${hmoscRangeClickableCount(c.R4_7,'R4_7',key)}</td><td class="hmosc-current-cell">${hmoscRangeClickableCount(c.R8_10,'R8_10',key)}</td><td class="hmosc-current-cell"><strong>${hmoscRangeClickableCount(total,'ONE_TO_TEN',key)}</strong></td></tr>`;
+    }
+
+    function renderHmoscCurrentAccountRangeTable(scopeRows,current){
+      const body=document.getElementById('hmoscCurrentAccountRangeBody');
+      if(!body)return;
+      if(!scopeRows.length){
+        body.innerHTML='<tr><td colspan="5" style="text-align:center;padding:20px;color:#64748b;font-weight:700;">No BO data available for the selected filters.</td></tr>';
+        return;
+      }
+      const currentMap=new Map((current||[]).map(o=>[o.key,o]));
+      const tree={};
+      const add=(obj,key,name)=>{if(!obj[key])obj[key]={name,offices:[],subs:{},sos:{}};return obj[key];};
+      (scopeRows||[]).forEach(r=>{
+        const dName=r.division||'Unassigned', sName=r.subDivision||'Unassigned', oName=r.soName||'Unassigned';
+        const d=add(tree,dName,dName);
+        const sk=`${dName}|${sName}`; const sub=add(d.subs,sk,sName);
+        const ok=`${sk}|${oName}`; add(sub.sos,ok,oName);
+      });
+      Object.keys(tree).forEach(dk=>{
+        const d=tree[dk];
+        d.offices=[...currentMap.values()].filter(o=>o.division===dk);
+        Object.keys(d.subs).forEach(sk=>{
+          const sub=d.subs[sk];
+          sub.offices=[...currentMap.values()].filter(o=>o.division===dk&&o.subDivision===sub.name);
+          Object.keys(sub.sos).forEach(ok=>{
+            const so=sub.sos[ok];
+            so.offices=[...currentMap.values()].filter(o=>o.division===dk&&o.subDivision===sub.name&&o.soName===so.name);
+          });
+        });
+      });
+      const out=[];
+      Object.keys(tree).sort().forEach(dk=>{
+        const d=tree[dk];
+        out.push(hmoscRangeRow(d.offices,dk,d.name,'div','hmosc-div-row'));
+        if(hmoscExpandedDivs.has(dk)){
+          Object.keys(d.subs).sort().forEach(sk=>{
+            const sub=d.subs[sk];
+            out.push(hmoscRangeRow(sub.offices,sk,sub.name,'sub'));
+            if(hmoscExpandedSubs.has(sk)){
+              Object.keys(sub.sos).sort().forEach(ok=>{
+                const so=sub.sos[ok];
+                out.push(hmoscRangeRow(so.offices,ok,so.name,'so'));
+                if(hmoscExpandedSos.has(ok)){
+                  so.offices.slice().sort((a,b)=>a.officeName.localeCompare(b.officeName)).forEach(o=>{
+                    const n=Math.round(Number(o.opened)||0), range=hmoscAccountRange(o);
+                    if(!range)return;
+                    const vals={R1_3:'0',R4_7:'0',R8_10:'0'}; vals[range]='1';
+                    out.push(`<tr><td class="left"><span style="padding-left:60px;">${hmoscRenderNodeCell('bo',o.officeName,o.key,false,'BO')}</span></td><td class="hmosc-current-cell">${vals.R1_3}</td><td class="hmosc-current-cell">${vals.R4_7}</td><td class="hmosc-current-cell">${vals.R8_10}</td><td class="hmosc-current-cell"><strong>1</strong></td></tr>`);
+                  });
+                }
+              });
+            }
+          });
+        }
+      });
+      const total=hmoscRangeCounts(current||[]), totalAll=total.R1_3+total.R4_7+total.R8_10;
+      out.push(`<tr class="hmosc-total-row"><td class="left">Total</td><td>${hmoscRangeClickableCount(total.R1_3,'R1_3','ALL')}</td><td>${hmoscRangeClickableCount(total.R4_7,'R4_7','ALL')}</td><td>${hmoscRangeClickableCount(total.R8_10,'R8_10','ALL')}</td><td><strong>${hmoscRangeClickableCount(totalAll,'ONE_TO_TEN','ALL')}</strong></td></tr>`);
+      body.innerHTML=out.join('');
+    }
+
+    function openHmoscRangeModal(range, nodeKey){
+      const data=window.__hmoscComparisonData?.current?.offices || [];
+      const rangeLabel = range==='R1_3' ? '1–3 Accounts' : range==='R4_7' ? '4–7 Accounts' : range==='R8_10' ? '8–10 Accounts' : '1–10 Accounts';
+      const list=data.filter(o=>{
+        if(nodeKey && nodeKey!=='ALL'){
+          const parts=String(nodeKey).split('|');
+          if(parts.length===1 && o.division!==parts[0]) return false;
+          if(parts.length===2 && (o.division!==parts[0] || o.subDivision!==parts[1])) return false;
+          if(parts.length>=3 && (o.division!==parts[0] || o.subDivision!==parts[1] || o.soName!==parts[2])) return false;
+        }
+        return range==='ONE_TO_TEN' ? (o.opened>=1 && o.opened<=10) : hmoscAccountRange(o)===range;
+      }).slice().sort((a,b)=>b.opened-a.opened||a.officeName.localeCompare(b.officeName));
+      const rangeInfo=window.__hmoscComparisonData?.current?.range||{};
+      const nodeLabel=(!nodeKey||nodeKey==='ALL')?'All Divisions':String(nodeKey).split('|').join(' → ');
+      const exportSubSection=`Current Selected Period — ${rangeLabel} — ${nodeLabel}`;
+      const title=`${rangeLabel} — ${nodeLabel} (${list.length})`;
+      const rows=list.map(o=>`<tr class="weekly-office-link" onclick="openHmoscOfficeModal('${hmoscEscape(o.key)}')"><td class="left office-name-link" data-office-name="${hmoscEscape(o.officeName)}" data-sol-id="${hmoscEscape(o.solId||'')}"><strong>${hmoscEscape(o.officeName)}</strong></td><td class="left"><strong>${hmoscEscape(o.solId||'-')}</strong></td><td class="left">${hmoscEscape(o.soName)}</td><td class="left">${hmoscEscape(o.subDivision)}</td><td class="left">${hmoscEscape(o.division)}</td><td class="num">${o.opened.toLocaleString('en-IN')}</td><td class="left">${hmoscEscape(rangeLabel)}</td></tr>`).join('');
+      const html=`<div class="oc-modal-actions"><button type="button" class="btn-action btn-excel" onclick="downloadTableAsExcel('hmoscRangeModalTable','HMoSC_${range}_BO_Office_List')">📥 Download Excel</button><button type="button" class="btn-action btn-pdf-report" onclick="exportReportTableToPDF('hmoscRangeModalTable','HMoSC_${range}_BO_Office_List')">📄 Download PDF</button></div><div style="font-size:12px;color:#64748b;font-weight:700;margin-bottom:8px;">Current Selected Period: ${hmoscFormatDate(rangeInfo.from)} to ${hmoscFormatDate(rangeInfo.to)} • ${hmoscEscape(nodeLabel)}</div><div class="oc-modal-table-wrap"><table class="oc-modal-table" id="hmoscRangeModalTable" data-export-subsection="${hmoscEscape(exportSubSection)}"><thead><tr><th class="left">BO Name</th><th class="left">SOL ID</th><th class="left">SO Name</th><th class="left">Sub Division</th><th class="left">Division</th><th>Accounts Opened</th><th class="left">Category</th></tr></thead><tbody>${rows||'<tr><td colspan="7" class="left">No offices found for this cell.</td></tr>'}</tbody></table></div>`;
+      openWeeklyModal(title,html);
+    }
+
     function renderHmoscSlide() {
       const body=document.getElementById('hmoscBOMatrixBody'); if(!body)return;
       const scopeRows=hmoscScopeRows();
@@ -12227,6 +13122,7 @@ body{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!importa
       const badge=document.getElementById('hmoscPeriodBadge');if(badge)badge.innerText=`Current: ${curLabel}`;
       const subtitle=document.getElementById('hmoscSubtitle');if(subtitle)subtitle.innerText=`Previous month comparison with current selected reporting period • click any number to view the offices in that category`;
 
+      renderHmoscCurrentAccountRangeTable(scopeRows,current);
       if(!scopeRows.length){body.innerHTML='<tr><td colspan="7" style="text-align:center;padding:20px;color:#64748b;font-weight:700;">No BO data available for the selected filters.</td></tr>';return;}
       const tree={};
       const add=(obj,key,name)=>{if(!obj[key])obj[key]={name,previous:[],current:[],subs:{},sos:{}};return obj[key];};
@@ -12506,6 +13402,7 @@ body{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!importa
     });
 
     document.addEventListener('DOMContentLoaded', function(){ setTimeout(function(){ populateGoogleSheetUploadDates(rawTransactions); updateGoogleSheetButtonState(); }, 0); });
+document.addEventListener('DOMContentLoaded', function(){ setTimeout(function(){ populateDaywiseBottomFilters(); renderDedicatedDaywiseOfficeReport(); }, 250); });
 
     // Independent welcome-popup startup: this listener is deliberately separate
     // from the large dashboard initialization block so the opening popup still
@@ -12585,7 +13482,7 @@ body{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!importa
           <tr><th>Annual Target</th><td>${Math.round(annualTarget).toLocaleString('en-IN')}</td></tr>
           <tr><th>Proportionate Target</th><td>${Math.round(propTarget).toLocaleString('en-IN')}</td></tr>
           <tr><th>Achievement (Net Addition)</th><td>${Math.round(net).toLocaleString('en-IN')}</td></tr>
-          <tr><th>Shortfall / Excess</th><td style="color:${propShortfall>0?'#dc2626':'#059669'};font-weight:900;">${Math.abs(Math.round(propShortfall)).toLocaleString('en-IN')}</td></tr>
+          <tr><th>Shortfall / Excess</th><td class="${propShortfall > 0 ? 'shortfall-display' : 'excess-display'}">${propShortfall > 0 ? 'Shortfall: ' : 'Excess: '}${Math.abs(Math.round(propShortfall)).toLocaleString('en-IN')}</td></tr>
           <tr><th>% Proportionate Met</th><td>${propPct.toFixed(1)}%</td></tr>
           <tr><th>% Annual Met</th><td>${annualPct.toFixed(1)}%</td></tr>
           <tr><th>Transaction Records</th><td>${rows.length.toLocaleString('en-IN')}</td></tr>
