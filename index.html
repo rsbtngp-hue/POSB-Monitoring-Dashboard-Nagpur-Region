@@ -952,6 +952,44 @@
     @media(max-width:1250px){.subdn-top-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
     @media(max-width:820px){.subdn-top-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.subdn-top-heading{align-items:flex-start;flex-direction:column}}
     @media(max-width:520px){.subdn-top-grid{grid-template-columns:1fr}.subdn-top-card{min-height:155px}}
+    .subdn-top-office-section{margin:0 0 16px;padding:14px;border:1px solid #dbe4ef;border-radius:14px;background:linear-gradient(180deg,#f8fafc,#ffffff);box-shadow:0 5px 16px rgba(15,23,42,.06)}
+    .subdn-top-office-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+    .subdn-top-office-title{font-size:15px;font-weight:950;color:#0f172a;text-transform:uppercase}
+    .subdn-top-office-subtitle{font-size:11px;font-weight:800;color:#64748b;margin-left:6px}
+    .subdn-top-office-badge{font-size:9px;font-weight:900;color:#065f46;background:#d1fae5;border:1px solid #a7f3d0;padding:5px 9px;border-radius:999px;white-space:nowrap}
+    .subdn-top-office-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+    .subdn-top-hpo-grid{grid-template-columns:repeat(5,minmax(0,1fr))}
+    .subdn-top-hpo-section{margin-top:16px}
+    .subdn-top-office-detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:8px}
+    .subdn-top-office-detail-grid>div{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.20);border-radius:7px;padding:5px;min-width:0}
+    .subdn-top-office-detail-grid span{display:block;font-size:7.5px;font-weight:900;opacity:.88;text-transform:uppercase}
+    .subdn-top-office-detail-grid strong{display:block;font-size:9.5px;font-weight:950;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .subdn-top-office-pct span{display:block;font-size:8px;font-weight:900;opacity:.9;text-transform:uppercase;margin-bottom:3px}
+    .subdn-top-office-stats .is-shortfall strong{color:#fecaca}
+    .subdn-top-office-stats .is-excess strong{color:#bbf7d0}
+    .subdn-top-hpo-grid .subdn-top-office-card{padding:11px}
+    .subdn-top-hpo-grid .subdn-top-office-name{font-size:13px}
+    .subdn-top-hpo-grid .subdn-top-office-pct{font-size:25px}
+    .subdn-top-office-card{min-width:0;border-radius:14px;padding:13px;color:#fff;box-shadow:0 7px 18px rgba(15,23,42,.13);position:relative;overflow:hidden}
+    .subdn-top-office-card.spo{background:linear-gradient(135deg,#7c2d12,#f97316)}
+    .subdn-top-office-card.bpo1{background:linear-gradient(135deg,#075985,#06b6d4)}
+    .subdn-top-office-card.bpo2{background:linear-gradient(135deg,#065f46,#10b981)}
+    .subdn-top-office-card.bpo3{background:linear-gradient(135deg,#6b21a8,#c026d3)}
+    .subdn-top-office-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
+    .subdn-top-office-rank{font-size:11px;font-weight:950;letter-spacing:.3px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.28);padding:5px 8px;border-radius:8px}
+    .subdn-top-office-icon{font-size:22px}
+    .subdn-top-office-name{font-size:15px;font-weight:950;margin-top:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .subdn-top-office-meta{font-size:9px;font-weight:800;opacity:.88;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .subdn-top-office-pct{font-size:29px;font-weight:950;line-height:1.05;margin:10px 0 9px}
+    .subdn-top-office-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+    .subdn-top-office-stats>div{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.22);border-radius:8px;padding:6px;min-width:0}
+    .subdn-top-office-stats span{display:block;font-size:8px;font-weight:900;opacity:.9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .subdn-top-office-stats strong{display:block;font-size:11px;font-weight:950;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .subdn-top-office-empty{padding:20px;text-align:center;color:#64748b;font-size:12px;font-weight:800;grid-column:1/-1}
+    @media(max-width:1300px){.subdn-top-hpo-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    @media(max-width:1100px){.subdn-top-office-grid,.subdn-top-hpo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:600px){.subdn-top-office-grid,.subdn-top-hpo-grid{grid-template-columns:1fr}.subdn-top-office-heading{align-items:flex-start;flex-direction:column}.subdn-top-office-subtitle{display:block;margin:3px 0 0}}
+
     .weekly-modal-table { width: 100%; border-collapse: collapse; }
     .weekly-modal-table th { text-align: left; padding: 8px 10px; color: #475569; font-size: 12px; width: 45%; border-bottom: 1px solid #f1f5f9; }
     .weekly-modal-table td { padding: 8px 10px; font-weight: 700; color: #0f172a; font-size: 13px; border-bottom: 1px solid #f1f5f9; }
@@ -1022,6 +1060,23 @@
     .directory-filter-field label { display:block; font-size:10px; color:#64748b; font-weight:850; margin-bottom:4px; text-transform:uppercase; letter-spacing:.3px; }
     .directory-filter-field input,.directory-filter-field select { min-height:36px; }
     .directory-filter-reset { min-height:36px; white-space:nowrap; }
+    .directory-column-strip { display:flex; flex-wrap:wrap; align-items:center; gap:5px 8px; margin-top:9px; padding:7px 8px; background:#fff; border:1px solid #dbe3ee; border-radius:9px; }
+    .directory-column-strip-title { font-size:10px; font-weight:900; color:#334155; margin-right:2px; white-space:nowrap; }
+    .directory-column-strip label { display:inline-flex; align-items:center; gap:4px; min-height:24px; padding:3px 7px; border:1px solid #e2e8f0; border-radius:6px; background:#f8fafc; color:#334155; font-size:9px; font-weight:800; white-space:nowrap; cursor:pointer; }
+    .directory-column-strip label:hover { background:#eef2ff; border-color:#c7d2fe; }
+    .directory-column-strip input { width:12px; height:12px; margin:0; }
+    .directory-column-actions { display:inline-flex; gap:4px; margin-left:auto; }
+    .directory-column-actions button { min-height:24px; padding:3px 7px; font-size:9px; }
+    .searchable-select-wrap { position:relative; width:100%; min-width:0; }
+    .searchable-select-input { width:100%; min-height:36px; box-sizing:border-box; padding:7px 30px 7px 10px; border:1px solid #cbd5e1; border-radius:8px; background:#fff; color:#0f172a; font:inherit; font-size:12px; font-weight:650; outline:none; }
+    .searchable-select-input:focus { border-color:#64748b; box-shadow:0 0 0 2px rgba(100,116,139,.12); }
+    .searchable-select-arrow { position:absolute; right:9px; top:50%; transform:translateY(-50%); color:#64748b; font-size:11px; pointer-events:none; }
+    .searchable-select-list { position:absolute; z-index:1000; left:0; right:0; top:calc(100% + 4px); max-height:260px; overflow:auto; display:none; padding:4px; background:#fff; border:1px solid #cbd5e1; border-radius:8px; box-shadow:0 14px 32px rgba(15,23,42,.16); }
+    .searchable-select-wrap.open .searchable-select-list { display:block; }
+    .searchable-select-option { padding:7px 8px; border-radius:6px; font-size:11px; color:#334155; cursor:pointer; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .searchable-select-option:hover,.searchable-select-option.active { background:#f1f5f9; color:#0f172a; }
+    .searchable-select-empty { padding:8px; color:#94a3b8; font-size:10px; }
+    @media (max-width: 620px) { .directory-column-strip { align-items:flex-start; } .directory-column-actions { margin-left:0; width:100%; } }
     @media (max-width: 1000px) { .directory-filter-grid { grid-template-columns:1fr 1fr 1fr; } }
     @media (max-width: 620px) { .directory-filter-grid { grid-template-columns:1fr; } }
     .table-responsive { width: 100%; overflow-x: auto; max-height: 650px; border: 1px solid #e2e8f0; border-radius: 8px; }
@@ -2444,6 +2499,10 @@ body:not(.edit-unlocked) .edit-only-note { display:none !important; }
 body:not(.edit-unlocked) #adminAdministrationRow { display:none !important; }
 body.edit-unlocked #adminAdministrationRow { display:flex !important; }
 </style>
+
+<style id="custom-office-symbol-style">
+.office-symbol{display:inline-block;width:1.05em;height:1.05em;background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAACAASURBVHic7N13eFRV3gfw75Qkk2TSA4FAIPTeO4QOghVRLKCCKIodLKvrKgjr6oqvFRR3bSAqIrgLKiqwQIAAUsRCC1VaCCUJhNTJ1PePgRVdSCY555aZ+/08zzyvz75zf/cHzMz53nPPvRcgIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIr0wad0AEQkxAagLoNH5Vy0ASedfF/939Pn3xp/fLvz8/wYApQCc5/+7EIDv/P9WcP6Vd9F/nwZwGMAhACfOv5eIghADAFFwiAHQ7vyrA4AmANIBNAQQoVFPFfCHgcMADgLYfv61E0CxRj0RUYAYAIj0xw6gB4A+ADrDP+g3QvB8X33wzxBsB/ATgA0ANgMo0bIpIvq9YPlBIQplKQAGAugN/6DfAYBF047kc8MfCDYA2AggE8ApTTsiMjgGACL1WQB0BDAEwLUAegEwa9qRNnYD+BrASgBrAbi0bYeIiEi+aAC3AFgI4Cz80+R8/fY6A+BzADcDiKrh3zEREZEu2OA/wp8HoAjaD7LB8iqDf2ZgLH67UoGIiEj3+sI/6BdD+8E02F9FAOYCyKjOPwAREZFa4gHcC/9CN60HzVB97QHwFPz3NyAiItJUTwCfAXBA+wHSKC/H+b/zHgH8+xAREUljhv/c/n+g/WBo9NcP8K8VCLXLJomISEciATwAYD+0H/j4+v1rH4D74F94SUREJEU4/Of3j0P7gY6vyl+n4F8nwCBAREQ1Fgb/9PJBaD+w8VW911EAk6DdcxKIiCgImQCMBgf+UHjtB3AreNdTIiKqQhcAWdB+4OJL7msL/LdcJqLzmIqJ/FIB/B3AHQjC70Wt2ilIS2uI+mkNkZpaH8m1aiMhIREJCUn+/5uUBKvFiti4eJhMJlitVkRH2+H1elFcXASXy4Wy0hJUVDjgcDhQWloCl9OJvLxTyD2egxMnjiM3Nwe5x4/hRO5xFBae1fqPXBNe+G/Q9BcAJzTuhUhzQfdDRySZFcBjAKZC57edNZlMSGuQjlat2qJV63Zo2aoNmjVvibQG6bDZIlXtpby8DDnHjmBP9i7s2rUdu3b8jN27dyDvdFA84K8YwHQAb8L/lEIiQ2IAICPrDOB9AJ20buRSYmJj0bVrT3Tp1hNdu/VC+w6dYbfHaN1WpfJOn8KuXduxe+cv2LZtM77fmIWS4iKt27qcbQAmAPhZ60aItMAAQEYUCWAa/Ef+Vm1b+U1EhA09e2Vg4KBh6J0xAM1btILZHNxPCXa73fjlpx+QlbUa69dl4scft8Dt0tVTf90AXgHwVwDlGvdCpCoGADKaDABzADTVuhEASE2tjyuGX4MBg4ahV+++iIwM7SfhlpaWYNPGLKxd8x98+80SnD51UuuWLtgP4E4AGzXug0g1DABkFFYAz55/aXrb2MTEJAwYNAyjbhqD3hkDgv4ov6a8Xi+2/bAJS7/+N75asggF+Xlat+SBfzZgCgBdTVMQKYEBgIygKYBPAXTXqgGbLRLXXHcjbr71DnTv0cewg/7luFxOrFuzCl8tWYQVy5eitLREy3Y2AbgNwK9aNkGkNAYACnXjAcwEYNdi563btMPo2+7CyBtvRWxsnBYtBJ2yslL8+4vPMOeDd7B/X7ZWbRQDeAj+ywaJQhIDAIUqG4B34D+vqyqLxYLhV43APRMfQecumk06BD2fz4f161bjww9mI3PVcni9Xi3aeB/+IFChxc6JlMQAQKEoDcAXUHnKPzrajhEjb8Y99z2CJk2aq7nrkHfk8K+Y/+kczP/4A5w7V6j27n8CcCOAQ2rvmEhJDAAUaq4AMB9Aklo7jImNxYR7H8ZdEx5EXFy8Wrs1pOKiIrz3z5l4/91ZKCkpVnPX+fA/U2CVmjslUhIDAIWSP8F/O19VVvlHR9tx5933Y+L9kxEfn6DGLum8M2cKMHvWK5g39104HKpdvu8B8CSA19TaIZGSGAAoFFgBvAVgoho7CwsLx7jxE/HgI39CUlKyGrukyzh5Mhez3piBBfM/gsvlVGu37wB4GP5AQBS0GAAo2MUA+BzAlWrsbMgVV2HKcy+hUWNd3EeIzjt29DBefmkavly8UK1dfgP/KQFNr1ckEsEAQMEsFcDX8N/TX1FNmjTHlOkzMGjwMKV3RQI2fZ+Fvzw1CQf271FjdzsAXA3gmBo7I5KNAYCCVQsA/4F/xb9ibLZIPPrEM7hn4iOwWnXz2ACqhNNZgbdnvYLZs15FRYVD6d0dBTAE/lsJEwUVBgAKRq3hH/xTldxJ9x59MOPVt3lJX5A6cvhXPPv0ZKxds1LpXZ2C/+qT7UrviEgmBgAKNl0BLAeQqNQOYmPj8MzUv+PWMeNgMvErEuwW/3sBnnvmcRQWnlVyNwUAhsH/iGGioMBfNwomGfAvvopVagedu3THm299iIbpjZXaBWkgNzcHkx+6G5u+z1JyNyUArgOQqeROiGTR9KloRNWQAWAZ/Kv+pbOGheGJJ6fi/17/BxISVbuHEKkkJiYWN4waA6vViq2bNyp1W+FwAKMArAUXBlIQ4AwABYNuAFZCoSP/9EZNMGv2XHTo2EWJ8qQz27ZuwsMPjkfOsSNK7eIcgMHg6QDSOT6TlPSuHYDvoNDgP3jolVi6bD0HfwPp0q0nlq/cjOuuv0mpXcTBP1vVVqkdEMnAUwCkZ83gv/d6bdmFTSYT7n/ocbz86mzYbJGyy5PORURE4KprRiKlTl2syVyhxCmBKPhPByyF/zkCRLrDUwCkV/UAfA8FrvOPjY3DzNlzeVMfAgCsXrkMD90/TqmHCx0B0AvACSWKE4lgACA9igGwDkBH2YXrpzXEvE8Xo2mzlrJLUxDbu2c37ho3CseOHlai/I8A+oO3DSad4RoA0hsLgE+hwODfoWMXfPXNWg7+9D9atGyNpcvWo2evvkqU7wxgIfwPrSLSDa4BIL15B8AY2UWvGH4N5sz7F+Li4mWXphARGRmJESNvRs6xo8jO3im7fDMASQC+lV2YqKYYAEhP/gTgadlFbx1zJ96Y9QHCwyNkl6YQY7FYMezK63D2TAF++Vn6VXzdARQB2CS7MFFNMACQXgwGMBeST0vdMe4evDhjJiwWftQpMCaTCQMHDUNpSQl+3LZZdvmhADYDOCi7MFF18VeR9KAB/A/3scssev9Dj+O5v77M+/lTtZlMJvQfMAQ+n0/27YNNAK4CsAhAoczCRNXFAEBaswFYAaCJzKKP/elZ/Omp52SWJAPq1acfYAI2bZQaAiIB9AYwD4BHZmGi6mAAIK39E/4jImkm3PswnvrLX2WWJAPr1bsfIqOikLVutcyy9eCf+VoisyhRdTAAkJbuAjBNZsHxd9+Pac//n8ySROjarRcAyD4d0AHAIQC/yCxKFCgGANJKE/iPfqQtzR918+14ccZMnvMnRfTq3Q9nzuTLvjpgKIAvAJyRWZQoEAwApIUwAN8AaCyr4BXDr8HMt+dwtT8pql//Idix4ycc+vWArJLhALoC+AiAIs8oJroc/lqSFv4KYLSsYu3ad8Kcef9CRASv8ydlmc1mDL/qOmzcsBYnco/LKpsGwAdgjayCRIHgXCmpLQP+Hzop4bN+WkN89c1aJNeS/sBAossqKMjHyGsH4vAhaZfzu+F/XsBGWQWJqsIAQGqKBLAdQFMZxWJj47D469Vo1ryVjHJE1XLk8K+4/poBKCiQ9rTfffAvDHTIKkhUGT4MiNQ0HZIGf7PZjJmz53LwJ800TG+Mt//5scx1J80BTJFVjKgqXANAaukA4ENI+sw9+sQzGH3beBmliGosrUE6TCYTvt+wTlbJXgCWAjgpqyDR5fAUAKnBCv8DULrIKDZ46JX4YO4imM2cwCLteb1ejL/jBmSuXiGr5Fb4gwDvEkiKYgAgNTwJYIaMQumNmmDpsvWIjY2TUY5IirNnz+Cqob1w/PgxWSUfB/CarGJEl8IAQEqrB2APJDzox2q14l9frkKnzt3EuyKS7OeffsCo64fC6ayQUa4YQAsAJ2QUI7oUrgEgpb0FQMqI/cSTUzFi5M0yShFJV6duKmJi47BGzqmACADxAL6SUYzoUjgDQErqAmALJFxt0q17byz893Le6Y90747R12HtmpUySnkB9IR/TQCRdAwApBQTgA3wL2YSEhMbixWrtqBe/QbiXREpLOfYEQwd2A2lpSUyymXBf4Mgn4xiRBfj4RQpZQyASTIKPf/C6+id0V9GKSLFxcbFw26PQebq5TLKNQSwG8AuGcWILsYZAFJCGIBs+J/4J6Rnr774/F/L+IQ/Ciperxe33Dgcmzetl1FuP4DW8N8umEga/qqSEu4F8E/RIjZbJFas3oL0RoHniD3Zu/DZ/DnYkJWJnGNHUVZWKtoGGVhUVDTqpzVARr9BGD1mPFq0bB3wtr/+uh/DB/eEw1Euo5XxAObKKER0AU8BkGzhAD6HfwWzkCefno4hV1wV0HudzgpMfeZxPPXEA/hp2xYUFOTD5XKJtkAG53K5UFCQj59+3Ir5n3yAgvw89O03KKDFqAkJSQgLD0fWutUyWukEYDZ4cyCSiDMAJNtDAGaJFmneohWWrdwMq9Va5XudzgqMHXM9Nm5YK7pboir1zhiAj+cvQVhYeJXv9Xg8uHpYb+zetUPGru+DhJk1ogs4A0Ay2QAsBBArWuiNtz5E48aBPTdoyl8ewzdLF4vukiggx44eRtG5QgwcPKzK95rNZjRu3AxfLPpUxq47A3gHXAtAkvBm6iTT3fDf+U/I0GFXo/+AIQG9d0/2Lsz/5EPRXRJVy8cfvYd9e7MDem/vjAEBf56rkArgDhmFiAAGAJLHDGCyaJGwsHA8M/XFgN//2fw58Hq9orslqhaPx4MF8+cG/P5npv5d1k2sHgd/t0kSfpBIlhEAApuzr8S48RPRuHGzgN+/fl2m6C6JaiRr3aqA39uyVRuMuvl2GbttDuBqGYWIuAiQZNkAoLdIgaioaKzfvBvJybUC3qZV09qy7rhGVC12ewx27z8V8PtPnTyB/n3ay7g0dR38dwckEsIZAJKhGwQHfwC4654HqzX4A+DgT5opKSmu1vtT6tTFPRMfkbHrfgB6yChExsYAQDI8JlogJjYW994n5c7BRLo18f5JiIkVvkgGAKQkCTI2BgASlQxgpGiRCfc+jPj4BAntEOmXPSYWt98xQUapGwAkyShExsUAQKLGwf/s8hqLiorGnXfdL6kdIn2bcO/DiIiwiZaxAZCyqpCMiwGARN0lWuDW2+5EQkKijF6IdK9W7RSMGHmzjFITZRQh42IAIBH94H9KWY1ZLBaM59E/Gcz9Dz4Ks1n457cVgF4S2iGDYgAgEXeLFhh+1Qg0TG8soxeioNGkaQsMGjJcRql7ZBQhY2IAoJqKhH8hkhBJl0URBZ37HnhURpkbILgGh4yr6ketEV3aVQDsIgVat2mHzl26S2pHW3Xr1sWbb76J4cOlHNXRZWRmZuLBBx9ETk6O1q0I696jD9q07YBdO38RKRMHYDiAL+V0RUbCGQCqqVtEC4y+TXj9oG6cOHECN998M8aNG4fCwkKt2wk5xcXFmDRpEq6//vqQGPwvGHXzbTLKSFlRSMbDWwFTTUQBOA0guqYFbLZIbP35IOLi4oUaaVA3Smh7JXA2QC49H/UfPVEmtH1+fh66d24Kt8slUqYEQG0A5ULNkOFwBoBq4joIDP4AcM11NwoP/nrF2QA5QvWo/2LJybUwYOBQ0TJ2+E/JEVULAwDVhPDiv5tuCf17mCxevBg9evTAsmXLtG4l6GRmZqJHjx6YM2cOfD6f1u0o6qZb7pBR5kYZRchYeAqAqssC//R/je/cUzulDjZv2y/l+eh6PAVwKSNHjsSbb76J+PjQnPWQpbi4GM8++yzmzp0bFAO/6CkAAHC5nOjWsQnOnCkQKXMG/tMAHuGGyDA4A0DV1QsCgz/gn/6XMfjLYDKpk4EXL16MPn36IDMzU5X9BaPMzEz07NlTtaN+tf7tqxIWFo5rrhM+gE8E0FVCO2QgDABUXcIr2665VvgMgjR//etfUatW9R5BXFPHjh3DiBEjuDbgDy4+13/s2DFV9pmYmIgpU6aosq9A3DBqjIwyV8ooQsbBAEDVJbTYKDW1Prp07SmrF2GdO3fG7NmzMXz4cFVnA7g2wE+Lc/0ZGRmYPXs2evToocr+AtGxU1ck16otWoYBgKqFAYCqow6AjiIFrhh+jW6mXi+IiorCww8/rOpsgNGvFNBihX9iYiKmTp2Kp59+GjExMarsM1Bmsxn9BwhfDdAVgDofYAoJDABUHQMhuHB0wKBhklqRj7MB6uBR/6UNHHSFaAkzgP4SWiGDYACg6ugjsnFEhA29eveV1YsiOBugHB71V67/wKGwWoXvzi70HSVjYQCg6ugtsnHPXhmIjAyOy/Y4GyAXj/qrFhcXj46duomWYQCggDEAUKDsANqJFBio4+n/S+FsgDge9VfPwMHCpwE6QfAhXWQcDAAUqJ4QfHpkn74DJbWiLs4G1AyP+qtPQki2AhCeRiBjYACgQAlN/8fGxqFZ85ayelEdZwMCx6P+mmvTtgNiY+NEy/A0AAWEAYAC1UVo4649YDYH/8etc+fOePvtt1WfDejevTu+++47VfYngkf9YkwmE9p3FPqqAUBnGb1Q6Av+X2RSi9D5/67de8nqQ3PR0dGqzwacPHkSt9xyi25nA3jUL08H8QAg9F0l42AAoEDEAEgXKdC1W+gEgAs4G+DHo365JASAxuBCQAoAAwAFoh0EbgBkMpnQrn0nie3oh5FnA3jUrwwJAcAMoI2EVijEMQBQIDqIbNygYSPY7aH5Y32B0WYDeNSvnLp16yGlTl3RMu1l9EKhjQGAAtFWZOOWLY1xMGKE2QAe9aujfQfhdXxcB0BVYgCgQDQV2bhVa2P9FoXqbACP+tUj4ZSZ0HeWjIEBgALRSGTjVm2MFQCA32YDpk+fHvSzATzqV196ehPhEhLaoBDHAEBVMQNoIFKgadPmkloJPl26dAnq2QAe9WujYXpj0RLpEHxyJ4U+BgCqSl0AETXd2GQyoX5aQ4ntBJ9gnA3gUb+20hqki5aIBJAi3gmFMgYAqkq6yMbJtWoHzRMAlXbxbIBaajIbwKN+7SUn15Jx5Uy6hFYohDEAUFXSRTZOM/jR/x9dfKVAcnKyKvsMdDaAR/360qBhumgJobU7FPoYAKgqdUQ2ljCVGZK6dOny3ycMqqWy2QAe9etPWlq6aAmeAqBKMQBQVRJFNk5NrS+rj5Cjh9kAHvXrl4SFgEky+qDQJfR8dzIEoR+RxCR1BrZgdmFtwLvvvotVq1apss/Fixdj69atAKDawA8AV1xxBSZMmIDo6GjV9hmsJNwNkAGAKsUAQFURGsETE/kbFAi73Y7HHnsMXbt2xYwZM1TZp5oDPwA8/fTTyMjIUHWfwSwmJla0BL98VCmeAqCqCAYAzgAEqqKiQldP+ZNtyZIlKCsr07qNoCEhAPDLR5ViAKCqCK0BiE8Q2twwKioqMG3aNGzfvl3rVhSTnZ2NqVOnMgQEKCaWMwCkLAYAqorQRfzxCQmy+ghZRhj8L2AICFxMTJxoCS60oEoxAFBVanwXQAC8CVAVjDT4X8AQEJhY8RmAcBl9UOhiAKCqCAWA8HChzUOaEQf/CxgCqiZhBoBfPqoUAwBVJUxk4/BwHoRcipEH/wsYAipnF79HAgMAVYoBgKoiOAPAAPBHHPx/wxBweRKeHskvH1WKAYCqIvQjEhbG36CLcfD/XwwBl+Zxu0VLcAaAKsUAQFURujG8WveVDwbl5eWYMmWKIoN/Sop6t31XYl/Z2dl47rnnUF5eLr12sHJ7PKIl+OWjSjEAUFUcQhs7+IMOAA6HA9OnT8euXbuk1+7QoQMWLVqEWbNmKRoEkpOT8dprr+GLL75Aly5dpNffvXs3pkyZwhBwnkc8APAvkirFAEBVEQsA/DGHw+HAtGnTsGPHDum1O3TogFmzZiEqKgq9evXCwoULccMNN8g4f/w7Q4YMwcKFC9GvXz9ERkbijTfeUCQEZGdnMwScJ+EUAP8SqVIMAFQVoR8Ro88AqDX4XxAdHY2//OUvmDlzppTZgAtH/S+99NLvrktnCFCe28MAQMpiAKCqFItsXF5u3IVdag/+F5MxG3DxUf+lMAQoyyt+CqBIRh8UuhgAqCpnRDY26g+4loP/BTWdDbjcUf+lMAQop6JC6OwbABTK6INCFwMAVeWsyMZGPAVQXl6OqVOnKjL4d+zYMaDB/2K9evXC559/juuvvx5m8+W/8mazGSNHjsQXX3xx2aP+S4mMjMTrr7+Ojh07BrxNoC5cImjEEJCXd1q0hFB4p9DHAEBV4QxANZSXl+O5555TZLV/x44dMXPmzGoN/hfY7XY8++yzmD9/Pm6++WY0btwYNpsNNpsNjRs3xi233ILPPvsMzzzzDOx2e7XrR0VFYebMmYqEgN27dxsyBJwpyBctwRkAqpRV6wYMqA2ACQCGAkhHiD+xqyBf+CgmaCh9qV9NB/+LNW3aFE8++aSkrn4vKioKs2bNwuTJk7Ft2zaptS9cIvj8888jMjJSam29kjADMO78S89KARwG8B8A7wHYrWk3BsMZAPWEA3gLwC8AJsMfBEJ68AeA3OM5WregCj2c89cDrgmQJ188AASDaPh/CycD2A5gFngLY9UwAKjDDmAFgAcBWDTuRVW5uaEfADj4/x5DgBz5Bpo9O88C4CEAy+H/zSSFMQAoLxrA1wD6a92IFkI9AHDwvzSGAHEGmQG4lAHwhwDhxyFS5RgAlGUHsAz+D7QhnTxxXOsWFMPBv3IMAWLyC/K0bkFLvQF8C84EKIoBQDkXjvwztG5ES6G6BoCDf2AYAmru8KGDWregtQxwJkBRDADKiAawFAY+8r+gsPAsSktLtG5DKg7+1cMQUH2FhWdRkG/oGYALesM/i8oQoAAGAPkMP+3/R7nHj2ndgjQc/GuGIaB6Duzfo3ULesLTAQphAJCL0/6XsCdb/nXxWuDgL4YhIHD79+3VugW94ekABTAAyMNp/8vYtWu71i0I4+AvB0NAYDgDcEk8HSAZA4AcHPwrsXvnL1q3IISDv1wMAVXbvy9b6xb0iiFAIgYAcRz8q7Bjx89at1BjHPyVwRBQuf37eQqgEgwBkjAAiOGCvwAU5Och7/QprduoNg7+ymIIuLTioiKcCPEbaEnAhYESMADUHBf8VcPOIDsNwMFfHQwB/2vr1u/h9Xq1biMYcGGgIAaAmuG0fzUF0zoADv7qYgj4vS2bN2jdQjDh6QABDADVx2n/Gvjxxy1atxAQDv7aYAj4zdbNG7VuIdjwdEANmbRuIMgoduTfNSEe87p1gd1qlV1aipkHDuKVfQdqvL3dHoPtu3NgDQuT2BXQoK7YYPrNN9/89785+GuvvLwckydPxrZt26TXbtWqFZ5//nlERkb+93+7+uqrhWoePVEm2tbvOJ0VaNO8LioqHDWu8afmzfBw08YSu5KnzOPB+B9+xPcFZ5QovxHAcADFShQPRZwBCJxhB38A6JaQILR9SUkxfvlZ/o+6LBz89cHoMwE///SD0OAPAN0Txb6rSoqyWDCna2f0SkpUojxPB1QTA0BgDD34A0Cn+DiEmcU+LllZqyV1IxcHf30xcgjYskns/H+42YwOcbGSulHGhRDQIzFeifIMAdXAAFA1xc75d0tIwMfdu+p+8AcAm8WC9oI/LOvXZUrqRh4O/vpk1BCwedN6oe3bx8XCZrFI6kY5URYL3u/UHp3iFDltzzUBAWIAqJxil/p1TYjHR906IzoIvqwXiJ4G+HHbZpQUF0nqRo6pU6cqMvh37NiRg7+gyMhIvP766+jYsaP02tnZ2Xjuueek1xVRWlqCTd+LBQA9T///UZTFgn+0a45u8YocrPMSwQAwAFye4af9/6hbgtiUndvtxhadrXDetUv+g4o6dOiAmTNncvCXICoqCrNmzVJkJkCJf3sRmauWh/T5/0uJtJjxVttmSoUAng6oAgPApXHa/xK6JSbAYhK7cGRN5gpJ3egTp/3lU/J0gJ6sWL5UaHuryYSu8UEUAM7/lERazJjVthlPB2iAAeB/cdr/MuLDwtAxPk6oxjdLF8Pj8UjqSF84+Csn1EOA2+XC6pXLhGp0SYhHbFjwHFj4fL7//neUxczTARpgAPg9TvtXYXDtWkLb550+hc3fZ0nqRj84+CsvlEPA+vVrUFR0TqjGIMHvpuouCgAATwdogQHgNxz8AyAaAADgqyWLJHSiHxz81ROqIWD5d18J1xgSZAHA+4cAADAEqI0BwI/n/APUKiYG9SJtQjW+/WYJXC6npI60xcFffaEWArxeL1b+51uhGmlRkWhmD67T3F7fpU8Fck2AehgAeM6/2gbVEjvSKCw8i3VrVknqRjsc/LUTSiEga91qnDp5QqhGsB39A4DHe/m1QFwToA6jBwAe+dfA4BSeBuDgr71QCQGfffKhcA3RUK42n88Hz2VmAC7gTIDyjBwA7AC+gwJH/t0SEjCve5eQO/K/oG9SEuIFH+qzYvlSlJWVSupIXRz89SPYQ0B+3mmsWPFN1W+sRGJ4OPokJ0nqSB1ur+t/FgFeSpTFjHfaNVcqBGTAPwYYNgQYNQBw2l9AmNmMq+qmCNUoLS3Bv7/4TFJH6uHgrz/BHAIWLpgHt8slVOOaunVgFbw/h9qc7sDXAPF0gHKMGAC42l+CkampwjXmfPDO764F1jsO/voVjCHA5/Ph8wXzhOuMTK0roRv1+OCDy11RrW14dYAygis2iuPgL4kPQJ/MdcgRfKDKpwu+Rt/+g2u8fYO6HIxJO0dPlNV42/XrVmPMLdcI7b9+ZCQ2DOwXVD/kDlc5HM6a/b2Ve7x4aOd+bC0sltwVAGAjgOEAFCmuR0aaAeCCP4lMAK5LrSNc58MPZos3QxSE5n86R7jGyFGkTwAAIABJREFUjfVSg2rwB4AKV82fd8CFgXIZJQDwnL8Cbqwnfhpg9cplOHhwn4RuiILH8ePHsEzCzX+urxdc0/8OVxl8Pq9QDa4JkMcIAYBH/gppZrcLPxvA5/Nh3tx3JXVEFBzeevNl4cV/XRPi0SQ6WlJHyvN6vahwij3t8ALOBMgR6gGAl/opbFzDBsI1Fn3+CYqLiiR0Q6R/J0/mYtHnnwjXkfHdU43Ph7KKEvggb9EvLxEUF8oBgNP+Kri2bh0kR4QL1SgpLsJ7/5wpqSMiffvn7DfgdFZvFfwf1YqIwFV1xC7FVZPD5fBf+y8ZTweICdUAwNX+Kgk3m3Fr/frCdd7750zk5+dJ6IhIv86cKcCC+XOF69zeoD7CzMHx8+10V8DhFrtaqDK8RLDmguMTVD0c/FV2e8M04RuRlJaW4J+zX5fUEZE+vfuPN1FaWiJUw2oyYXSaeOhWg8vjQllFSUB3/RPBEFAzoRYAuOBPA6k2G4ak1Bau89Gcf1b7oSh2e8h9JylI2GNiq/X+wsKzUha8DquTgjo2sSdyqsHprkCpQ721PVwYWH2hFAC44E9DE9IbCtdwOMox842XqrVN3dTgOBKi0FOvXvU+e6+/+gJKisUHRBnfNSX5AJS7yvxH/irjwsDqCZUAwAV/GuuemICeiYnCdT6bPxdHjxwK+P19+w8S3idRTfTrPyTg9x7Yvwcff/Se8D4zkpPQJSFeuI5SPF4PSsrPocKp3Dn/qnBhYOBCIQBw2l8nJjVrLFzD7XLh/2ZMD/j9o8eMh4XhjFRmsVhw65hxAb9/2pQnha/7B4BHmop/xxTh88HhKkNx+Tl4vG6tu+HpgAAFewDgkb+O9ElKQreEBOE6Xy5eiPXrVgf03hYtW+P2sROE90lUHWPHT0Sz5q0Ceu+KZUuxbu1K4X12SYiXMssmk8/nhcNVhnPlhXA4ywGJ1/mL4kxA1YLtNtIX42p/HcrMy8e4rduE6zRq3BQrVm9BRETVi51cLifG3jYSG7IyhfdLVJWMfoMw75PFsIaFVflel8uJoQO64ddf9wvvd373rshIThKuI8rr9cLldcLtdsLtceloyL80PkDo8oL18Faxwb9LfBw+7NQekWb/+Sy+qvdqYIvAmvwCnKoI/Hnfl1J49gysVit69e5X5XstFgtGXH8Tis4VYsf2n4LqEcMUPCwWC+68+3688eZ7AQ3+APDuO2/g66++EN53x7hYPNqkoQbfaRdcXjdcHiecrgo4nGVwuMrh9rjgFbynv1rCzCZcUSsRvxSVINch9rt0CWkA+gNYBEB6caUF4wyAYqv9O8XZ8U675oiyBPuZEW2tP3MOD+wQP+KJiLBhxeotaNS4acDb7NubjQXz5yJr3SrkHDsqfM01GVt0tB310xqgX/8huHXMuICn/QH/A3+GDuiKkhLxg8P32jdHj4TqXXZIv1fm8eL+Hfvw0zlFfhPWA7gSQFD94ARbAFDsyL9TnB2z2zXjOX9J7tu+DxvPil/y1Kt3Pyz44juYBG80RKQmn8+HsWNGYO0a8XP//ZPiMKttMwldEU8H/F4wHeoqttr/wpE/B395HmuSBrOEQfv7jevw5eKFEjoiUs+8ue9KGfwtJhMebZwmoSMCeHXAHwXLiHfhyL/qE8LVxCN/ZSSFh+Gkw4nskjLhWhvWr8GIkTcjNlbs0cNEajh65BDumzAGLpf4KeGbU2tjRB3tF/6FkjCzCcOVWxPQAP6D1KBYExAMMwCc9g9SDzeqJ+XvtqjoHCY9dDc8Ho+EroiU4/V68dike6WsPYm2WHBfw7oSuqI/4rMD/PQ+8l2Y9lfkyJ/T/sqKsljg9vmknG87fvwYrFYrevbqK6EzImX84+3X8PlnH0mp9UB6PfRJ5KyXUsLMJgytlYht54pxUvCqpUtIA9AXOp8J0PPKKq72DwEVXi9u/GEXjpaLPf8cAKxWKxb9ewW6dOspoTMiubJ378S1V/aF0yn+WW8UZcOiLm0QbtbzT3RoMPLVAXodARW7w9+FaX8O/uqIMJvxXPN0KUnT7XbjwfvG4ty5QgnViOQ5d64QEyeMljL4mwA806whB3+VGPmOgXqc/+a0f4ipZ4tAboUTeyUsCCwuLsLxnKO46pqREjojEuf1enH/PWPw049bpdQbVbcWxtQTf7w2Bc6opwP0NhJytX+I6hJvx5cn81HuFb972N49uxETG4vOXXpI6IxIzCsz/irtvH9yeBjeaNsUEWbOUKrNiFcH6Gk05Gr/EGYzm1ErIgyr8uVM32etW4227TqicRPeIIW0s2LZUkz5y6PS6j3fohFax0RJq0fVY7TbBuslZvImPwZwde0kZEha1ez1evHIg+OxJ3uXlHpE1XVg/x5Mfvhuac+eGJgcj6G1xJ+mSWKMdLMgPQQArvY3kL+2SEdCmJynLJaUFOOucaOQn58npR5RoIqLinDP+Ful3Ocf8E/9P9c8XUotEhdlMeOdds2VCgEZ8I95mocArUdGrvY3mOTwMLzQspG0609zjh3BPXfdImX1NVEgHI5y3DVuFA4e3CelngnAtObpSJQUjEkOI1wdoOW8OFf7G1SDSBvOutzYWVwqpd6J3BzkHDuKYVdex4cGkaLcLhcm3jMGWetWS6t5e/0UrvrXqVC/OkCrEZKr/Q2ue0IM1hYUosDlllIvO3snTp3MxZChVzEEkCJ8Ph+eeuJBLP3qX9JqNomOxCutG8PKz6xuhfLVAVqMklztT7CaTOgSF4MlJwvgkbSIaueOn1FUdA4DBl4hpR7RxZ6f9md8/NF70upFmM14p31zpESES6tJygjVqwNqEjvbAZgAYDCAdPgHdCLdePCRP+Gpp6dr3QaFkNdffQGvv/KC1m0Q/VEpgMMAVgJ4H8DO6mxcnUPlCACzzu+kJ4DaABhdSXe2bt4ImIBevaWfYSIDev/dWZjx4lSt2yC6lHD4x+KeACae/++VAAJ6dGqgASAC/ssWboK+HyBEBADYtDELERER6Najt9atUBB7/dUXOPhTsDAD6A6gD4AFCCAEBBoA3oJ/8CcKGuuzMjkTQDXi9XoxbcoTeOft17Ruhai6GgFIgP+gvVKBBIB2AN4Dj/wpCG3amIWTJ49j4KBhMPP+6hQAt8uFxydPxGefztG6FaKa6gLgXwAqvUtaIAHgGfjPLxAFpZ07fsaPP27BsOHXIjw8Qut2SMeczgo8dP84fP3VF1q3QiTCDKAC/psNXVYgR/W7ALSW0RGRljp26oo5H/8bSUnJWrdCOlRUdA53jR2FLZs3aN0KkQw74Z/Bv6xAAkAxdHDPYiIZGjRshHnzl6BxYz5FkH7z66/7cc/4W7F/X7bWrRDJUgwgtrI3BHJSlIM/hYyjRw7hxusGY0NWptatkE4s++4rXDMsg4M/hZoqnzPAVVFkOAUF+RhzyzX4+wtT4PV6tW6HNOLz+fDOW6/ivgljpD3VjyiYBHIKQM59Wol0qHfGALw1ey6Sa/FhLEZSUlyERx+5B8uXfa11K0RKqnSMZwAgw6tXLw2z3/0EnTp307oVUkH27p24754xOPTrAa1bIVJapWM8TwGQ4R0/fgyjrh+KOR+8A5+kBxOR/ng8Hrzz1qu49sq+HPyJwBkAot/p0TMDL786G40aN9W6FZLo2NHDeGzSvdi8ab3WrRCpiTMARIHavGk9hg/piXfeepULBEOAz+fD/E8+xBWDunPwJ/oDzgAQXUaXbj3xymvvoEnTFlq3QjVw+tRJPPnEA1i9cpnWrRBpRdtFgN90aCmyOdElObxevHQkF1uLShTdj80Wicf+9CzumfgILJbqPD2btOJ0VuCD997GrDdmKH55X7dYO/7cMBU2PmciJBW5A3qqrmJG79ovWoKnACj02MxmTEmvh2GJ8Yrux+Eox4vPP4Orh/XGurUrFd0XifvP8m8wZEBX/P1vzyo++A9PiseU9Hoc/Clo8ZNLQctiMuGRtDoYX7eW4o+q3L1rB26/9TqMueUa7Nq1XeG9UXUdPLgPd94+EnffeRMOHzqo6L5MAMakJOPh+nVgMfEhqRS8GAAo6I2qnYRH0uqq8mO8ft1qXDOsD/702P04eTJX8f1R5QoLz+K5KU9g6ICuWL2q0gefSWE1mTAprS5uq8MHSlHw4xoAChk7Ssrw9yPHcU6l83aRkVG4975JmHj/JNhjKn3mBkmWn5+H99+dhXlz30VJcZEq+4y3WvB0ej20jY5SZX+kvVBfA8AAQCEl3+XGC4dzsK/Modo+7fYY3HTrHZh4/2SkptZXbb9GlJ93Gu+9OwtzP3gH5eVlqu23caQNz6bXQ0p4mGr7JO0xADAAUJBx+nx4O+ckVp45p+p+w8LCce2IUXjgocfRvEUrVfcd6o7nHMW7/5yJzz6ZA4ejXNV994+PxaS0OojgYj/DYQBgAKAgtSTvDOacyINb5dv7mkwmDB56Je574FF079FH1X2HEp/Ph43r1+DTTz7Esu++gtvlUnX/VpMJd6XWxojkBFX3S/rBAMAAQEFsf5kDLx/NRW6FU5P9t2nbATfdfDuuG3kzkpNradJDsMnPO41Fn3+Mz+bPVXxF/+WkRoTjqYapaBpp02T/pA8MAAwAFOTKvV7MzjmF1WfVPSVwMYvFgl59+uPGUaNx9bU3wGaL1KwXPfJ6vf892l++7GvVj/YvNighDg/UT0Ekp/wNzQughAGAAYBCw6qz5/BOzimUa3yP//j4BIwYeTNG3jgaHTt1hdmgA43L5cT3G9dh2bdfYcXypTh96qSm/URZzHigXh0MTOAVHQR4fD6UerT9rWAAIJLotNOFWTkn8WNxqdatAAASE5PQq09/9O03CEOvuBq1aqdo3ZKiysvLsCFrDZZ+/W+sXPENioq0m5W5WOeYaDxSvw5qcZU/nef0+uDQ+GCBAYBIMh+A/5wpxPu5pzVP+BezWCzo1Lk7Bg0ehoGDh6F1m/YwBfmd5ioqHPjl523YsmkDtmzegO83ZqGiQr1LNKsSbbHgntTaGJoYp3UrpDNlXi/cXm2fhccAQKSQs2433s45he/PKXvP+Jqy22PQslVbtOvQCe3bd0K79p11f3lhaWkJftq2BVu3fI+tW7/H1s0bdTXgX6xbrB0P1a+D5DCr1q2QzvjgP/+v9aNwGQCIFLbhXDHezz2N007tFp4FqnZKHXTo2AXt2ndCo0ZN0aBhIzRo2AhJSeremraw8CwO7N+D/fv24uCBvdi3dzcOHNiH4zlH4VP5ssvqSgkPwz2ptdErLkbrVkin9DD9DzAAEKnC6fVh4ekC/CuvAE6Np/1qwm6PQYOG6WjQwB8IUurUhd0ei9jYWMTFxcMeE4uY2FjE2P3/1+1yw+v77QfO7Xaj9PzT81wuJwoK8pGfdxqnT5/CmYJ85OWdQl7eKRQU5OPwoYMoyM/T6o9aY+FmE26qnYRRtZIQbg7uUyukrBK3B9oP/wwARKo65XThvdzTuj0tQDXTOy4GE1Jr81a+VCWn1wuHTg4ClA4APPlFdJGU8DA8m14Pe8rK8dGJPGwvUe9+8yRfy+hI3FmnFtrZ+QAfqprH59PN4K8GBgCiS2gZFYm/N2mAn4tL8eGJPBws1+dCNrq0hrYIjElJRkY8z/NTYHw+oExHVwWpgQGAqBIdY6LxZkw0sgqLsOBUAY44KrRuiSqRbovALSlJ6BsfG9D5TSIA8MKHco9X81X/amMAIKqCCUC/+Fj0i4/Fz8Wl+PRUPnaXqvtEOqpc6+hIjKqdhO6xdg78VC0enw9lHp/hBn+AAYCoWjrGRKNjTDR2lZZh0ekz+KGoxJA/HHpggv9a/lG1k9Amms9WoOqr8PpQoYPL/bTCAEBUA22io9CmURRyK5xYfuYcVpwp1PzJYUYRbTGjb3wsRiQnoIEtQut2KMj4ALjPD/zGHfr9GACIBKRGhGN83Vq4vU4yNp8rwZf5Z3h6QCFNI224MikeAxJiYTPoA5So+rwAfD4fPAA8Xh/cPmNO91+K4gGAR0VkFO3tUWhvj0JOhRObzhUj61xxUNxdUM8Sw6zoHmtHz1g7WkT5p/mdXh+cXv6uEIniDACRZPUjwjGqdhJurJ2E3aVlWF9YjC3FJYa7xKimoixmdI+1IyMuFq2jI7moj0ghDABECjHh/FqB6Cjc40vB/vJy/Fhcii1FJTjJmYHfSQ6zooM9Gp1jotHeHgVrkD8FkSgYMAAQqcBsAlpERaJFVCRGpyTjkKMCPxaXYmdJGQ6UO+DW+QN0ZLOaTGgWaUMbexS6xEQjnYv5iFTHAECkgUa2CDSyReDGWomo8Pqwt6wcu0vLsKu0HIccFfCEWCCwmExoZItAm+hItImOQvOoSETwgTxEmmIAINJYhNn03wWEgP/GJCecLuwtK8fesnIcKq/A8QpnUK1cjrda0Tgy4vyshw2NbDY+gY9IZxgAiHTGYjKhfkQ46keEY3BCHADA4fUit8KJnAonciucOF7hxPEKF/JdLrg0mi0IM5mQHBaGehHhqBcRhtTzPadGhPMyPaIgwABAFARsZjMaR9rQONL2P/+/c24PClwunHG7ke90o9DtQYnHg1KPB6Uer/+/vV54fT6Un7/rmdvnQ8X5p55FmE3/XXQXaTbDbDIh2mKG3WJBtNkMu9WCaLMF8VYLksOtSLKGITHMijirRb2/ACKSjgGAKMjFWS2Is1rQWOtGiCiocJ6OiIjIgBgAiIiIDIgBgIiIyIAYAIiIiAyIAYCIiMiAGACIiIgMiAGAiIjIgBgAiIiIDIgBgIiIyIAYAIiIiAyIAYCIiMiAGACIiIgMiAGAiIjIgBgAiIiIDIgBgIiIyIBMAbzHp3gXREREJFulYzxnAIiIiAyIAYCIiMiAGACIiIgMiAGAiIjIgBgAiIiIDIgBgIiIyIAYAIiIiAwokABQrHgXREREJFNRVW8IJAAck9AIERERqedoVW8IJAD8R0IjREREpJ4VVb0hkFsBtwXwMwCLcDtERESkNA+A9gB2V/amQGYAdgL4h4yOiIiISHFvo4rBHwhsBgAAwgF8C2CwSEdERESkqJUArgLgquqNgU7rewAsAJAAoAt4+SAREZGeeAC8BWAcAhj8gcBnAC7WBsDdAIYCSAdgr0ENIiIiElMC4DD8C/4+QADT/herSQCoLp/IxkdPlMnqg4iISDUN6kaJllB0jOZUPhERkQExABARERkQAwAREZEBMQAQEREZEAMAERGRATEAEBERGRADABERkQExABARERkQAwAREZEBMQAQEREZEAMAERGRATEAEBERGRADABERkQExABARERkQAwAREZEBWbVuQG17snfhs/lzsCErEznHjqKsrFTrliiIRUVFo35aA2T0G4TRY8ajRcvWiu6Pn18iedT+/uqNSYV9+EQ2PnqiTEoTTmcFpk99Ep9+/AG8Xq+UmkQXs1gsuH3sBEydPgNhYeFSa/PzS6QsJb6/DepGiZZQdIw2RABwOiswdsz12LhhrXAtoqr0zhiAj+cvkfYjws8vkXpkfn/1HgAMsQZg2pQ/8ceTVLNx/Ro8P+3P0urx80ukHtnfXz0L+RmAPdm7MHxID06bkqosFguWr9qC5i1aCdXh55dIfbK+v5wB0Nhn8+fwx5NU5/F4sGD+XOE6/PwSqU/W91fvQj4ArF+XqXULZFBZ61YJ1+Dnl0gbMr6/ehfyASD3+DGtWyCDOp4j/tnj55dIGzK+v3oX8gGgtLRE6xbIoEpKioVr8PNLpA0Z31+9C/kAQERERP+LAYCIiMiAGACIiIgMiAGAiIjIgBgAiIiIDIgBgIiIyIAYAIiIiAzIqnUDere9f1etWyCFeHw+7CkoqvQ9o3ftV6kbZfh8Qo/iIFJUcbGy19rHxsYqWj/YcQaADMvt4T32ici4GADIsEpcHq1bICLSDAMAGZQPZx1OrZsgItIMAwAZUoHDhQoPZwCIyLgYAMhwSp1unCop17oNIiJN8SoAMhAfChwunCopB9fGE5HRMQBQSPP6AJfHgxKXB2cdTk77ExGdxwBQhV3557RugYiISDquASAiIjIgBgAiIiIDYgAgIiIyIAYAIiIiA2IAICIiMiAGACIiIgNiACAiIjIg3gegCsH+PHgiksvr9eLIkSPYu3cv9uzZg7179+LQoUMoKipCaWkpSkpKcPbsWZSWlgIAoqOjkZCQALvdDrvdjtjYWKSnp6Nly5Zo2bIlmjdvjoYNG8Js5vEYqYsBgIioEiUlJcjKykJmZibWrFmDHTt2wOFwBLy90+nE2bNnK32PzWZD+/bt0b9/fwwaNAh9+/ZFdHS0aOtElTKpsA+h264fPVEmtPMGdaOEticSofXn1+fjUw9qIjs7GwsWLMCqVauwZcsWuFwuVfcfFhaGHj16YMiQIbjlllvQsmVLVfevluLiYkXrx8bGCm2v9fcXCo/RDABECtL688sAELizZ89i0aJFmDdvHjZs2KB1O7/TunVrjB07FuPHj0ft2rW1bkcaBoAqKTpG86QTERnaunXrcP311yMlJQUTJ07U3eAPALt378af//xnpKWlYeTIkcjKytK6JQoBDABEZEjr16/HkCFD0L9/f3z55ZeqT/PXhNPpxJIlS9CvXz9kZGTg66+/5iwP1RgDABEZypIlS9C1a1f07dsXq1at0rqdGtuwYQOuu+469OjRA1999ZXW7VAQYgAgIkM4cOAAhg8fjpEjR2Lbtm1atyPN1q1bMWLECAwaNAjZ2dlat0NBJOQDgN0eo3ULZFD2GLEFSCRHeXk5pk2bhrZt22L58uVat6OYzMxMdOjQAZMmTfrvPQiIKhPyAaBuan2tWyCDqlePnz2trVixAm3atMH06dNRUVGhdTuKc7lcmDlzJtq3bx/UpzdIHSEfAPr2H6R1C2RQ/foP0boFw3K73Zg2bRquvPJKHDp0SOt2VPfrr79i6NChmDRpUlAsbiRthHwAGD1mPCwWi9ZtkMFYLBbcOmac1m0YUk5ODgYOHIjp06fD6/Vq3Y5mfD4fZs6ciaFDhyI3N1frdkiHQj4AtGjZGrePnaB1G2QwY8dPRLPmrbRuw3C+++47dOrUCevXr9e6Fd1Yu3YtOnbsiBUrVmjdCulMyAcAAJg6fQb69B2odRtkEBn9BmHK1L9r3YbhvP/++7j22muRn5+vdSu6k5eXh6uvvhpz5szRuhXSEUMEgLCwcMz7dDHuvOs+ng4gxVgsFoyf8ADmfbIY1rAwrdsxlBdffBH33nsvPB6P1q3oltvtxt13342XXnpJ61ZIJ0L+WQB/tG9vNhbMn4usdauQc+woSktLpNYnY4mOtqN+WgP06z8Et44ZJ33an88CqJzX68Wjjz6KmTNnat1KUJk8eTJee+01mExqDAGXx2cBVIkPA9JSqP8Ai/4AhPqfj58//fJ6vbjzzjvx8ccfa7L/pPBwtI2LRePoaDSJjkITezSSwsMRZbEiLsyKqPOzjWUeD8653CjzuJFf4cSvpaU4WFqKgyWl2FVUjAKnU5P+x40bhzlz5mgaAhgAqqToP45VyeJEREp59NFHVR38Iy0W9E1OQp+kRPRKSkSLmJiAfp3jzGbEXTglFANkJCf99//nA7CnuBjfF5zBhoIzyMovgEOl0xgfffQREhMT8dprr6myP9IfBgAiCjp/+9vfVJn2N5tM6Bwfh1H16uG61DqwW+X+ZJoAtIqJQauYGNyV3hAlbjeWnzqNpSdOYk1ePjwKz+C8/vrrSElJwVNPPaXofkifeAqgCqE+BctTAJXj509/3n//fdx7772K/tkizGbcklYfExulIy0qUrH9VOZoWTlm7svGkpP5cHqV+7OaTCZ8+OGHuPPOOxXbx+XwFECVuAZAS6H+A8wAUDl+/vTlu+++w7XXXqvYav9IiwVjG6bhnkbpqB0Rocg+qqOwtAB5Thc+OnYSC3Pz4FDoxkZWqxXffvsthg4dqkj9y2EAqJKiY7QhLgMkouCXk5ODsWPHKjb4D65dC6v69cEzLVvoYvC/oFZ4GJ5okoavu7fF0FoJiuzD7Xbj9ttv5x0DDYYBgIh0z+12Y/To0Yrc5Kd+ZCTmdO2MOV07o36kNtP9gUiJCMerrZtgZtumqBsRLr3+6dOncdttt/FeCgbCAEBEujdlyhRFbu87LKU2vsvohcG1a0mvrZQBSfH4V7c2GFYrUXrtNWvWYPr06dLrkj4xABCRrq1YsQIvv/yy1JrhZjOeb9MK73Xp9NslekHEbrHg5daN8VTTBgg3yz1N/MILL/BRwgbBAEBEulVWVob77rtP6lP9EsLDsLBnN4xr2EBaTS2YANxWrzbea98CcRIvT/R6vZg4cSLKy8ul1SR9YgAgIt168cUXcejQIWn1UmwR+LxHN3SOj5dWU2ud4uz4qFNL1JG4LuDgwYOYMWOGtHqkTwwARKRLe/fuxSuvvCKtXhN7NL7s3RMtY2Kk1dSLxlE2fNSpJdKjbNJqzpgxAwcOHJBWj/SHAYCIdGny5MmoqKiQUquOzYZPunVBqk3eAKk3dSPC8X775ki1yZkJcDgcePDBB6XUIn1iACAi3VmyZAmWLVsmpVZCeBjmd++Kejq+xE+W2hHheLttM2lrAlasWIGlS5dKqUX6wwBARLrzt7/9TUqdcLMZc7p2RlN7tJR6waBJdCRmtWsq7eqA559/Xkod0h8GACLSlWXLlmHbtm1Sak1p1SKkFvwFqmOsHY82TpNSa8uWLVi5cqWUWqQvfBogEenKiy++KKXOVXVSVLnUL6+iAhsKzuCnwnM4WFKCo2XlOOtyodTtBgBEW61ICAtDg6hINLHb0Tk+Dr2TElFL4dsN31avNrYVFmNl/lnhWi+88AKGDBkioSvSEz4MqAqh/jAWPgyocvz8qWvdunXo37+/cJ36kZFY3rc3YiQ/vveCs04XluTm4l/Hc7H9XFGNanSIi8MN9VJxfWpdJIRf+mZEhaUFIm2i2O3BTdsVS9d7AAALm0lEQVR2IdfhFKoDAFlZWcjIyBCuczE+DKhKfBgQERnDa6+9JqXO821aKTL4n3A4MG33HvTMXIvndu+p8eAPAL+cO4fndmejV+ZaTN+9BycdDomd+sVYLfhzUzmzILL+bUg/GACISBcKCgrw3XffCdcZllJb+r393T4fPjx8BIPWrseHh4+gXOIDc8o8Hnxw+Aj6r12P1/cfgFPyI38HJMWjf5L4OohvvvlGkYcxkXYYAIhIF+bPnw+nU2yqOtJiwbTWLSV15HewtBTXbPge03bvQamCT8or93jw+v6DGLFxE34tLZVa+89N0xBhFvu5dzqdWLhwoaSOSA8YAIhIF+bNmydcY1zDBlKv9//25Clcs/577C5S9lz1xXYVFeOaDZuw7OQpaTXr2SJwU6r4rMjHH38soRvSCwYAItJcdnY2fvjhB6Ea4WYz7k5vKKkjYFHOcTz00y+KHvVfTonbjft/+gULc/Ok1RyfVkd4FmDTpk3Ys2ePpI5IawwARKS5BQsWCNe4Na0+UmxyLq379OgxPL59J9waXkXh8fnwt/1HMP/4aSn1aoWH4bqUJOE6PA0QOhgAiEhzos+fN5tMmNgoXUov3548hWd3ZUupJcPLB49hdX6hlFp3ptURvq5M9N+K9IMBgIg0VVJSgi1btgjV6JmYgLQo8XP/h8vK8MT2nfDo6P4JXp8Pf9nzKw6ViV8mmBYZgc5xYk9D3LRpE0olL1IkbTAAEJGmsrKy4HK5hGrcUC9VuA+X14v7fvwZJefv4KcnZR4vnsr+VcopiWsFTwM4nU5s3LhRuA/SHgMAEWkqMzNTaHubxYIr66QI9/HeoSOqrvavrj0lZfgkR/zKgCtqJwgvBhT9NyN9YAAgIk2JDib9kpOE7/p30uHAzAMHhWqo4R9HcpHnFJstsVss6JEgdhpg9erVQtuTPjAAEJFmvF4vdu7cKVSjT1KicB//+PUwyjS43K+6yjxefHTspHCdbvFi98jfsWMHvJLvWEjqYwAgIs0cPnwYDsF74PcSDABnnS58dixHqIaaFp3IQ6FLbJ1Cj3ixGYCysjLk5ATP3xldGgMAEWlm3759QtsnhYejRYzYYLYkN1fqvf2VVu7xYlneGaEaze1RiA8TO22yd+9eoe1Je8o8K5OIKACid5VrGxcrfF37v47nClb4TZotAgPjY9HOHoVa5wfYPJcbO0rKkHn2HI5ViD+WFwC+OlmAW1Nr13h7M4CW9ihsOlvzpxnu3bsXQ4cOrfH2pD0GACLSjOhRZOPoaKHtT1dUYIfAI30vCDOZcEedWhiSGPc/gaR+RDjqR4RjWGI8Vp4txMcn84Uv59tVXIozLjcSBY7i0yNtwgFAhE9H91owKp4CICLNHD58WGj7JtFRQtt/X3AGosNQmMmEpxrWw9BLDP4XM5uAKxLj8eeGqbCaxOYtfAC2FIoFl0ZRNqHtDx06JLQ9A4D2GACISDNFRWKDmOgMwI+F54S2B4CxdWqhTXTgdyFsEx2F2+skC+93e5HY3fgaCgaAc+fE/u54FYH2GACISDOiAaBWhNjDfw6WlAhtn2aLwODEuGpvNzQhHvUjwoX2LXpr4OTwMKHti4vFbprEAKA9BgAi0ozoIGK3WoS2P1xWJrT9wPiaLUI0m4CBCdUPDhc7Vi4WAKItYj//ov92niC68iJUMQAQkWZEB5FowTsAFgleT9/OXvM1CCLbAkCRW2wAjbaIhSfR2RsGAO0xABCRZkoEp+BFB7FSwUEoWWAVvsi2AITvXBgl+HcnEt48Hg8XAeoAAwARacbpFLsuPkzwoTYuwfPQNoH9Rwr27vSKDaDhZrErESoqKmq8rejTH0kOBgAiIlKNz+eDW4ePXDYiBgAiIlKNy+Xi9L9OMAAQEZEqfD6f8GkfkocBgIiIVOF0Onn0ryMMAEREpDiPx8Ojf51hACAiIkX5fD44HGI3LiL5GACIiEhRDoeDt/7VIQYAIiJSjMPh4GV/OsUAQEREinA4HLzpj46J3YuSiIjoDy6c8+eRv74xABARkTQej4fn/IMEAwAREQnz+XxwuVxCzwggdTEAEBFRjV0Y+HmTn+DDAEBERDVy4Tw/B/7gxABAREQ1whX+wY0BgCiEFRcXa90CEekU7wNARERkQAwAREREBsQAQEREZEAMAERERAbEAEBERGRADABEREQGxABARERkQAwAREREBsQAQEREZEAMAERERAbEAEBERGRADABEREQGxABARERkQAwAREREBsQAQEREZEAMAERERAbEAEBERGRADABEREQGxABARERkQAwAREREBsQAQEREZEAMAERERAbEAEBERGRAVq0bICLlxMbGat1CSBu9a7/WLWiKn6/gxhkAIiIiA2IAICIiMiAGACIiIgNiACAiIjIgBgAiIiIDYgAgIiIyIAYAIiIiA2IAINIxuz1G6xZCmt0avLdCsVssWrcQ0uwxoX+PAwYAIh2rm1pf6xZCWl2bTesWaqyOLVzrFkJavXqh/91jACDSsb79B2ndQkjrm5ykdQs11jsh9I9QtdSv/xCtW1AcAwCRjo0eMx4WTvUqZnRafVhMJq3bqDazyYSRdZO1biNkWSwW3DpmnNZtKI4BgEjHWrRsjdvHTtC6jZDVIsaO2xukad1GtY1OrYUmUZFatxGyxo6fiGbNW2ndhuIYAIh0bur0GejTd6DWbYSsqa1aoE9S8JwK6JkQi8ebBF9oCRYZ/QZhytS/a92GKhgAiHQuLCwc8z5djDvvuo+nAxQQZjZjXrfOuLNhA12fDjCbTLitXm3MbtcMVh33GawsFgvGT3gA8z5ZDGtYmNbtqEKNT5FPZOOjJ8pk9VEjDepGCW3v8wn98RVnEvwhCfU/n9afvz/atzcbC+bPRda6Vcg5dhSlpSVat6Spo1cNk1pvX0kJFhzLQVZ+AXLKylHq8UitX11RFjNSbRHonRCLkXWTpU/7t1/7g9R6wSY62o76aQ3Qr/8Q3DpmnPRpf9HxAwqP0QwAVWAAqFyo//m0/vyFOtHvl+wAoDeFpQWK1hcNAPx+VE7vAYCnAIiIiAyIAYCIiMiAGACIiIgMiAGAiIjIgBgAiIiIDIgBgIiIyIAYAIiIiAwoeB+GTUSGp/R18kShjDMAREREBsQAQEREZEAMAERERAbEAEBERGRADABEREQGxABARERkQAwAREREBlSTZw23AzABwGAA6QCiZTZEREREASkFcBjASgDvA9hZnY2rEwAiALwOYCI4c0BERPT/7dwtjpRZFIDhd9JkMISEHTACxZ9gBQRaDH4ECgErYC2QYNCwAkiAsAYEjcFMhh1MoyAVEBhU1Q1VX9Fwn0ef/uq4+9atqj5JVtWj6n71aeQPRgPgdPW8uv5jewEAe/C6+ruBCDgYfOCD6p9tNgIAFvdXda5vb9rXGrkBuFy9ybU/APwKVtXV6mjd0Mihfm9wDgD4+Q6qu5uGRg72m9vvAgDs0eGmgZGPAI6rM9vvAgDsyXF1dt3ASAB82c0uAMAerT3jfbYPABMSAAAwIQEAABMSAAAwIQEAABMSAAAwIQEAABM6tfQLPLl4YemXAIDfzu2j94s+3w0AAExIAADAhAQAAExIAADAhAQAAExIAADAhAQAAExIAADAhAQAAExIAADAhAQAAExIAADAhAQAAExIAADAhAQAAEzoj4GZL4tvAQDs2toz3g0AAExIAADAhAQAAExIAADAhAQAAExIAADAhAQAAExoJACOF98CANil/zcNjATAhx0sAgDsz3+bBkYC4OUOFgEA9ufFpoGRfwV8qXpTHWy9DgCwtFV1pXq3bmjkBuBt9WgXGwEAi3vYhsO/xm4Aqv6snlU3ttkIAFjUq+pW9XnT4Oi1/qp6Wp2rruXngwBwkqyqB9WdBg7/Gr8B+N7F6m51WJ2vzvzAMwCA7Xys/u3bF/4eN3DtDwAAAAAAAAAAAAAAAAAAAJxMXwFZCio814bd7gAAAABJRU5ErkJggg==");background-repeat:no-repeat;background-position:center;background-size:contain;vertical-align:-0.16em;flex:0 0 auto;}
+</style>
 </head>
 <body>
 <a class="skip-link" href="#main-content">Skip to dashboard content</a>
@@ -2799,7 +2858,7 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
 <div class="weekly-kpi-card" style="border-left-color:#dc2626;"><div class="weekly-kpi-top"><span class="weekly-kpi-label">Shortfall</span><div class="weekly-kpi-icon" style="background:#fef2f2; color:#dc2626;">⚠️</div></div><div class="weekly-kpi-value" id="weeklyKpiShortfall">0</div><div class="weekly-kpi-note">Target − Achievement</div></div>
 <div class="weekly-kpi-card" style="border-left-color:#7c3aed;"><div class="weekly-kpi-top"><span class="weekly-kpi-label">% Achievement</span><div class="weekly-kpi-icon" style="background:#f3e8ff; color:#7c3aed;">📊</div></div><div class="weekly-kpi-value" id="weeklyKpiPercent">0%</div><div class="weekly-kpi-note">Overall selected scope</div></div>
 <div class="weekly-kpi-card" style="border-left-color:#ea580c;"><div class="weekly-kpi-top"><span class="weekly-kpi-label">Target Not Achieved</span><div class="weekly-kpi-icon" style="background:#fff7ed; color:#ea580c;">❌</div></div><div class="weekly-kpi-value" id="weeklyKpiFailCount">0</div><div class="weekly-kpi-note">Offices below weekly target</div></div>
-<div class="weekly-kpi-card" style="border-left-color:#1e3a8a;"><div class="weekly-kpi-top"><span class="weekly-kpi-label">Offices Monitored</span><div class="weekly-kpi-icon" style="background:#eef2ff; color:#1e3a8a;">🏢</div></div><div class="weekly-kpi-value" id="weeklyKpiOfficeCount">0</div><div class="weekly-kpi-note">Distinct offices</div></div>
+<div class="weekly-kpi-card" style="border-left-color:#1e3a8a;"><div class="weekly-kpi-top"><span class="weekly-kpi-label">Offices Monitored</span><div class="weekly-kpi-icon" style="background:#eef2ff; color:#1e3a8a;"><span class="office-symbol" aria-hidden="true"></span></div></div><div class="weekly-kpi-value" id="weeklyKpiOfficeCount">0</div><div class="weekly-kpi-note">Distinct offices</div></div>
 </section>
 <section class="weekly-section-card">
 <div class="weekly-section-title"><h3>1. Division Summary</h3><span>Division-wise target versus weekly Net Addition.</span><button class="btn-action btn-image" onclick="copyTableAsImage('weeklyDivisionTable')">🖼️ Copy as Image</button><button class="btn-action btn-excel" onclick="downloadTableAsExcel('weeklyDivisionTable', 'Weekly_Division_Summary')">📥 Download Excel</button></div>
@@ -3144,7 +3203,7 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
 <div class="nil-kpi-note">Offices with account opening</div>
 </div>
 <div class="nil-kpi-card" style="border-left-color:#2563eb;">
-<div class="nil-kpi-top"><span class="nil-kpi-label">Total Offices</span><div class="nil-kpi-icon" style="background:#eff6ff; color:#2563eb;">🏢</div></div>
+<div class="nil-kpi-top"><span class="nil-kpi-label">Total Offices</span><div class="nil-kpi-icon" style="background:#eff6ff; color:#2563eb;"><span class="office-symbol" aria-hidden="true"></span></div></div>
 <div class="nil-kpi-val" id="nilKpiTotalCount">0</div>
 <div class="nil-kpi-note">In selected period</div>
 </div>
@@ -3660,6 +3719,14 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
 <div class="subdn-filter-kpi"><span class="subdn-filter-kpi-label">Total Proportionate Target</span><div id="subDnKpiPropTarget" class="subdn-filter-kpi-value">0</div><div class="subdn-filter-kpi-note">Applicable target for selected period</div></div>
 <div class="subdn-filter-kpi"><span class="subdn-filter-kpi-label">Achievement — Net Addition</span><div id="subDnKpiAchieved" class="subdn-filter-kpi-value">0</div><div id="subDnKpiAchievedPct" class="subdn-filter-kpi-note">0.0% of Prop. Target</div><div id="subDnKpiShortfall" class="subdn-filter-kpi-note">Shortfall: 0</div></div>
 </div>
+<section aria-label="Top SPO and Top 3 BPOs from Sub Divisions" class="subdn-top-office-section">
+  <div class="subdn-top-office-heading">
+    <div><span class="subdn-top-office-title">TOP SPO &amp; TOP 3 BPOs</span><span class="subdn-top-office-subtitle">from Sub Divisions by % Proportionate Target Achievement</span></div>
+    <span class="subdn-top-office-badge">LIVE • Selected Filters</span>
+  </div>
+  <div class="subdn-top-office-grid" id="subDnTopOfficeKpiGrid"></div>
+</section>
+
 
 <div class="table-responsive">
 <table id="subDnMonitoringTable">
@@ -3745,26 +3812,36 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
 <div class="directory-filter-field"><label for="dirMonth">Month</label><select id="dirMonth" onchange="renderOfficeDirectory()"><option value="ALL">All Months</option></select></div>
 <div class="directory-filter-field"><label for="dirSearch">Office / SO Search</label><input id="dirSearch" oninput="renderOfficeDirectory()" placeholder="Search office, SO or SOL ID" type="search"/></div>
 <div class="directory-filter-field"><label for="dirDivision">Division</label><select id="dirDivision" onchange="populateDirectorySubFilters(); renderOfficeDirectory()"><option value="ALL">All Divisions</option></select></div>
-<div class="directory-filter-field"><label for="dirSubDivision">Sub Division</label><select id="dirSubDivision" onchange="renderOfficeDirectory()"><option value="ALL">All Sub Divisions</option></select></div>
+<div class="directory-filter-field"><label for="dirSubDivision">Sub Division</label><select id="dirSubDivision" onchange="populateDirectorySoFilters(); renderOfficeDirectory()"><option value="ALL">All Sub Divisions</option></select></div>
+<div class="directory-filter-field"><label for="dirSoName">SO Name</label><select id="dirSoName" onchange="populateDirectoryOfficeFilters(); renderOfficeDirectory()"><option value="ALL">All SO Names</option></select></div>
+<div class="directory-filter-field"><label for="dirOfficeName">Office Name</label><select id="dirOfficeName" onchange="renderOfficeDirectory()"><option value="ALL">All Offices</option></select></div>
 <div class="directory-filter-field"><label for="dirType">Office Type</label><select id="dirType" onchange="renderOfficeDirectory()"><option value="ALL">All Types</option><option value="HO">HO</option><option value="SPO">SPO</option><option value="BPO">BPO</option></select></div>
 <div class="directory-filter-field"><label for="dirNet">Net Addition</label><select id="dirNet" onchange="renderOfficeDirectory()"><option value="ALL">All Net Values</option><option value="POS">Positive Net</option><option value="ZERO">Zero Net</option><option value="NEG">Negative Net</option></select></div>
 <button class="btn-action directory-filter-reset" onclick="resetDirectoryFilters()" type="button">↺ Reset</button>
 </div>
+<div class="directory-column-strip" aria-label="Columns to Show">
+  <span class="directory-column-strip-title">☷ Columns to Show:</span>
+  <label><input type="checkbox" class="dir-col-toggle" data-col="officeName" checked onchange="renderOfficeDirectory()"> Office Name</label>
+  <label><input type="checkbox" class="dir-col-toggle" data-col="soName" checked onchange="renderOfficeDirectory()"> SO Name</label>
+  <label><input type="checkbox" class="dir-col-toggle" data-col="subDivision" checked onchange="renderOfficeDirectory()"> Sub Division</label>
+  <label><input type="checkbox" class="dir-col-toggle" data-col="division" checked onchange="renderOfficeDirectory()"> Division</label>
+  <label><input type="checkbox" class="dir-col-toggle" data-col="opened" checked onchange="renderOfficeDirectory()"> Opened</label>
+  <label><input type="checkbox" class="dir-col-toggle" data-col="closed" checked onchange="renderOfficeDirectory()"> Closed</label>
+  <label><input type="checkbox" class="dir-col-toggle" data-col="net" checked onchange="renderOfficeDirectory()"> Net Addition</label>
+  <label><input type="checkbox" class="dir-col-toggle" data-col="target" checked onchange="renderOfficeDirectory()"> Target</label>
+  <label><input type="checkbox" class="dir-col-toggle" data-col="propTarget" checked onchange="renderOfficeDirectory()"> Proportionate Target</label>
+  <label><input type="checkbox" class="dir-col-toggle" data-col="achievement" checked onchange="renderOfficeDirectory()"> Achievement</label>
+  <label><input type="checkbox" class="dir-col-toggle" data-col="propPct" checked onchange="renderOfficeDirectory()"> % against Prop. Target</label>
+  <label><input type="checkbox" class="dir-col-toggle" data-col="annualPct" checked onchange="renderOfficeDirectory()"> % Overall Target</label>
+  <label><input type="checkbox" class="dir-col-toggle" data-col="propShortfall" checked onchange="renderOfficeDirectory()"> Shortfall/Excess vs Prop. Target</label>
+  <label><input type="checkbox" class="dir-col-toggle" data-col="overallShortfall" checked onchange="renderOfficeDirectory()"> Overall Shortfall/Excess</label>
+  <label><input type="checkbox" class="dir-col-toggle" data-col="action" checked onchange="renderOfficeDirectory()"> Action</label>
+  <span class="directory-column-actions"><button class="btn-action" type="button" onclick="setDirectoryColumns(true)">Select All</button><button class="btn-action" type="button" onclick="setDirectoryColumns(false)">Clear All</button></span>
+</div>
 </section>
 <div class="table-responsive">
 <table id="officeDirectoryTable">
-<thead>
-<tr>
-<th onclick="sortTable('officeDirectoryTable', 0)">Office Name <span class="sort-arrow">↕</span></th>
-<th onclick="sortTable('officeDirectoryTable', 1)">SO Name <span class="sort-arrow">↕</span></th>
-<th onclick="sortTable('officeDirectoryTable', 2)">Sub Division <span class="sort-arrow">↕</span></th>
-<th onclick="sortTable('officeDirectoryTable', 3)">Division <span class="sort-arrow">↕</span></th>
-<th class="num" onclick="sortTable('officeDirectoryTable', 4, true)">Opened <span class="sort-arrow">↕</span></th>
-<th class="num" onclick="sortTable('officeDirectoryTable', 5, true)">Closed <span class="sort-arrow">↕</span></th>
-<th class="num" onclick="sortTable('officeDirectoryTable', 6, true)">Net Addition <span class="sort-arrow">↕</span></th>
-<th style="text-align:center;">Action</th>
-</tr>
-</thead>
+<thead id="officeDirectoryTableHead"></thead>
 <tbody id="officeTableBody"></tbody>
 </table>
 </div>
@@ -5817,20 +5894,43 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
       grid.innerHTML = cardsHtml + topCardHtml;
     }
 
+    const DIRECTORY_COLUMNS = [
+      { key:'officeName', label:'Office Name', numeric:false },
+      { key:'soName', label:'SO Name', numeric:false },
+      { key:'subDivision', label:'Sub Division', numeric:false },
+      { key:'division', label:'Division', numeric:false },
+      { key:'opened', label:'Opened', numeric:true },
+      { key:'closed', label:'Closed', numeric:true },
+      { key:'net', label:'Net Addition', numeric:true },
+      { key:'target', label:'Target', numeric:true },
+      { key:'propTarget', label:'Proportionate Target', numeric:true },
+      { key:'achievement', label:'Achievement', numeric:true },
+      { key:'propPct', label:'% against Prop. Target', numeric:true },
+      { key:'annualPct', label:'% Overall Target', numeric:true },
+      { key:'propShortfall', label:'Shortfall / Excess vs Prop. Target', numeric:true },
+      { key:'overallShortfall', label:'Overall Shortfall / Excess', numeric:true },
+      { key:'action', label:'Action', numeric:false }
+    ];
+
+    function getDirectoryVisibleColumns() {
+      const checked = new Set([...document.querySelectorAll('.dir-col-toggle:checked')].map(el => el.dataset.col));
+      return DIRECTORY_COLUMNS.filter(c => checked.has(c.key));
+    }
+
+    function setDirectoryColumns(showAll) {
+      document.querySelectorAll('.dir-col-toggle').forEach(el => { el.checked = !!showAll; });
+      renderOfficeDirectory();
+    }
+
     function populateOfficeDirectoryFilters() {
       const divSelect = document.getElementById('dirDivision');
       const subSelect = document.getElementById('dirSubDivision');
       const monthSelect = document.getElementById('dirMonth');
       if (!divSelect || !subSelect) return;
 
-      const dates = rawTransactions.map(r => r.iso).filter(Boolean).sort();
-      const fromEl = document.getElementById('dirFromDate');
-      const toEl = document.getElementById('dirToDate');
-      /* Date fields intentionally remain blank by default: blank means all available data. */
-
       if (monthSelect) {
         const oldMonth = monthSelect.value || 'ALL';
-        const months = [...new Set(rawTransactions.map(r => r.month).filter(Boolean))];
+        const months = [...new Set(rawTransactions.map(r => r.month).filter(Boolean))].sort();
         monthSelect.innerHTML = '<option value="ALL">All Months</option>' +
           months.map(m => `<option value="${weeklyEsc(m)}">${weeklyEsc(m)}</option>`).join('');
         monthSelect.value = months.includes(oldMonth) ? oldMonth : 'ALL';
@@ -5843,6 +5943,7 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
         divisions.map(d => `<option value="${weeklyEsc(d)}">${weeklyEsc(d)}</option>`).join('');
       divSelect.value = divisions.includes(oldDiv) ? oldDiv : 'ALL';
       populateDirectorySubFilters(oldSub);
+      populateDirectoryOfficeFilters();
     }
 
     function populateDirectorySubFilters(preferredSub) {
@@ -5856,6 +5957,53 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
       subSelect.innerHTML = '<option value="ALL">All Sub Divisions</option>' +
         subs.map(x => `<option value="${weeklyEsc(x)}">${weeklyEsc(x)}</option>`).join('');
       subSelect.value = subs.includes(oldSub) ? oldSub : 'ALL';
+      populateDirectorySoFilters();
+    }
+
+    function directoryOfficeKey(r) {
+      return r && r.solId && String(r.solId).trim()
+        ? String(r.solId).trim()
+        : `${r?.officeName || ''}|${r?.division || ''}`;
+    }
+
+    function populateDirectorySoFilters(preferredSo) {
+      const div = document.getElementById('dirDivision')?.value || 'ALL';
+      const sub = document.getElementById('dirSubDivision')?.value || 'ALL';
+      const soSelect = document.getElementById('dirSoName');
+      if (!soSelect) return;
+      const oldSo = preferredSo !== undefined ? preferredSo : (soSelect.value || 'ALL');
+      let pool = rawTransactions;
+      if (div !== 'ALL') pool = pool.filter(r => r.division === div);
+      if (sub !== 'ALL') pool = pool.filter(r => r.subDivision === sub);
+      const sos = [...new Set(pool.map(r => r.soName).filter(Boolean))].sort();
+      soSelect.innerHTML = '<option value="ALL">All SO Names</option>' +
+        sos.map(x => `<option value="${weeklyEsc(x)}">${weeklyEsc(x)}</option>`).join('');
+      soSelect.value = sos.includes(oldSo) ? oldSo : 'ALL';
+      populateDirectoryOfficeFilters();
+    }
+
+    function populateDirectoryOfficeFilters(preferredOffice) {
+      const el = document.getElementById('dirOfficeName');
+      if (!el) return;
+      const div = document.getElementById('dirDivision')?.value || 'ALL';
+      const sub = document.getElementById('dirSubDivision')?.value || 'ALL';
+      const so = document.getElementById('dirSoName')?.value || 'ALL';
+      const old = preferredOffice !== undefined ? preferredOffice : (el.value || 'ALL');
+      let pool = rawTransactions || [];
+      if (div !== 'ALL') pool = pool.filter(r => r.division === div);
+      if (sub !== 'ALL') pool = pool.filter(r => r.subDivision === sub);
+      if (so !== 'ALL') pool = pool.filter(r => r.soName === so);
+      const map = new Map();
+      pool.forEach(r => {
+        const key = directoryOfficeKey(r);
+        if (!map.has(key)) map.set(key, { officeName:r.officeName || '-', solId:r.solId || '', division:r.division || '', subDivision:r.subDivision || '', soName:r.soName || '' });
+      });
+      const offices = [...map.values()].sort((a,b) => String(a.officeName).localeCompare(String(b.officeName)) || String(a.solId).localeCompare(String(b.solId)));
+      el.innerHTML = '<option value="ALL">All Offices</option>' + offices.map(o => {
+        const label = o.solId ? `${o.officeName} • ${o.solId}` : o.officeName;
+        return `<option value="${weeklyEsc(directoryOfficeKey(o))}">${weeklyEsc(label)}</option>`;
+      }).join('');
+      el.value = offices.some(o => directoryOfficeKey(o) === old) ? old : 'ALL';
     }
 
     function resetDirectoryFilters() {
@@ -5863,6 +6011,10 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
       const div = document.getElementById('dirDivision'); if (div) div.value = 'ALL';
       populateDirectorySubFilters();
       const sub = document.getElementById('dirSubDivision'); if (sub) sub.value = 'ALL';
+      populateDirectorySoFilters();
+      const so = document.getElementById('dirSoName'); if (so) so.value = 'ALL';
+      populateDirectoryOfficeFilters();
+      const office = document.getElementById('dirOfficeName'); if (office) office.value = 'ALL';
       const type = document.getElementById('dirType'); if (type) type.value = 'ALL';
       const net = document.getElementById('dirNet'); if (net) net.value = 'ALL';
       const month = document.getElementById('dirMonth'); if (month) month.value = 'ALL';
@@ -5874,10 +6026,14 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
 
     function renderOfficeDirectory() {
       const tbody = document.getElementById('officeTableBody');
-      if (!tbody) return;
+      const thead = document.getElementById('officeDirectoryTableHead');
+      if (!tbody || !thead) return;
+      const visibleCols = getDirectoryVisibleColumns();
       const q = (document.getElementById('dirSearch')?.value || '').trim().toLowerCase();
       const div = document.getElementById('dirDivision')?.value || 'ALL';
       const sub = document.getElementById('dirSubDivision')?.value || 'ALL';
+      const so = document.getElementById('dirSoName')?.value || 'ALL';
+      const officeKey = document.getElementById('dirOfficeName')?.value || 'ALL';
       const type = document.getElementById('dirType')?.value || 'ALL';
       const netMode = document.getElementById('dirNet')?.value || 'ALL';
       const month = document.getElementById('dirMonth')?.value || 'ALL';
@@ -5893,6 +6049,8 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
         }
         if (div !== 'ALL' && r.division !== div) return false;
         if (sub !== 'ALL' && r.subDivision !== sub) return false;
+        if (so !== 'ALL' && r.soName !== so) return false;
+        if (officeKey !== 'ALL' && directoryOfficeKey(r) !== officeKey) return false;
         if (type !== 'ALL' && officeCountType(r) !== type && !(type === 'HO' && officeCountType(r) === 'HPO')) return false;
         if (q) {
           const hay = [r.officeName,r.soName,r.subDivision,r.division,r.solId].map(v => String(v || '').toLowerCase());
@@ -5900,6 +6058,15 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
         }
         return true;
       });
+
+      // Proportionate target is based on the selected reporting period's end date.
+      let asOfISO = to || '';
+      if (month !== 'ALL') {
+        const monthRows = rawTransactions.filter(r => r.month === month && r.iso);
+        asOfISO = monthRows.length ? monthRows.map(r => r.iso).sort().pop() : asOfISO;
+      }
+      if (!asOfISO) asOfISO = rows.map(r => r.iso).filter(Boolean).sort().pop() || universalTargetDateISO();
+      const propFactor = universalPropFactor(asOfISO);
 
       const officeMap = new Map();
       rows.forEach(r => {
@@ -5910,14 +6077,31 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
           officeMap.set(key, {
             officeName:r.officeName || '-', soName:r.soName || '-', subDivision:r.subDivision || '-',
             division:r.division || '-', solId:r.solId || '', officeType:officeCountType(r),
+            officeKey:key,
             opened:0, closed:0, net:0
           });
         }
         const o=officeMap.get(key);
-        o.opened += Number(r.opened)||0; o.closed += Number(r.closed)||0; o.net += Number(r.net)||0;
+        o.opened += Number(r.opened)||0;
+        o.closed += Number(r.closed)||0;
+        o.net += transactionNet(r);
       });
 
-      const filtered=[...officeMap.values()].filter(o => {
+      const filtered=[...officeMap.values()].map(o => {
+        const target = Math.max(0, Number(getTargetForOffice(o.solId, o.officeName)) || 0);
+        const propTarget = Math.round(target * propFactor);
+        const achievement = o.net;
+        return {
+          ...o,
+          target,
+          propTarget,
+          achievement,
+          propPct: propTarget > 0 ? (achievement / propTarget) * 100 : 0,
+          annualPct: target > 0 ? (achievement / target) * 100 : 0,
+          propShortfall: propTarget - achievement,
+          overallShortfall: target - achievement
+        };
+      }).filter(o => {
         if (netMode === 'POS' && !(o.net > 0)) return false;
         if (netMode === 'ZERO' && o.net !== 0) return false;
         if (netMode === 'NEG' && !(o.net < 0)) return false;
@@ -5926,13 +6110,63 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
 
       const badge=document.getElementById('tableCountBadge');
       if (badge) badge.innerText=`${filtered.length.toLocaleString()} Offices`;
-      tbody.innerHTML=filtered.slice(0,1000).map(o=>`
-        <tr>
-          <td><strong>${weeklyEsc(o.officeName)}</strong></td><td>${weeklyEsc(o.soName)}</td><td>${weeklyEsc(o.subDivision)}</td><td>${weeklyEsc(o.division)}</td>
-          <td class="num">${Math.round(o.opened).toLocaleString()}</td><td class="num">${Math.round(o.closed).toLocaleString()}</td>
-          <td class="num font-bold" style="color:${o.net>=0?'#059669':'#dc2626'};">${Math.round(o.net).toLocaleString()}</td>
-          <td style="text-align:center;"><button class="edit-btn" onclick="editOfficeFigures(${JSON.stringify(o.officeName)}, ${JSON.stringify(o.division)}, ${Number(o.opened)||0}, ${Number(o.closed)||0})">✏️ Figures</button></td>
-        </tr>`).join('') || '<tr><td colspan="8" style="text-align:center;padding:20px;color:#64748b;">No offices match the selected filters.</td></tr>';
+
+      const thHtml = visibleCols.map((c, i) => {
+        const align = c.numeric ? ' class="num"' : (c.key === 'action' ? ' style="text-align:center;"' : '');
+        const sortArg = c.numeric ? ', true' : '';
+        return `<th${align} onclick="sortTable('officeDirectoryTable', ${i}${sortArg})">${c.label} <span class="sort-arrow">↕</span></th>`;
+      }).join('');
+      thead.innerHTML = `<tr>${thHtml || '<th style="text-align:center;">No columns selected</th>'}</tr>`;
+
+      const cell = (o, c) => {
+        switch(c.key) {
+          case 'officeName': return `<td><strong>${weeklyEsc(o.officeName)}</strong></td>`;
+          case 'soName': return `<td>${weeklyEsc(o.soName)}</td>`;
+          case 'subDivision': return `<td>${weeklyEsc(o.subDivision)}</td>`;
+          case 'division': return `<td>${weeklyEsc(o.division)}</td>`;
+          case 'opened': return `<td class="num">${Math.round(o.opened).toLocaleString('en-IN')}</td>`;
+          case 'closed': return `<td class="num">${Math.round(o.closed).toLocaleString('en-IN')}</td>`;
+          case 'net': return `<td class="num font-bold" style="color:${o.net>=0?'#059669':'#dc2626'};">${Math.round(o.net).toLocaleString('en-IN')}</td>`;
+          case 'target': return `<td class="num">${Math.round(o.target).toLocaleString('en-IN')}</td>`;
+          case 'propTarget': return `<td class="num">${Math.round(o.propTarget).toLocaleString('en-IN')}</td>`;
+          case 'achievement': return `<td class="num" style="color:${o.achievement>=0?'#059669':'#dc2626'};font-weight:800;">${Math.round(o.achievement).toLocaleString('en-IN')}</td>`;
+          case 'propPct': return `<td class="num" style="color:${o.propPct>=100?'#059669':'#2563eb'};font-weight:800;">${o.propPct.toFixed(1)}%</td>`;
+          case 'annualPct': return `<td class="num">${o.annualPct.toFixed(1)}%</td>`;
+          case 'propShortfall': return `<td class="num" title="${o.propShortfall >= 0 ? 'Shortfall' : 'Excess'}" style="color:${o.propShortfall >= 0 ? '#dc2626' : '#059669'};font-weight:900;">${Math.abs(Math.round(o.propShortfall)).toLocaleString('en-IN')}</td>`;
+          case 'overallShortfall': return `<td class="num" title="${o.overallShortfall >= 0 ? 'Shortfall' : 'Excess'}" style="color:${o.overallShortfall >= 0 ? '#dc2626' : '#059669'};font-weight:900;">${Math.abs(Math.round(o.overallShortfall)).toLocaleString('en-IN')}</td>`;
+          case 'action': return `<td style="text-align:center;"><button class="edit-btn" onclick="editOfficeFigures(${JSON.stringify(o.officeName)}, ${JSON.stringify(o.division)}, ${Number(o.opened)||0}, ${Number(o.closed)||0})">✏️ Figures</button></td>`;
+          default: return '<td></td>';
+        }
+      };
+
+      if (!filtered.length) {
+        tbody.innerHTML = `<tr><td colspan="${Math.max(1,visibleCols.length)}" style="text-align:center;padding:20px;color:#64748b;">No offices match the selected filters.</td></tr>`;
+        return;
+      }
+
+      const displayRows = filtered.slice(0,1000);
+      let html = displayRows.map(o => `<tr>${visibleCols.map(c => cell(o,c)).join('')}</tr>`).join('');
+
+      const totalOpened = filtered.reduce((s,o)=>s+(Number(o.opened)||0),0);
+      const totalClosed = filtered.reduce((s,o)=>s+(Number(o.closed)||0),0);
+      const totalNet = filtered.reduce((s,o)=>s+(Number(o.net)||0),0);
+      const totalTarget = filtered.reduce((s,o)=>s+(Number(o.target)||0),0);
+      const totalPropTarget = filtered.reduce((s,o)=>s+(Number(o.propTarget)||0),0);
+      const totalAchievement = filtered.reduce((s,o)=>s+(Number(o.achievement)||0),0);
+      const totalPropPct = totalPropTarget > 0 ? totalAchievement / totalPropTarget * 100 : 0;
+      const totalAnnualPct = totalTarget > 0 ? totalAchievement / totalTarget * 100 : 0;
+      const totalObj = {
+        officeName:'TOTAL', soName:'', subDivision:'', division:'', opened:totalOpened, closed:totalClosed,
+        net:totalNet, target:totalTarget, propTarget:totalPropTarget, achievement:totalAchievement,
+        propPct:totalPropPct, annualPct:totalAnnualPct,
+        propShortfall:totalPropTarget-totalAchievement, overallShortfall:totalTarget-totalAchievement
+      };
+      html += `<tr class="target-report-total-row">${visibleCols.map(c => {
+        if (c.key === 'officeName') return '<td><strong>TOTAL (Selected Filter)</strong></td>';
+        if (c.key === 'action') return '<td></td>';
+        return cell(totalObj,c).replace('<td ', '<td style="font-weight:900;" ');
+      }).join('')}</tr>`;
+      tbody.innerHTML = html;
     }
 
     const TOP_DIVISION_RANK_EMBLEMS = {
@@ -6846,7 +7080,7 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
       if (officeName || solId) {
         const glance = document.createElement('div');
         glance.className = 'office-popup-glance-grid';
-        glance.innerHTML = `<div class="office-popup-glance-card"><div class="office-popup-glance-title">🏢 Office Record</div></div><div class="office-popup-glance-card"><div class="office-popup-glance-title">👥 Monitoring Team — At a Glance</div>${renderOfficeContactPanel(solId, officeName, officeType)}</div>`;
+        glance.innerHTML = `<div class="office-popup-glance-card"><div class="office-popup-glance-title"><span class="office-symbol" aria-hidden="true"></span> Office Record</div></div><div class="office-popup-glance-card"><div class="office-popup-glance-title">👥 Monitoring Team — At a Glance</div>${renderOfficeContactPanel(solId, officeName, officeType)}</div>`;
         const officeCard = glance.firstElementChild;
         const sourceTable = bodyEl.querySelector('table');
         if (sourceTable) officeCard.appendChild(sourceTable.cloneNode(true));
@@ -9113,7 +9347,7 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
         const rank=i+1;
         const shortfall=d.propTgt-d.achievement;
         return `<div class="subdn-top-card" style="background:${gradients[i]||gradients[4]};">
-          <div class="subdn-top-card-head"><span class="subdn-top-rank">#${rank}</span><span class="subdn-top-icon">🏢</span></div>
+          <div class="subdn-top-card-head"><span class="subdn-top-rank">#${rank}</span><span class="subdn-top-icon"><span class="office-symbol" aria-hidden="true"></span></span></div>
           <div class="subdn-top-name" title="${weeklyEsc(d.name)}">${weeklyEsc(d.name)}</div>
           <div class="subdn-top-meta">Sub Division • ${d.offices.toLocaleString('en-IN')} Offices</div>
           <div class="subdn-top-pct">${d.pct.toFixed(2)}%</div>
@@ -9124,6 +9358,48 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
           </div>
         </div>`;
       }).join('');
+    }
+
+    function renderSubDnTopOfficeKpis(filtered, propFactor) {
+      const grid = document.getElementById('subDnTopOfficeKpiGrid');
+      if (!grid) return;
+      const ranked = (filtered || []).map(o => {
+        const annualTarget = Math.max(0, Number(getTargetForOffice(o.solId, o.officeName)) || 0);
+        const propTarget = Math.round(annualTarget * propFactor);
+        const achievement = Number(o.net) || 0;
+        const pct = propTarget > 0 ? (achievement / propTarget) * 100 : 0;
+        return { ...o, annualTarget, propTarget, achievement, pct };
+      }).filter(o => o.officeType === 'SPO' || o.officeType === 'BPO')
+        .sort((a,b) => b.pct-a.pct || b.achievement-a.achievement || String(a.officeName).localeCompare(String(b.officeName)));
+
+      const topSPO = ranked.filter(o => o.officeType === 'SPO')[0];
+      const topBPO = ranked.filter(o => o.officeType === 'BPO').slice(0,3);
+      const cards = [];
+      if (topSPO) cards.push({ ...topSPO, rank: 'TOP SPO', tone: 'spo' });
+      topBPO.forEach((o,i) => cards.push({ ...o, rank: `TOP BPO #${i+1}`, tone: `bpo${i+1}` }));
+
+      const renderCard = (o) => {
+        const short = o.propTarget - o.achievement;
+        const shortLabel = short >= 0 ? 'Shortfall' : 'Excess';
+        const divisionName = o.division || '-';
+        return `<div class="subdn-top-office-card ${o.tone}">
+          <div class="subdn-top-office-head"><span class="subdn-top-office-rank">${weeklyEsc(o.rank)}</span><span class="subdn-top-office-icon">${o.officeType === 'SPO' ? '<span class="office-symbol" aria-hidden="true"></span>' : '<span class="office-symbol" aria-hidden="true"></span>'}</span></div>
+          <div class="subdn-top-office-name" title="${weeklyEsc(o.officeName)} (${weeklyEsc(divisionName)})">${weeklyEsc(o.officeName)} <span style="font-size:11px;font-weight:800;opacity:.88;">(${weeklyEsc(divisionName)})</span></div>
+          <div class="subdn-top-office-pct"><span>% Proportionate Target Achievement</span><strong>${o.pct.toFixed(2)}%</strong></div>
+          <div class="subdn-top-office-stats">
+            <div><span>Annual Target</span><strong>${Math.round(o.annualTarget).toLocaleString('en-IN')}</strong></div>
+            <div><span>Proportionate Target</span><strong>${o.propTarget.toLocaleString('en-IN')}</strong></div>
+            <div><span>Achievement</span><strong>${Math.round(o.achievement).toLocaleString('en-IN')}</strong></div>
+            <div class="${short >= 0 ? 'is-shortfall' : 'is-excess'}"><span>${shortLabel}</span><strong>${Math.abs(Math.round(short)).toLocaleString('en-IN')}</strong></div>
+          </div>
+        </div>`;
+      };
+
+      if (!cards.length) {
+        grid.innerHTML = '<div class="subdn-top-office-empty">No SPO/BPO data available for the selected filters.</div>';
+      } else {
+        grid.innerHTML = cards.map(renderCard).join('');
+      }
     }
 
     function renderSubDnMonitoringTable() {
@@ -9171,6 +9447,7 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
       document.getElementById('subDnKpiShortfall').style.color=totalShort>0?'#dc2626':'#059669';
 
       renderSubDnTopSubDivisions(filtered, propFactor);
+      renderSubDnTopOfficeKpis(filtered, propFactor);
 
       const tbody=document.getElementById('subDnMonitoringTableBody'); if(!tbody)return;
       tbody.innerHTML=filtered.slice(0,400).map(o=>{const tgt=getTargetForOffice(o.solId,o.officeName),pt=Math.round(tgt*propFactor),pct=pt>0?o.net/pt*100:0,ann=tgt>0?o.net/tgt*100:0,short=pt-o.net;return `<tr><td><strong>${weeklyEsc(o.officeName)}</strong><button class="edit-btn" onclick='editOfficeTarget(${JSON.stringify(o.solId)}, ${JSON.stringify(o.officeName)}, ${tgt})'>✏️ Target</button></td><td style="font-family:monospace;color:#64748b;">${weeklyEsc(o.solId||'-')}</td><td><span class="badge-level level-so">${weeklyEsc(o.officeType)}</span></td><td class="num">${Math.round(tgt).toLocaleString('en-IN')}</td><td class="num">${pt.toLocaleString('en-IN')}</td><td class="num font-bold" style="color:${o.net>=0?'#059669':'#dc2626'};">${Math.round(o.net).toLocaleString('en-IN')}</td><td class="num" style="color:${short>0?'#dc2626':'#059669'};font-weight:900;">${Math.abs(Math.round(short)).toLocaleString('en-IN')}</td><td class="num">${pct.toFixed(1)}%</td><td class="num">${ann.toFixed(1)}%</td><td style="font-size:11px;color:#64748b;">${weeklyEsc(o.subDivision)} &bull; ${weeklyEsc(o.division)}</td></tr>`}).join('');
@@ -10356,8 +10633,72 @@ const WEEKLY_ANCHOR_START = '2026-04-01';
         .trim());
     }
 
+    function getDirectoryExportSubSectionName() {
+      const base = 'Consolidated Offices Directory';
+      const divEl = document.getElementById('dirDivision');
+      const subEl = document.getElementById('dirSubDivision');
+      const soEl = document.getElementById('dirSoName');
+      const officeEl = document.getElementById('dirOfficeName');
+      const div = divEl?.value || 'ALL';
+      const sub = subEl?.value || 'ALL';
+      const so = soEl?.value || 'ALL';
+      const officeKey = officeEl?.value || 'ALL';
+
+      const selectedText = el => {
+        if (!el || el.selectedIndex < 0) return '';
+        return pdfCleanText(el.options[el.selectedIndex]?.textContent || '');
+      };
+
+      let divisionName = div !== 'ALL' ? selectedText(divEl) : '';
+      const findDivision = () => {
+        const pool = Array.isArray(rawTransactions) ? rawTransactions : [];
+        let candidates = pool;
+        if (officeKey !== 'ALL' && typeof directoryOfficeKey === 'function') {
+          candidates = candidates.filter(r => directoryOfficeKey(r) === officeKey);
+        } else if (so !== 'ALL') {
+          candidates = candidates.filter(r => r.soName === so);
+        } else if (sub !== 'ALL') {
+          candidates = candidates.filter(r => r.subDivision === sub);
+        } else if (div !== 'ALL') {
+          candidates = candidates.filter(r => r.division === div);
+        }
+        const found = candidates.map(r => pdfCleanText(r.division)).find(Boolean);
+        return found || '';
+      };
+      if (!divisionName) divisionName = findDivision();
+
+      if (officeKey !== 'ALL') {
+        const officeText = selectedText(officeEl).replace(/\s*•\s*[^•]+$/, '').trim();
+        if (officeText) return `${base} — ${officeText}${divisionName ? ` (${divisionName})` : ''}`;
+      }
+
+      if (so !== 'ALL') {
+        const soText = selectedText(soEl);
+        if (soText) return `${base} — ${soText}${divisionName ? ` (${divisionName})` : ''}`;
+      }
+
+      if (sub !== 'ALL') {
+        const subText = selectedText(subEl);
+        if (subText) return `${base} — ${subText}${divisionName ? ` (${divisionName})` : ''}`;
+      }
+
+      if (div !== 'ALL') {
+        const divText = selectedText(divEl);
+        if (divText) return `${base} — ${divText}`;
+      }
+
+      return base;
+    }
+
     function getActualDisplayedSubSectionName(table) {
       if (!table) return 'Report';
+
+      // Consolidated Offices Directory exports should carry the selected
+      // office hierarchy in the subsection heading, e.g.
+      // "Consolidated Offices Directory — Gurukunj Ashram S.O (Amravati Division)".
+      if (table.id === 'officeDirectoryTable') {
+        return getDirectoryExportSubSectionName();
+      }
 
       // Explicit metadata is authoritative. Dynamic popups set this to the
       // exact human-facing report/subsection title represented by the table.
@@ -11973,6 +12314,159 @@ body{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!importa
       openWeeklyModal(`${office.officeName} — BO Detail`,html,office.officeName,office.solId,office.officeType || 'BPO');
     }
 
+    // --- SEARCHABLE DROPDOWNS (Division / Sub Division / SO Name / Office Name) ---
+    // Keeps the original <select> elements intact for all existing dashboard logic,
+    // while providing a compact searchable UI across the dashboard.
+    const SEARCHABLE_SELECT_ID_RULES = [
+      /^dirDivision$/i, /^dirSubDivision$/i, /^dirSoName$/i, /^dirOfficeName$/i,
+      /(^|)(div|division).*select$/i, /(^|)(sub|subdivision|subdn).*select$/i,
+      /(^|)(so|soname).*select$/i, /division$/i, /subdivision$/i, /soname$/i, /^monitoringCrudOffice$/i
+    ];
+
+    function shouldEnhanceSearchableSelect(sel) {
+      if (!sel || sel.tagName !== 'SELECT') return false;
+      if (sel.dataset.searchableEnhanced === '1') return false;
+      const id = String(sel.id || '');
+      if (!id) return false;
+      if (/type|active|month|week|net/i.test(id)) return false;
+      return SEARCHABLE_SELECT_ID_RULES.some(rx => rx.test(id));
+    }
+
+    function searchableSelectLabel(sel) {
+      const opt = sel.options[sel.selectedIndex];
+      return opt ? opt.textContent.trim() : '';
+    }
+
+    function rebuildSearchableSelect(sel) {
+      const wrap = sel?.parentElement?.classList.contains('searchable-select-wrap') ? sel.parentElement : null;
+      if (!wrap) return;
+      const input = wrap.querySelector('.searchable-select-input');
+      const list = wrap.querySelector('.searchable-select-list');
+      if (!input || !list) return;
+      const current = String(sel.value ?? '');
+      const query = wrap.dataset.typing === '1' ? String(input.value || '').trim().toLowerCase() : '';
+      list.innerHTML = '';
+      const options = [...sel.options];
+      const matches = options.filter(o => {
+        if (!query) return true;
+        return String(o.textContent || '').toLowerCase().includes(query);
+      });
+      if (!matches.length) {
+        list.innerHTML = '<div class="searchable-select-empty">No matching options</div>';
+      } else {
+        matches.forEach(o => {
+          const item = document.createElement('div');
+          item.className = 'searchable-select-option' + (String(o.value) === current ? ' active' : '');
+          item.textContent = o.textContent;
+          item.dataset.value = o.value;
+          item.addEventListener('mousedown', e => e.preventDefault());
+          item.addEventListener('click', () => {
+            sel.value = o.value;
+            wrap.dataset.typing = '0';
+            input.value = o.textContent.trim();
+            wrap.classList.remove('open');
+            sel.dispatchEvent(new Event('change', {bubbles:true}));
+          });
+          list.appendChild(item);
+        });
+      }
+      if (wrap.dataset.typing !== '1') input.value = searchableSelectLabel(sel);
+    }
+
+    function enhanceSearchableSelect(sel) {
+      if (!shouldEnhanceSearchableSelect(sel)) return;
+      const wrap = document.createElement('div');
+      wrap.className = 'searchable-select-wrap';
+      wrap.dataset.typing = '0';
+      sel.parentNode.insertBefore(wrap, sel);
+      wrap.appendChild(sel);
+      sel.dataset.searchableEnhanced = '1';
+      sel.style.display = 'none';
+
+      const input = document.createElement('input');
+      input.type = 'search';
+      input.className = 'searchable-select-input';
+      input.autocomplete = 'off';
+      input.setAttribute('aria-label', 'Search and select option');
+      const arrow = document.createElement('span');
+      arrow.className = 'searchable-select-arrow';
+      arrow.textContent = '▾';
+      const list = document.createElement('div');
+      list.className = 'searchable-select-list';
+      wrap.append(input, arrow, list);
+
+      input.addEventListener('focus', () => {
+        wrap.dataset.typing = '0';
+        wrap.classList.add('open');
+        rebuildSearchableSelect(sel);
+        input.select();
+      });
+      input.addEventListener('input', () => {
+        wrap.dataset.typing = '1';
+        wrap.classList.add('open');
+        rebuildSearchableSelect(sel);
+      });
+      input.addEventListener('keydown', e => {
+        if (e.key === 'Escape') { wrap.dataset.typing='0'; input.value=searchableSelectLabel(sel); wrap.classList.remove('open'); return; }
+        if (e.key === 'Enter') {
+          const first = list.querySelector('.searchable-select-option');
+          if (first) first.click();
+          e.preventDefault();
+        }
+      });
+      sel.addEventListener('change', () => {
+        wrap.dataset.typing = '0';
+        input.value = searchableSelectLabel(sel);
+        rebuildSearchableSelect(sel);
+      });
+      rebuildSearchableSelect(sel);
+    }
+
+    function upgradeAllSearchableDropdowns(root=document) {
+      root.querySelectorAll?.('select').forEach(enhanceSearchableSelect);
+      document.querySelectorAll('.searchable-select-wrap').forEach(w => {
+        const sel=w.querySelector('select'); if(sel) rebuildSearchableSelect(sel);
+      });
+    }
+
+    document.addEventListener('click', e => {
+      document.querySelectorAll('.searchable-select-wrap.open').forEach(w => {
+        if (!w.contains(e.target)) {
+          const sel=w.querySelector('select'), input=w.querySelector('.searchable-select-input');
+          if(sel && input){ w.dataset.typing='0'; input.value=searchableSelectLabel(sel); }
+          w.classList.remove('open');
+        }
+      });
+    });
+
+    // Rebuild lists whenever dependent filters repopulate their native <select> options.
+    const searchableSelectObserver = new MutationObserver(mutations => {
+      const touched = new Set();
+      let needsUpgrade = false;
+      mutations.forEach(m => {
+        const t = m.target;
+        if (t?.tagName === 'SELECT' && t.dataset?.searchableEnhanced === '1') touched.add(t);
+        [...(m.addedNodes || [])].forEach(node => {
+          if (node.nodeType !== 1) return;
+          if (node.matches?.('select')) needsUpgrade = true;
+          if (node.querySelector?.('select')) needsUpgrade = true;
+        });
+      });
+      touched.forEach(rebuildSearchableSelect);
+      if (needsUpgrade) upgradeAllSearchableDropdowns(document);
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      upgradeAllSearchableDropdowns(document);
+      searchableSelectObserver.observe(document.body, {subtree:true, childList:true});
+      setInterval(() => {
+        document.querySelectorAll('.searchable-select-wrap select[data-searchable-enhanced="1"]').forEach(sel => {
+          const input=sel.parentElement?.querySelector('.searchable-select-input');
+          if(input && sel.parentElement?.dataset.typing !== '1') input.value=searchableSelectLabel(sel);
+        });
+      }, 700);
+    });
+
     // --- INITIALIZATION ---
     window.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('.tab-module').forEach(el => {
@@ -12101,7 +12595,7 @@ body{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!importa
           <button type="button" class="btn-action btn-excel" onclick="downloadTableAsExcel('officeInfoPopupTable','Office_Information')">📥 Download Excel</button>
         </div>
         <div class="office-popup-glance-grid">
-          <div class="office-popup-glance-card"><div class="office-popup-glance-title">🏢 Office Record</div>${officeTable}</div>
+          <div class="office-popup-glance-card"><div class="office-popup-glance-title"><span class="office-symbol" aria-hidden="true"></span> Office Record</div>${officeTable}</div>
           <div class="office-popup-glance-card"><div class="office-popup-glance-title">📊 Account Opened Category — Office Wise</div>${openedCategoryBreakdownHTML(rows)}</div>
           <div class="office-popup-glance-card"><div class="office-popup-glance-title">👥 Monitoring Team — At a Glance</div>${renderOfficeContactPanel(resolvedSol, resolvedName, resolvedType)}</div>
         </div>`;
