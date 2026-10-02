@@ -5693,7 +5693,8 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
         try { updateWelcomeModalDates(); } catch (_) {}
         const totalRows = Number(meta.totalRows || meta.rowCount || 0);
         const signature = String(meta.signature || `${meta.totalRows || 0}|${meta.lastUpdated || ''}`);
-        const previousSignature = localStorage.getItem('posb_google_sheet_signature') || '';
+        const previousSignatureStored = localStorage.getItem('posb_google_sheet_signature') || '';
+        const previousSignature = previousSignatureStored.split('|latest=')[0];
 
         // TARGET/CONFIG SYNC IS INDEPENDENT OF POSB_Data.
         // Always make a separate no-cache configuration request. This is
@@ -5733,18 +5734,73 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
           console.warn('Google Sheet returned no POSB_Dashboard_Config object.');
         }
 
-        // Do not skip the configuration update merely because POSB_Data itself
-        // has not changed. Only skip the large transaction download.
-        if (previousSignature && previousSignature === signature && rawTransactions.length) {
+        // IMPORTANT: Never trust the stored POSB_Data signature alone.
+        // A Google Apps Script deployment/cache can temporarily return the same
+        // signature even after a new daily MIS row has been appended.  Before
+        // taking the fast "No change" path, probe only the final physical rows
+        // and compare the newest transaction date with the newest local date.
+        // This is a very small request and prevents a newly uploaded date such
+        // as 30-09-2026 from being missed by the dashboard.
+        let remoteLatestDate = '';
+        let latestProbeSucceeded = false;
+        if (previousSignature && previousSignature === signature && rawTransactions.length && totalRows > 0) {
+          try {
+            const probeOffset = Math.max(0, totalRows - 12);
+            const probe = await fetchJson(
+              `${base}?action=data&offset=${probeOffset}&limit=12&_=${Date.now()}_latest_probe`,
+              Math.max(VIEW_ONLY_SYNC_TIMEOUT_MS, 30000)
+            );
+            const probeRows = Array.isArray(probe?.records)
+              ? probe.records
+              : (Array.isArray(probe?.rows) ? probe.rows : []);
+            const probeRecords = [];
+            probeRows.forEach(row => {
+              if (Array.isArray(row?.records)) {
+                row.records.forEach(r => probeRecords.push(r));
+              } else if (row && typeof row === 'object' &&
+                         (row.officeName || row.officeType || row.date || row.txn_date || row.iso)) {
+                probeRecords.push(row);
+              }
+            });
+            remoteLatestDate = probeRecords
+              .map(r => r.iso || r.txn_date || r.date || '')
+              .map(d => /^\d{4}-\d{2}-\d{2}$/.test(String(d)) ? String(d) : parseToISO(String(d)))
+              .filter(Boolean)
+              .sort()
+              .pop() || '';
+            latestProbeSucceeded = true;
+          } catch (probeErr) {
+            // If the probe fails, do NOT assume "No change"; continue with the
+            // full sync so the dashboard remains self-healing.
+            console.warn('Latest Google Sheet date probe failed; forcing full sync:', probeErr);
+          }
+        }
+
+        const localLatestDate = getLatestDataISO(rawTransactions);
+        const remoteHasNewerDate = remoteLatestDate && localLatestDate && remoteLatestDate > localLatestDate;
+        const rowCountSuggestsChange = totalRows > rawTransactions.length;
+
+        if (previousSignature &&
+            previousSignature === signature &&
+            rawTransactions.length &&
+            latestProbeSucceeded &&
+            !remoteHasNewerDate &&
+            !rowCountSuggestsChange) {
           updateViewOnlySyncProgress(100, configChanged
             ? `Configuration updated • ${rawTransactions.length.toLocaleString()} local records retained`
-            : `No change • ${rawTransactions.length.toLocaleString()} local records retained`, false);
+            : `No change • latest transaction ${localLatestDate ? formatDateDMY(localLatestDate) : 'unchanged'} • ${rawTransactions.length.toLocaleString()} local records retained`, false);
           const stamp = new Date().toLocaleString('en-IN',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true,timeZone:'Asia/Kolkata'});
           setGoogleSheetStatus(configChanged
             ? `✅ Google Sheet checked ${stamp} IST • Latest POSB_Dashboard_Config applied • ${rawTransactions.length.toLocaleString()} records retained.`
-            : `✅ Google Sheet checked ${stamp} IST • No data change • ${rawTransactions.length.toLocaleString()} local records retained.`);
+            : `✅ Google Sheet checked ${stamp} IST • No data change • latest transaction ${localLatestDate ? formatDateDMY(localLatestDate) : 'unchanged'} • ${rawTransactions.length.toLocaleString()} records retained.`);
           viewOnlyNextRefreshAt = Date.now() + VIEW_ONLY_REFRESH_MS;
           return;
+        }
+
+        if (remoteHasNewerDate) {
+          setGoogleSheetStatus(`⬇ New Google Sheet transaction date detected: ${formatDateDMY(remoteLatestDate)} • refreshing dashboard data...`);
+        } else if (rowCountSuggestsChange) {
+          setGoogleSheetStatus(`⬇ Google Sheet row count changed (${totalRows.toLocaleString()}) • refreshing dashboard data...`);
         }
 
         updateViewOnlySyncProgress(0, `Google Sheet contains ${totalRows.toLocaleString()} transaction rows • starting download…`, true);
@@ -5858,7 +5914,10 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
         rawTransactions = fetchedRecords;
         const latestGoogleDate = getLatestDataISO(rawTransactions);
         if (latestGoogleDate) localStorage.setItem('posb_google_sheet_latest_date', latestGoogleDate);
-        localStorage.setItem('posb_google_sheet_signature', signature);
+        localStorage.setItem(
+          'posb_google_sheet_signature',
+          `${signature}|latest=${latestGoogleDate || ''}|rows=${totalRows}`
+        );
         try { populateGoogleSheetUploadDates(rawTransactions); } catch (e) { console.warn('Upload-date refresh skipped:', e); }
 
         // IMPORTANT: persist the Google data BEFORE declaring sync complete.
