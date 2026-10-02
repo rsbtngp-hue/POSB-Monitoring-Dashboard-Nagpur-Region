@@ -2585,11 +2585,11 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
    The complete source image is always visible: object-fit:contain prevents cropping or distortion. */
 .live-dashboard-split{
   width:100% !important;
-  height:235px !important;
-  min-height:235px !important;
-  max-height:235px !important;
+  height:200px !important;
+  min-height:200px !important;
+  max-height:200px !important;
   display:grid !important;
-  grid-template-columns:100% !important;
+  grid-template-columns:24% 74% !important;
   align-items:stretch !important;
   gap:0 !important;
   margin:0 0 12px !important;
@@ -2679,7 +2679,7 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
 /* Hide legacy signature overlay; the full editable canvas now controls all text. */
 .live-dashboard-split .dps-signature-overlay{display:none !important;}
 .live-dashboard-split .live-sync-pane{
-  padding:18px 22px !important;
+  padding:10px 16px !important;
   display:flex !important;
   flex-direction:column !important;
   justify-content:center !important;
@@ -2687,13 +2687,13 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
   border-left:1px solid #e4d7b8 !important;
 }
 .live-dashboard-split .live-sync-pane .view-only-status-top{align-items:center !important;gap:8px !important;}
-.live-dashboard-split .live-sync-pane .view-only-status-title{font-size:clamp(16px,1.25vw,20px) !important;line-height:1.2 !important;color:#166534 !important;}
-.live-dashboard-split .live-sync-pane .view-only-status-text{font-size:clamp(12px,.95vw,15px) !important;line-height:1.35 !important;color:#475569 !important;margin-top:3px !important;}
-.live-dashboard-split .live-sync-pane .view-only-sync-percent{font-size:clamp(28px,2.2vw,38px) !important;min-width:58px !important;}
-.live-dashboard-split .live-sync-actions{display:flex !important;justify-content:flex-end !important;align-items:center !important;gap:8px !important;margin-top:14px !important;flex-wrap:wrap !important;}
-.live-dashboard-split .live-sync-action-btn{border:0 !important;border-radius:8px !important;padding:11px 18px !important;font-size:14px !important;}
-.live-dashboard-split .view-only-progress-track{margin-top:14px !important;height:12px !important;}
-.live-dashboard-split .view-only-progress-meta{margin-top:7px !important;font-size:12px !important;line-height:1.2 !important;}
+.live-dashboard-split .live-sync-pane .view-only-status-title{font-size:clamp(12px,1.05vw,16px) !important;line-height:1.2 !important;color:#166534 !important;}
+.live-dashboard-split .live-sync-pane .view-only-status-text{font-size:clamp(10px,.82vw,12px) !important;line-height:1.35 !important;color:#475569 !important;margin-top:3px !important;}
+.live-dashboard-split .live-sync-pane .view-only-sync-percent{font-size:clamp(20px,1.8vw,28px) !important;min-width:48px !important;}
+.live-dashboard-split .live-sync-actions{display:flex !important;justify-content:flex-end !important;align-items:center !important;gap:8px !important;margin-top:10px !important;flex-wrap:wrap !important;}
+.live-dashboard-split .live-sync-action-btn{border:0 !important;border-radius:8px !important;padding:7px 11px !important;font-size:10px !important;}
+.live-dashboard-split .view-only-progress-track{margin-top:10px !important;height:10px !important;}
+.live-dashboard-split .view-only-progress-meta{margin-top:4px !important;font-size:9px !important;line-height:1.2 !important;}
 @media(max-width:900px){
   .live-dashboard-split{height:auto !important;min-height:0 !important;max-height:none !important;grid-template-columns:1fr !important;}
   .live-dashboard-split .dps-message-pane{height:200px !important;min-height:200px !important;}
@@ -2704,71 +2704,71 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
 </style>
 
 <style id="live-sync-pane-image-match">
-/* LIVE VIEW-ONLY GOOGLE SHEET STATUS — compact dashboard-matched sizing */
+/* LIVE VIEW-ONLY GOOGLE SHEET STATUS — matched to supplied reference image */
 #viewOnlyGoogleStatusCard.live-dashboard-split{
   width:100% !important;
-  height:190px !important;
-  min-height:190px !important;
-  max-height:190px !important;
+  height:245px !important;
+  min-height:245px !important;
+  max-height:245px !important;
   display:block !important;
-  margin:0 0 12px !important;
+  margin:0 0 16px !important;
   padding:0 !important;
   box-sizing:border-box !important;
   overflow:hidden !important;
-  border:1px solid #86efac !important;
-  border-radius:0 0 14px 14px !important;
+  border:1.5px solid #86efac !important;
+  border-radius:0 0 17px 17px !important;
   background:linear-gradient(180deg,#f0fdf4 0%,#ecfdf5 100%) !important;
-  box-shadow:0 2px 8px rgba(22,101,52,.07) !important;
+  box-shadow:0 2px 10px rgba(22,101,52,.08) !important;
 }
 #viewOnlyGoogleStatusCard .live-sync-pane{
   width:100% !important;
   height:100% !important;
-  min-height:190px !important;
-  max-height:190px !important;
+  min-height:245px !important;
+  max-height:245px !important;
   display:flex !important;
   flex-direction:column !important;
   justify-content:flex-start !important;
   align-items:stretch !important;
   box-sizing:border-box !important;
-  padding:14px 21px 12px !important;
+  padding:18px 21px 16px !important;
   border:0 !important;
   background:transparent !important;
   color:#334155 !important;
 }
 #viewOnlyGoogleStatusCard .view-only-status-top{
   width:100% !important;
-  min-height:42px !important;
+  min-height:55px !important;
   display:flex !important;
   align-items:flex-start !important;
   justify-content:space-between !important;
-  gap:16px !important;
+  gap:20px !important;
   margin:0 !important;
 }
 #viewOnlyGoogleStatusCard .view-only-status-title{
   display:flex !important;
   align-items:center !important;
-  gap:7px !important;
+  gap:8px !important;
   margin:0 !important;
   color:#166534 !important;
-  font-size:16px !important;
+  font-size:18px !important;
   line-height:1.2 !important;
-  font-weight:900 !important;
-  letter-spacing:0 !important;
+  font-weight:950 !important;
+  letter-spacing:.1px !important;
   white-space:nowrap !important;
 }
 #viewOnlyGoogleStatusCard .view-only-sync-dot{
-  width:12px !important;
-  height:12px !important;
-  min-width:12px !important;
+  width:15px !important;
+  height:15px !important;
+  min-width:15px !important;
   border-radius:50% !important;
   background:#16a34a !important;
-  box-shadow:0 0 0 4px rgba(34,197,94,.11) !important;
+  box-shadow:0 0 0 5px rgba(34,197,94,.12) !important;
   display:inline-block !important;
 }
 #viewOnlyGoogleStatusCard .view-only-status-text{
-  margin-top:6px !important;
+  margin-top:9px !important;
   color:#475569 !important;
-  font-size:12px !important;
+  font-size:16px !important;
   line-height:1.25 !important;
   font-weight:500 !important;
   white-space:nowrap !important;
@@ -2777,12 +2777,12 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
 }
 #viewOnlyGoogleStatusCard .view-only-sync-percent{
   flex:0 0 auto !important;
-  min-width:48px !important;
+  min-width:54px !important;
   padding-top:0 !important;
   color:#166534 !important;
-  font-size:25px !important;
+  font-size:31px !important;
   line-height:1 !important;
-  font-weight:900 !important;
+  font-weight:950 !important;
   text-align:right !important;
 }
 #viewOnlyGoogleStatusCard .live-sync-actions{
@@ -2790,30 +2790,30 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
   display:flex !important;
   justify-content:flex-end !important;
   align-items:center !important;
-  gap:10px !important;
-  margin:4px 0 0 !important;
+  gap:15px !important;
+  margin:0 !important;
   padding:0 !important;
   flex-wrap:nowrap !important;
 }
 #viewOnlyGoogleStatusCard .live-sync-action-btn{
-  min-width:250px !important;
-  height:48px !important;
-  padding:0 20px !important;
+  min-width:280px !important;
+  height:59px !important;
+  padding:0 25px !important;
   border:0 !important;
-  border-radius:12px !important;
+  border-radius:16px !important;
   font-family:inherit !important;
-  font-size:14px !important;
+  font-size:17px !important;
   line-height:1 !important;
-  font-weight:900 !important;
+  font-weight:950 !important;
   letter-spacing:0 !important;
   white-space:nowrap !important;
   cursor:pointer !important;
-  box-shadow:0 3px 8px rgba(15,23,42,.13) !important;
+  box-shadow:0 5px 10px rgba(15,23,42,.16) !important;
   transition:transform .15s ease,box-shadow .15s ease,filter .15s ease !important;
 }
 #viewOnlyGoogleStatusCard .live-sync-action-btn:hover:not(:disabled){
   transform:translateY(-1px) !important;
-  box-shadow:0 5px 11px rgba(15,23,42,.16) !important;
+  box-shadow:0 7px 14px rgba(15,23,42,.18) !important;
   filter:brightness(1.02) !important;
 }
 #viewOnlyGoogleStatusCard .live-sync-action-btn.local{
@@ -2824,18 +2824,21 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
   color:#fff !important;
   background:linear-gradient(135deg,#15803d 0%,#16a34a 100%) !important;
 }
-#viewOnlyGoogleStatusCard .live-sync-action-btn:disabled{opacity:1 !important;cursor:default !important;}
+#viewOnlyGoogleStatusCard .live-sync-action-btn:disabled{
+  opacity:1 !important;
+  cursor:default !important;
+}
 #viewOnlyGoogleStatusCard .view-only-progress-track{
   width:100% !important;
-  height:12px !important;
-  margin:11px 0 0 !important;
+  height:21px !important;
+  margin:15px 0 0 !important;
   padding:0 !important;
   box-sizing:border-box !important;
   background:#dcfce7 !important;
-  border:1px solid #bbf7d0 !important;
+  border:2px solid #bbf7d0 !important;
   border-radius:999px !important;
   overflow:hidden !important;
-  box-shadow:inset 0 1px 2px rgba(22,101,52,.07) !important;
+  box-shadow:inset 0 1px 3px rgba(22,101,52,.08) !important;
 }
 #viewOnlyGoogleStatusCard .view-only-progress-bar{
   height:100% !important;
@@ -2847,30 +2850,62 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
   display:flex !important;
   justify-content:space-between !important;
   align-items:center !important;
-  gap:12px !important;
-  margin:7px 0 0 !important;
+  gap:18px !important;
+  margin:10px 0 0 !important;
   padding:0 !important;
   color:#64748b !important;
-  font-size:11px !important;
+  font-size:15px !important;
   line-height:1.2 !important;
-  font-weight:800 !important;
+  font-weight:850 !important;
 }
-#viewOnlyGoogleStatusCard #viewOnlySyncProgressDetail{white-space:nowrap !important;overflow:hidden !important;text-overflow:ellipsis !important;}
-#viewOnlyGoogleStatusCard #viewOnlySyncClock{flex:0 0 auto !important;white-space:nowrap !important;color:#64748b !important;}
+#viewOnlyGoogleStatusCard #viewOnlySyncProgressDetail{
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+}
+#viewOnlyGoogleStatusCard #viewOnlySyncClock{
+  flex:0 0 auto !important;
+  white-space:nowrap !important;
+  color:#64748b !important;
+}
 @media(max-width:900px){
-  #viewOnlyGoogleStatusCard.live-dashboard-split{height:auto !important;min-height:190px !important;max-height:none !important;}
-  #viewOnlyGoogleStatusCard .live-sync-pane{height:auto !important;min-height:190px !important;max-height:none !important;padding:13px 15px 11px !important;}
-  #viewOnlyGoogleStatusCard .view-only-status-title{font-size:14px !important;white-space:normal !important;}
-  #viewOnlyGoogleStatusCard .view-only-status-text{font-size:11px !important;white-space:normal !important;}
-  #viewOnlyGoogleStatusCard .view-only-sync-percent{font-size:22px !important;}
-  #viewOnlyGoogleStatusCard .live-sync-actions{gap:8px !important;}
-  #viewOnlyGoogleStatusCard .live-sync-action-btn{min-width:0 !important;flex:1 1 0 !important;height:44px !important;padding:0 10px !important;font-size:12px !important;border-radius:10px !important;}
-  #viewOnlyGoogleStatusCard .view-only-progress-meta{font-size:10px !important;}
+  #viewOnlyGoogleStatusCard.live-dashboard-split{
+    height:auto !important;
+    min-height:245px !important;
+    max-height:none !important;
+  }
+  #viewOnlyGoogleStatusCard .live-sync-pane{
+    height:auto !important;
+    min-height:245px !important;
+    max-height:none !important;
+    padding:16px !important;
+  }
+  #viewOnlyGoogleStatusCard .view-only-status-title{
+    font-size:15px !important;
+    white-space:normal !important;
+  }
+  #viewOnlyGoogleStatusCard .view-only-status-text{
+    font-size:13px !important;
+    white-space:normal !important;
+  }
+  #viewOnlyGoogleStatusCard .view-only-sync-percent{font-size:26px !important;}
+  #viewOnlyGoogleStatusCard .live-sync-actions{gap:9px !important;}
+  #viewOnlyGoogleStatusCard .live-sync-action-btn{
+    min-width:0 !important;
+    flex:1 1 0 !important;
+    height:50px !important;
+    padding:0 12px !important;
+    font-size:13px !important;
+    border-radius:12px !important;
+  }
+  #viewOnlyGoogleStatusCard .view-only-progress-meta{font-size:12px !important;}
 }
 @media(max-width:560px){
-  #viewOnlyGoogleStatusCard .view-only-status-top{gap:7px !important;}
-  #viewOnlyGoogleStatusCard .view-only-sync-percent{font-size:20px !important;}
-  #viewOnlyGoogleStatusCard .live-sync-action-btn{font-size:11px !important;}
+  #viewOnlyGoogleStatusCard .view-only-status-top{gap:8px !important;}
+  #viewOnlyGoogleStatusCard .view-only-sync-percent{font-size:22px !important;}
+  #viewOnlyGoogleStatusCard .live-sync-actions{flex-direction:column !important;align-items:stretch !important;}
+  #viewOnlyGoogleStatusCard .live-sync-action-btn{width:100% !important;flex:auto !important;}
+  #viewOnlyGoogleStatusCard .view-only-progress-meta{font-size:10px !important;}
 }
 </style>
 
@@ -3780,6 +3815,87 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
 </table>
 </div>
 </div>
+
+<!-- SPECIAL DRIVE: बचत पर्व त्रितीय ( भाग १) — three-part dedicated monitoring -->
+<div id="specialBachatParvaModule" class="card" style="display:none;border:1px solid #f1d58a;border-top:4px solid #d97706;border-radius:16px;padding:18px;margin-top:16px;background:#fffdf7;">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;">
+    <div>
+      <div style="font-size:11px;font-weight:900;color:#b45309;text-transform:uppercase;letter-spacing:.5px;">🚩 Special Campaign / Drive Performance</div>
+      <h2 style="font-size:20px;font-weight:900;color:#0f172a;margin:5px 0 3px;">बचत पर्व त्रितीय ( भाग १)</h2>
+      <div style="font-size:11px;color:#64748b;">Period: <strong>01-10-2026 to 31-10-2026</strong> • Achievement = Net Addition during the drive period</div>
+    </div>
+    <div style="display:flex;gap:7px;flex-wrap:wrap;">
+      <button class="btn-action edit-btn" type="button" onclick="downloadBachatParvaTemplate('part1')">📥 Part 1 Template</button>
+      <button class="btn-action edit-btn" type="button" onclick="downloadBachatParvaTemplate('part2')">📥 Part 2 Template</button>
+      <button class="btn-action edit-btn" type="button" onclick="downloadBachatParvaTemplate('part3')">📥 Part 3 Template</button>
+      <input id="bachatParvaPart1Upload" type="file" accept=".csv,.xlsx,.xls" style="display:none" onchange="handleBachatParvaTargetUpload(event,'part1')">
+      <input id="bachatParvaPart2Upload" type="file" accept=".csv,.xlsx,.xls" style="display:none" onchange="handleBachatParvaTargetUpload(event,'part2')">
+      <input id="bachatParvaPart3Upload" type="file" accept=".csv,.xlsx,.xls" style="display:none" onchange="handleBachatParvaTargetUpload(event,'part3')">
+    </div>
+  </div>
+
+  <div id="bachatParvaSummary" style="display:grid;grid-template-columns:repeat(4,minmax(140px,1fr));gap:9px;margin:14px 0;">
+    <div style="background:#fff;border:1px solid #fde68a;border-radius:10px;padding:10px;"><div style="font-size:9px;font-weight:800;color:#92400e;text-transform:uppercase;">TOTAL TARGET</div><div id="bachatParvaTotalTarget" style="font-size:21px;font-weight:900;font-family:monospace;margin-top:3px;">0</div></div>
+    <div style="background:#fff;border:1px solid #dbeafe;border-radius:10px;padding:10px;"><div style="font-size:9px;font-weight:800;color:#1d4ed8;text-transform:uppercase;">ACHIEVEMENT</div><div id="bachatParvaTotalAchievement" style="font-size:21px;font-weight:900;font-family:monospace;margin-top:3px;">0</div></div>
+    <div style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:10px;"><div style="font-size:9px;font-weight:800;color:#475569;text-transform:uppercase;">SHORTFALL / EXCESS</div><div id="bachatParvaTotalVariance" style="font-size:21px;font-weight:900;font-family:monospace;margin-top:3px;">0</div></div>
+    <div style="background:#fff;border:1px solid #d1fae5;border-radius:10px;padding:10px;"><div style="font-size:9px;font-weight:800;color:#047857;text-transform:uppercase;">% TARGET MET</div><div id="bachatParvaTotalPct" style="font-size:21px;font-weight:900;font-family:monospace;margin-top:3px;">0.0%</div></div>
+  </div>
+
+  <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:12px;margin-bottom:12px;">
+    <div style="font-size:10px;font-weight:900;color:#475569;text-transform:uppercase;margin-bottom:8px;">🔎 Dedicated Drive Filters — applied to all three parts</div>
+    <div style="display:grid;grid-template-columns:repeat(4,minmax(160px,1fr));gap:9px;">
+      <div><label class="filter-label">Division</label><select id="bachatParvaDivisionFilter" onchange="populateBachatParvaSubFilters();renderBachatParvaSpecialModule()"><option value="ALL">All Divisions</option></select></div>
+      <div><label class="filter-label">Sub Division</label><select id="bachatParvaSubDivisionFilter" onchange="populateBachatParvaSoFilters();renderBachatParvaSpecialModule()"><option value="ALL">All Sub Divisions</option></select></div>
+      <div><label class="filter-label">SO Name</label><select id="bachatParvaSoFilter" onchange="renderBachatParvaSpecialModule()"><option value="ALL">All SO Names</option></select></div>
+      <div><label class="filter-label">Office Type</label>
+        <select id="bachatParvaOfficeTypeFilter" onchange="renderBachatParvaSpecialModule()">
+          <option value="ALL">All</option>
+          <option value="GPO_HPO">GPO/HPO (Combined)</option>
+          <option value="SPO">SPO</option>
+          <option value="BPO">BPO</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px;">
+    <button type="button" class="bachat-part-tab active" data-part="part1" onclick="switchBachatParvaPart('part1')">Part 1 • 1050 Selected BPOs</button>
+    <button type="button" class="bachat-part-tab" data-part="part2" onclick="switchBachatParvaPart('part2')">Part 2 • HPO / GPO</button>
+    <button type="button" class="bachat-part-tab" data-part="part3" onclick="switchBachatParvaPart('part3')">Part 3 • SPOs</button>
+  </div>
+
+  <div id="bachatParvaPart1Pane" class="bachat-part-pane">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin:8px 0;">
+      <div><strong>Part 1 — 1050 Selected Low Performing BPOs</strong><div style="font-size:10px;color:#64748b;">Dedicated list of selected BPOs with prior net addition below 50; targets are maintained by SOL ID.</div></div>
+      <button class="btn-action edit-btn" type="button" onclick="document.getElementById('bachatParvaPart1Upload').click()">📤 Upload BPOs + Target</button>
+    </div>
+    <div class="table-responsive"><table id="bachatParvaPart1Table"><thead><tr><th>Rank</th><th>Office Name</th><th>SOL ID</th><th>SO Name</th><th>Sub Division</th><th>Division</th><th>Type</th><th class="num">Target</th><th class="num">Achievement (Net Add)</th><th class="num">Shortfall / Excess</th><th class="num">% Target Met</th></tr></thead><tbody id="bachatParvaPart1Body"></tbody><tfoot id="bachatParvaPart1Foot"></tfoot></table></div>
+  </div>
+
+  <div id="bachatParvaPart2Pane" class="bachat-part-pane" style="display:none">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin:8px 0;">
+      <div><strong>Part 2 — All GPO and HPO</strong><div style="font-size:10px;color:#64748b;">All HPO/GPO offices in the live office master; targets can be uploaded by SOL ID.</div></div>
+      <button class="btn-action edit-btn" type="button" onclick="document.getElementById('bachatParvaPart2Upload').click()">📤 Upload HPO / GPO Targets</button>
+    </div>
+    <div class="table-responsive"><table id="bachatParvaPart2Table"><thead><tr><th>Rank</th><th>Office Name</th><th>Type</th><th class="num">Target</th><th class="num">Achievement (Net Add)</th><th class="num">Shortfall / Excess</th><th class="num">% Target Met</th></tr></thead><tbody id="bachatParvaPart2Body"></tbody><tfoot id="bachatParvaPart2Foot"></tfoot></table></div>
+  </div>
+
+  <div id="bachatParvaPart3Pane" class="bachat-part-pane" style="display:none">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin:8px 0;">
+      <div><strong>Part 3 — All SPOs</strong><div style="font-size:10px;color:#64748b;">All SPO offices in the live office master; targets can be uploaded by SOL ID.</div></div>
+      <button class="btn-action edit-btn" type="button" onclick="document.getElementById('bachatParvaPart3Upload').click()">📤 Upload SPO Targets</button>
+    </div>
+    <div class="table-responsive"><table id="bachatParvaPart3Table"><thead><tr><th>Rank</th><th>Office Name</th><th>Type</th><th class="num">Target</th><th class="num">Achievement (Net Add)</th><th class="num">Shortfall / Excess</th><th class="num">% Target Met</th></tr></thead><tbody id="bachatParvaPart3Body"></tbody><tfoot id="bachatParvaPart3Foot"></tfoot></table></div>
+  </div>
+</div>
+<style>
+  .bachat-part-tab{border:1px solid #cbd5e1;background:#fff;color:#334155;border-radius:8px;padding:7px 11px;font-size:11px;font-weight:800;cursor:pointer}
+  .bachat-part-tab.active{background:#fff7ed;border-color:#f59e0b;color:#9a3412;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+  #specialBachatParvaModule table{min-width:1050px}
+  #specialBachatParvaModule th{white-space:nowrap}
+  @media(max-width:800px){#bachatParvaSummary{grid-template-columns:repeat(2,minmax(120px,1fr))!important}.bachat-part-tab{flex:1 1 30%}.specialBachatParvaModule{} }
+</style>
+
 </div>
 <!-- MODAL: WELCOME DATA AVAILABILITY POPUP -->
 <div class="modal-overlay" id="welcomeModalOverlay" aria-hidden="true" onclick="if(event.target === this) closeWelcomeModal()">
@@ -3794,7 +3910,7 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
 </svg>
 <div class="welcome-status-dot"></div>
 </div>
-<h2 class="welcome-title">POSB Performance Data</h2>
+<h2 class="welcome-title">POSB Performance Dashboard</h2>
 <p class="welcome-subtitle">Nagpur Postal Region | POSB Monitoring</p>
 <div class="welcome-info-box">
 <div class="welcome-info-row">
@@ -4573,6 +4689,39 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
 
     const DEFAULT_CAMPAIGNS = [
       {
+        id: 'camp-ladki-bahin-sbbas',
+        name: 'Har Ghar Ladki Bahin Khata',
+        startDate: '2026-07-17',
+        endDate: '2027-03-31',
+        regionTarget: 330000,
+        description: 'Har Ghar Ladki Bahin Khata (17-07-2026 to 31-03-2027) • Region Target: 330,000 • Scheme Only: SBBAS',
+        divTargets: {},
+        subTargets: {},
+        schemeOnly: 'sbbas'
+      },
+      {
+        id: 'camp-bachat-parva-2',
+        name: 'बचत पर्व द्वितीया',
+        startDate: '2026-08-06',
+        endDate: '2026-08-12',
+        regionTarget: 0,
+        description: 'बचत पर्व द्वितीया (06-08-2026 to 12-08-2026)',
+        divTargets: {},
+        subTargets: {},
+        schemeOnly: null
+      },
+      {
+        id: 'camp-four-seasons-autumn-2026',
+        name: 'Four Seasons: Autumn Advancement Campaign',
+        startDate: '2026-09-01',
+        endDate: '2026-09-30',
+        regionTarget: 225000,
+        description: 'Four Seasons: Autumn Advancement Campaign (01-09-2026 to 30-09-2026) • Region Target: 2,25,000',
+        divTargets: {},
+        subTargets: {},
+        schemeOnly: null
+      },
+      {
         id: 'camp-four-seasons-autumn-2026-region',
         name: 'Four Seasons: Autumn Advancement Campaign ( Region )',
         startDate: '2026-09-11',
@@ -4593,8 +4742,90 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
         subTargets: {},
         schemeOnly: null
       },
+      {
+        id: 'camp-bachat-parva-tritiy-bhag-1',
+        name: 'बचत पर्व त्रितीय ( भाग १)',
+        startDate: '2026-10-01',
+        endDate: '2026-10-31',
+        regionTarget: 0,
+        description: 'बचत पर्व त्रितीय ( भाग १) • 01-10-2026 to 31-10-2026 • Three-part office performance drive',
+        divTargets: {},
+        subTargets: {},
+        schemeOnly: null,
+        specialDriveType: 'bachat-parva-tritiy-bhag-1',
+        specialParts: {
+          part1: { label: 'Part 1 — 1050 Selected Low Performing BPOs (<50 Net Addition)', maxOffices: 1050, offices: {} },
+          part2: { label: 'Part 2 — All HPO / GPO', maxOffices: 0, offices: {} },
+          part3: { label: 'Part 3 — All SPOs', maxOffices: 0, offices: {} }
+        }
+      },
 
     ];
+
+    function campaignDedupeKey(c) {
+      if (!c) return '';
+      const id = String(c.id || '').trim();
+      if (id) return 'id:' + id;
+      const name = String(c.name || '').trim().toLowerCase().replace(/\s+/g, ' ');
+      const start = String(c.startDate || '').slice(0, 10);
+      const end = String(c.endDate || '').slice(0, 10);
+      return 'name:' + name + '|' + start + '|' + end;
+    }
+    function normalizeCampaignNameKey(name) {
+      return String(name || '').trim().toLowerCase()
+        .replace(/[()]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+    function dedupeCampaignList(list) {
+      const byId = new Map();
+      const byNameDate = new Map();
+      (Array.isArray(list) ? list : []).filter(Boolean).forEach(c => {
+        const id = String(c.id || '').trim();
+        const nameKey = normalizeCampaignNameKey(c.name);
+        const dateKey = nameKey + '|' + String(c.startDate || '').slice(0, 10) + '|' + String(c.endDate || '').slice(0, 10);
+        // Prefer DEFAULT_CAMPAIGNS definition when id matches
+        const def = id ? DEFAULT_CAMPAIGNS.find(d => d.id === id) : null;
+        const merged = def ? {
+          ...c,
+          ...def,
+          divTargets: { ...(def.divTargets || {}), ...(c.divTargets || {}) },
+          subTargets: { ...(def.subTargets || {}), ...(c.subTargets || {}) },
+          specialParts: c.specialParts || (def.specialParts ? JSON.parse(JSON.stringify(def.specialParts)) : undefined),
+          schemeOnly: c.schemeOnly != null ? c.schemeOnly : def.schemeOnly
+        } : c;
+        if (id) {
+          if (!byId.has(id)) byId.set(id, merged);
+          else {
+            const prev = byId.get(id);
+            byId.set(id, {
+              ...prev,
+              ...merged,
+              divTargets: { ...(prev.divTargets || {}), ...(merged.divTargets || {}) },
+              subTargets: { ...(prev.subTargets || {}), ...(merged.subTargets || {}) }
+            });
+          }
+        } else if (!byNameDate.has(dateKey)) {
+          byNameDate.set(dateKey, merged);
+        }
+      });
+      // Collapse same name+start+end even if ids differ (true duplicates)
+      const final = [];
+      const seenNameDate = new Set();
+      const ordered = [
+        ...DEFAULT_CAMPAIGNS.map(d => byId.get(d.id)).filter(Boolean),
+        ...[...byId.values()].filter(c => !DEFAULT_CAMPAIGNS.some(d => d.id === c.id)),
+        ...byNameDate.values()
+      ];
+      ordered.forEach(c => {
+        const nameKey = normalizeCampaignNameKey(c.name);
+        const dateKey = nameKey + '|' + String(c.startDate || '').slice(0, 10) + '|' + String(c.endDate || '').slice(0, 10);
+        if (seenNameDate.has(dateKey)) return;
+        seenNameDate.add(dateKey);
+        final.push(c);
+      });
+      return final;
+    }
 
     let campaignList = JSON.parse(localStorage.getItem('posb_campaign_list') || 'null') || DEFAULT_CAMPAIGNS.map(c => ({...c, divTargets:{...c.divTargets}, subTargets:{...c.subTargets}}));
     // Retain existing campaigns from older browser/localStorage versions.
@@ -4605,15 +4836,15 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
       if (name.includes('har ghar ladki bahin khata')) return { ...c, schemeOnly: 'sbbas' };
       return c;
     });
-    localStorage.setItem('posb_campaign_list', JSON.stringify(campaignList));
     // Add the supplied Special Campaign / Drive definitions to an existing browser cache
-    // without removing any user-created campaigns. This makes the new drives appear even
-    // when an older dashboard version had already stored a campaign list locally.
+    // without removing any user-created campaigns.
     DEFAULT_CAMPAIGNS.forEach(def => {
       if (!campaignList.some(c => c.id === def.id)) {
-        campaignList.push({...def, divTargets:{...def.divTargets}, subTargets:{...def.subTargets}});
+        campaignList.push({...def, divTargets:{...def.divTargets}, subTargets:{...def.subTargets}, specialParts: def.specialParts ? JSON.parse(JSON.stringify(def.specialParts)) : undefined});
       }
     });
+    // Remove exact / near-duplicates (same id, or same name+period)
+    campaignList = dedupeCampaignList(campaignList);
     localStorage.setItem('posb_campaign_list', JSON.stringify(campaignList));
     let activeCampaignId = localStorage.getItem('posb_active_campaign_id') || campaignList[0].id;
     if (!campaignList.some(c => c.id === activeCampaignId)) {
@@ -5693,8 +5924,7 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
         try { updateWelcomeModalDates(); } catch (_) {}
         const totalRows = Number(meta.totalRows || meta.rowCount || 0);
         const signature = String(meta.signature || `${meta.totalRows || 0}|${meta.lastUpdated || ''}`);
-        const previousSignatureStored = localStorage.getItem('posb_google_sheet_signature') || '';
-        const previousSignature = previousSignatureStored.split('|latest=')[0];
+        const previousSignature = localStorage.getItem('posb_google_sheet_signature') || '';
 
         // TARGET/CONFIG SYNC IS INDEPENDENT OF POSB_Data.
         // Always make a separate no-cache configuration request. This is
@@ -5734,73 +5964,18 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
           console.warn('Google Sheet returned no POSB_Dashboard_Config object.');
         }
 
-        // IMPORTANT: Never trust the stored POSB_Data signature alone.
-        // A Google Apps Script deployment/cache can temporarily return the same
-        // signature even after a new daily MIS row has been appended.  Before
-        // taking the fast "No change" path, probe only the final physical rows
-        // and compare the newest transaction date with the newest local date.
-        // This is a very small request and prevents a newly uploaded date such
-        // as 30-09-2026 from being missed by the dashboard.
-        let remoteLatestDate = '';
-        let latestProbeSucceeded = false;
-        if (previousSignature && previousSignature === signature && rawTransactions.length && totalRows > 0) {
-          try {
-            const probeOffset = Math.max(0, totalRows - 12);
-            const probe = await fetchJson(
-              `${base}?action=data&offset=${probeOffset}&limit=12&_=${Date.now()}_latest_probe`,
-              Math.max(VIEW_ONLY_SYNC_TIMEOUT_MS, 30000)
-            );
-            const probeRows = Array.isArray(probe?.records)
-              ? probe.records
-              : (Array.isArray(probe?.rows) ? probe.rows : []);
-            const probeRecords = [];
-            probeRows.forEach(row => {
-              if (Array.isArray(row?.records)) {
-                row.records.forEach(r => probeRecords.push(r));
-              } else if (row && typeof row === 'object' &&
-                         (row.officeName || row.officeType || row.date || row.txn_date || row.iso)) {
-                probeRecords.push(row);
-              }
-            });
-            remoteLatestDate = probeRecords
-              .map(r => r.iso || r.txn_date || r.date || '')
-              .map(d => /^\d{4}-\d{2}-\d{2}$/.test(String(d)) ? String(d) : parseToISO(String(d)))
-              .filter(Boolean)
-              .sort()
-              .pop() || '';
-            latestProbeSucceeded = true;
-          } catch (probeErr) {
-            // If the probe fails, do NOT assume "No change"; continue with the
-            // full sync so the dashboard remains self-healing.
-            console.warn('Latest Google Sheet date probe failed; forcing full sync:', probeErr);
-          }
-        }
-
-        const localLatestDate = getLatestDataISO(rawTransactions);
-        const remoteHasNewerDate = remoteLatestDate && localLatestDate && remoteLatestDate > localLatestDate;
-        const rowCountSuggestsChange = totalRows > rawTransactions.length;
-
-        if (previousSignature &&
-            previousSignature === signature &&
-            rawTransactions.length &&
-            latestProbeSucceeded &&
-            !remoteHasNewerDate &&
-            !rowCountSuggestsChange) {
+        // Do not skip the configuration update merely because POSB_Data itself
+        // has not changed. Only skip the large transaction download.
+        if (previousSignature && previousSignature === signature && rawTransactions.length) {
           updateViewOnlySyncProgress(100, configChanged
             ? `Configuration updated • ${rawTransactions.length.toLocaleString()} local records retained`
-            : `No change • latest transaction ${localLatestDate ? formatDateDMY(localLatestDate) : 'unchanged'} • ${rawTransactions.length.toLocaleString()} local records retained`, false);
+            : `No change • ${rawTransactions.length.toLocaleString()} local records retained`, false);
           const stamp = new Date().toLocaleString('en-IN',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true,timeZone:'Asia/Kolkata'});
           setGoogleSheetStatus(configChanged
             ? `✅ Google Sheet checked ${stamp} IST • Latest POSB_Dashboard_Config applied • ${rawTransactions.length.toLocaleString()} records retained.`
-            : `✅ Google Sheet checked ${stamp} IST • No data change • latest transaction ${localLatestDate ? formatDateDMY(localLatestDate) : 'unchanged'} • ${rawTransactions.length.toLocaleString()} records retained.`);
+            : `✅ Google Sheet checked ${stamp} IST • No data change • ${rawTransactions.length.toLocaleString()} local records retained.`);
           viewOnlyNextRefreshAt = Date.now() + VIEW_ONLY_REFRESH_MS;
           return;
-        }
-
-        if (remoteHasNewerDate) {
-          setGoogleSheetStatus(`⬇ New Google Sheet transaction date detected: ${formatDateDMY(remoteLatestDate)} • refreshing dashboard data...`);
-        } else if (rowCountSuggestsChange) {
-          setGoogleSheetStatus(`⬇ Google Sheet row count changed (${totalRows.toLocaleString()}) • refreshing dashboard data...`);
         }
 
         updateViewOnlySyncProgress(0, `Google Sheet contains ${totalRows.toLocaleString()} transaction rows • starting download…`, true);
@@ -5814,7 +5989,7 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
         // request. Fetch three 12-row chunks concurrently so the dashboard
         // does not wait for each large JSON response sequentially.
         const chunkSize = 12;
-        const parallelChunks = 3;
+        const parallelChunks = 1;
         const allRecords = [];
         let batchNo = 0;
         let lastCompletedRows = 0;
@@ -5858,9 +6033,29 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
               : (Array.isArray(chunk.rows) ? chunk.rows : []);
 
             rows.forEach(row => {
-              if (Array.isArray(row.records)) {
-                row.records.forEach(r => allRecords.push(r));
-              } else if (row && typeof row === 'object' && !Array.isArray(row.records)) {
+              // Apps Script v3 returns physical sheet rows as:
+              // [txn_date, fileName, recordsJson, updatedAt]
+              if (Array.isArray(row)) {
+                const recordsJson = row[2];
+                if (!recordsJson || typeof recordsJson !== 'string') return;
+                try {
+                  const parsed = JSON.parse(recordsJson);
+                  if (Array.isArray(parsed)) {
+                    parsed.forEach(r => {
+                      if (r && typeof r === 'object') allRecords.push(r);
+                    });
+                  }
+                } catch (parseErr) {
+                  console.warn('Skipping invalid recordsJson in Google Sheet row:', parseErr);
+                }
+                return;
+              }
+
+              if (Array.isArray(row?.records)) {
+                row.records.forEach(r => {
+                  if (r && typeof r === 'object') allRecords.push(r);
+                });
+              } else if (row && typeof row === 'object') {
                 if (row.officeName || row.officeType || row.date || row.txn_date || row.net !== undefined) {
                   allRecords.push(row);
                 }
@@ -5914,10 +6109,7 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
         rawTransactions = fetchedRecords;
         const latestGoogleDate = getLatestDataISO(rawTransactions);
         if (latestGoogleDate) localStorage.setItem('posb_google_sheet_latest_date', latestGoogleDate);
-        localStorage.setItem(
-          'posb_google_sheet_signature',
-          `${signature}|latest=${latestGoogleDate || ''}|rows=${totalRows}`
-        );
+        localStorage.setItem('posb_google_sheet_signature', signature);
         try { populateGoogleSheetUploadDates(rawTransactions); } catch (e) { console.warn('Upload-date refresh skipped:', e); }
 
         // IMPORTANT: persist the Google data BEFORE declaring sync complete.
@@ -6147,6 +6339,8 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
 
     function switchMainTab(tabId) {
       currentMainTab = tabId;
+      const bachatPanelOnTab = document.getElementById('specialBachatParvaModule');
+      if (bachatPanelOnTab && tabId !== 'campaign') bachatPanelOnTab.style.display = 'none';
       document.querySelectorAll('.nav-tab').forEach(el => {
         el.classList.remove('active');
         el.setAttribute('aria-selected', 'false');
@@ -10736,6 +10930,359 @@ ${cleanTable(p2)}
     }
 
     // --- CAMPAIGN PERFORMANCE MODULE ---
+    // =========================================================
+    // SPECIAL DRIVE — बचत पर्व त्रितीय ( भाग १)
+    // Three independent parts with SOL-ID target master, shared
+    // Division/Sub Division/SO filters, and the existing office popup.
+    // =========================================================
+    const BACHAT_PARVA_DRIVE_ID = 'camp-bachat-parva-tritiy-bhag-1';
+    let activeBachatParvaPart = 'part1';
+
+    function isBachatParvaDrive(cmp) { return !!(cmp && cmp.id === BACHAT_PARVA_DRIVE_ID); }
+    function normalizeBachatOfficeType(v) {
+      let t = String(v || '').trim().toUpperCase();
+      if (t === 'BO') t = 'BPO';
+      if (t === 'SO') t = 'SPO';
+      return t;
+    }
+    function getBachatPartConfig(cmp, part) {
+      if (!cmp) return null;
+      if (!cmp.specialParts) cmp.specialParts = {};
+      if (!cmp.specialParts[part]) cmp.specialParts[part] = {label:part, maxOffices:part==='part1'?1050:0, offices:{}};
+      if (!cmp.specialParts[part].offices) cmp.specialParts[part].offices = {};
+      return cmp.specialParts[part];
+    }
+    let bachatMasterCache = null;
+    let bachatMasterSource = null;
+    let bachatMasterBySolCache = null;
+    let bachatAchievementCache = null;
+    let bachatAchievementSource = null;
+    let bachatPartOfficeCache = new Map();
+    function invalidateBachatPerformanceCache() {
+      bachatMasterCache = null; bachatMasterSource = null;
+      bachatMasterBySolCache = null; bachatAchievementCache = null;
+      bachatAchievementSource = null; bachatPartOfficeCache = new Map();
+    }
+    function getBachatOfficeMaster() {
+      if (bachatMasterCache && bachatMasterSource === rawTransactions) return bachatMasterCache;
+      const seen = new Map();
+      (Array.isArray(rawTransactions) ? rawTransactions : []).forEach(r => {
+        const solId = String(r.solId || '').trim();
+        const officeName = String(r.officeName || '').trim();
+        const key = solId || `${officeName}|${String(r.division||'').trim()}|${String(r.subDivision||'').trim()}`;
+        if (!key || seen.has(key)) return;
+        seen.set(key, {solId, officeName, division:String(r.division||'').trim(), subDivision:String(r.subDivision||'').trim(), soName:String(r.soName||'').trim(), officeType:normalizeBachatOfficeType(r.officeType || officeCountType(r)), officeNameKey:officeName});
+      });
+      bachatMasterSource = rawTransactions;
+      bachatMasterCache = [...seen.values()];
+      bachatMasterBySolCache = null;
+      return bachatMasterCache;
+    }
+    function bachatOfficeMasterBySol() {
+      if (bachatMasterBySolCache && bachatMasterSource === rawTransactions) return bachatMasterBySolCache;
+      const m = new Map();
+      getBachatOfficeMaster().forEach(o => { if (o.solId) m.set(o.solId, o); });
+      bachatMasterBySolCache = m;
+      return m;
+    }
+    function buildBachatAchievementCache() {
+      if (bachatAchievementCache && bachatAchievementSource === rawTransactions) return bachatAchievementCache;
+      const map = new Map();
+      (Array.isArray(rawTransactions) ? rawTransactions : []).forEach(r => {
+        const dt = campaignRecordDate(r);
+        if (!dt || dt < '2026-10-01' || dt > '2026-10-31') return;
+        const sol = String(r.solId || '').trim(); if (!sol) return;
+        const opened = Number(r.opened || 0), closed = Number(r.closed || 0), netRaw = Number(r.net);
+        const net = Number.isFinite(netRaw) ? netRaw : (opened - closed);
+        map.set(sol, (map.get(sol) || 0) + net);
+      });
+      bachatAchievementSource = rawTransactions; bachatAchievementCache = map;
+      return map;
+    }
+    function getBachatTarget(cmp, part, office) {
+      const cfg = getBachatPartConfig(cmp, part);
+      const sol = String(office.solId || '').trim();
+      const name = String(office.officeName || '').trim();
+      const direct = cfg?.offices?.[sol];
+      if (direct && Number.isFinite(Number(direct.target))) return Number(direct.target);
+      const byName = cfg?.offices?.[name];
+      if (byName && Number.isFinite(Number(byName.target))) return Number(byName.target);
+      const existing = getTargetForOffice(sol, name);
+      return Number.isFinite(existing) ? existing : 0;
+    }
+    function getBachatAchievement(solId) {
+      const sol = String(solId || '').trim();
+      return sol ? Number(buildBachatAchievementCache().get(sol) || 0) : 0;
+    }
+    function getBachatNetAsOnCutoff(solId, cutoffISO) {
+      // Cumulative net addition up to and including cutoff date (default 30-09-2026)
+      const cut = cutoffISO || '2026-09-30';
+      let net = 0;
+      (Array.isArray(rawTransactions) ? rawTransactions : []).forEach(r => {
+        if (String(r.solId || '').trim() !== String(solId || '').trim()) return;
+        const dt = campaignRecordDate(r);
+        if (!dt || dt > cut) return;
+        const opened = Number(r.opened || 0), closed = Number(r.closed || 0);
+        const netRaw = Number(r.net);
+        net += Number.isFinite(netRaw) ? netRaw : (opened - closed);
+      });
+      return net;
+    }
+    function getBachatPartOffices(cmp, part) {
+      const cfg = getBachatPartConfig(cmp, part);
+      const cacheKey = `${cmp?.id||''}|${part}|${Object.keys(cfg?.offices||{}).length}|${(rawTransactions||[]).length}`;
+      if (bachatPartOfficeCache.has(cacheKey)) return bachatPartOfficeCache.get(cacheKey);
+      const master = getBachatOfficeMaster();
+      const masterBySol = bachatOfficeMasterBySol();
+      const selected = [];
+      const seenSol = new Set();
+      const addOffice = (o, stored) => {
+        if (!o || !o.solId) return;
+        const sol = String(o.solId).trim();
+        if (seenSol.has(sol)) return;
+        seenSol.add(sol);
+        selected.push({...o, target:Number(stored?.target ?? getBachatTarget(cmp,part,o)) || 0});
+      };
+      if (part === 'part1') {
+        // 1) Auto-select BPOs whose cumulative net addition as on 30-09-2026 is below 50
+        const lowBpos = master
+          .filter(o => normalizeBachatOfficeType(o.officeType) === 'BPO')
+          .map(o => ({ o, netAsOn: getBachatNetAsOnCutoff(o.solId, '2026-09-30') }))
+          .filter(x => x.netAsOn < 50)
+          .sort((a, b) => a.netAsOn - b.netAsOn || String(a.o.officeName||'').localeCompare(String(b.o.officeName||'')))
+          .slice(0, 1050);
+        lowBpos.forEach(({ o }) => {
+          const stored = cfg.offices?.[o.solId];
+          addOffice(o, stored);
+        });
+        // 2) Also include any explicitly uploaded SOL IDs (targets) even if not in auto list
+        Object.values(cfg.offices || {}).forEach(stored => {
+          const sol = String(stored?.solId || '').trim();
+          if (!sol || seenSol.has(sol)) return;
+          if (seenSol.size >= 1050) return; // hard max 1,050
+          const o = masterBySol.get(sol) || {
+            solId: sol,
+            officeName: String(stored?.officeName || sol),
+            division: String(stored?.division || ''),
+            subDivision: String(stored?.subDivision || ''),
+            soName: String(stored?.soName || ''),
+            officeType: 'BPO'
+          };
+          if (normalizeBachatOfficeType(o.officeType) === 'BPO') addOffice(o, stored);
+        });
+      } else {
+        master.forEach(o => {
+          const t = normalizeBachatOfficeType(o.officeType);
+          if ((part==='part2' && (t==='HPO'||t==='GPO')) || (part==='part3' && t==='SPO')) {
+            addOffice(o, cfg.offices?.[o.solId]);
+          }
+        });
+      }
+      bachatPartOfficeCache.set(cacheKey, selected);
+      return selected;
+    }
+    function bachatFilterMatch(o) {
+      const d=document.getElementById('bachatParvaDivisionFilter')?.value || 'ALL';
+      const s=document.getElementById('bachatParvaSubDivisionFilter')?.value || 'ALL';
+      const so=document.getElementById('bachatParvaSoFilter')?.value || 'ALL';
+      const ot=document.getElementById('bachatParvaOfficeTypeFilter')?.value || 'ALL';
+      const type=normalizeBachatOfficeType(o.officeType);
+      let typeOK = true;
+      if (ot === 'GPO_HPO') typeOK = (type === 'GPO' || type === 'HPO');
+      else if (ot === 'SPO') typeOK = (type === 'SPO');
+      else if (ot === 'BPO') typeOK = (type === 'BPO');
+      return (d==='ALL'||o.division===d) && (s==='ALL'||o.subDivision===s) && (so==='ALL'||o.soName===so) && typeOK;
+    }
+    function populateBachatParvaFilters() {
+      const master=getBachatOfficeMaster();
+      const dEl=document.getElementById('bachatParvaDivisionFilter'); if(!dEl)return;
+      const oldD=dEl.value||'ALL';
+      const divs=[...new Set(master.map(o=>o.division).filter(Boolean))].sort();
+      dEl.innerHTML='<option value="ALL">All Divisions</option>'+divs.map(d=>`<option value="${weeklyEsc(d)}">${weeklyEsc(d)}</option>`).join('');
+      dEl.value=divs.includes(oldD)?oldD:'ALL';
+      populateBachatParvaSubFilters();
+    }
+    function populateBachatParvaSubFilters() {
+      const d=document.getElementById('bachatParvaDivisionFilter')?.value||'ALL';
+      const sEl=document.getElementById('bachatParvaSubDivisionFilter'); if(!sEl)return;
+      const old=sEl.value||'ALL'; const master=getBachatOfficeMaster().filter(o=>d==='ALL'||o.division===d);
+      const subs=[...new Set(master.map(o=>o.subDivision).filter(Boolean))].sort();
+      sEl.innerHTML='<option value="ALL">All Sub Divisions</option>'+subs.map(x=>`<option value="${weeklyEsc(x)}">${weeklyEsc(x)}</option>`).join('');
+      sEl.value=subs.includes(old)?old:'ALL'; populateBachatParvaSoFilters();
+    }
+    function populateBachatParvaSoFilters() {
+      const d=document.getElementById('bachatParvaDivisionFilter')?.value||'ALL';
+      const s=document.getElementById('bachatParvaSubDivisionFilter')?.value||'ALL';
+      const soEl=document.getElementById('bachatParvaSoFilter'); if(!soEl)return;
+      const old=soEl.value||'ALL'; const master=getBachatOfficeMaster().filter(o=>(d==='ALL'||o.division===d)&&(s==='ALL'||o.subDivision===s));
+      const sos=[...new Set(master.map(o=>o.soName).filter(Boolean))].sort();
+      soEl.innerHTML='<option value="ALL">All SO Names</option>'+sos.map(x=>`<option value="${weeklyEsc(x)}">${weeklyEsc(x)}</option>`).join('');
+      soEl.value=sos.includes(old)?old:'ALL';
+    }
+    function switchBachatParvaPart(part) {
+      activeBachatParvaPart=part;
+      document.querySelectorAll('.bachat-part-tab').forEach(b=>b.classList.toggle('active',b.dataset.part===part));
+      ['part1','part2','part3'].forEach(p=>{ const el=document.getElementById('bachatParvaPart'+p.slice(-1)+'Pane'); if(el)el.style.display=p===part?'block':'none'; });
+      renderBachatParvaSpecialModule();
+    }
+    function bachatVarianceHTML(target,achievement) {
+      const variance=Number(target||0)-Number(achievement||0);
+      const cls=variance>0?'shortfall-display':(variance<0?'excess-display':'');
+      return `<span class="${cls}">${Math.abs(Math.round(variance)).toLocaleString('en-IN')}</span>`;
+    }
+    function bachatOfficeRows(cmp,part) {
+      return getBachatPartOffices(cmp,part).filter(bachatFilterMatch).map(o=>({...o,achievement:getBachatAchievement(o.solId)})).sort((a,b)=>b.achievement-a.achievement || a.officeName.localeCompare(b.officeName));
+    }
+    function renderBachatParvaPartTable(cmp,part) {
+      const n=part.slice(-1), tbody=document.getElementById('bachatParvaPart'+n+'Body'), foot=document.getElementById('bachatParvaPart'+n+'Foot');
+      if(!tbody)return;
+      const rows=bachatOfficeRows(cmp,part);
+      const colCount = part==='part1' ? 11 : 7;
+      if(!rows.length){
+        tbody.innerHTML=`<tr><td colspan="${colCount}" style="text-align:center;padding:20px;color:#64748b;">${part==='part1'?'No low-performing BPOs found (net addition &lt; 50 as on 30-09-2026). Upload SOL IDs + targets if needed.':'No offices available in the live office master for this office type.'}</td></tr>`;
+        if(foot)foot.innerHTML='';
+        return;
+      }
+      let totalTarget=0,totalAchievement=0;
+      tbody.innerHTML=rows.map((o,i)=>{
+        totalTarget+=o.target; totalAchievement+=o.achievement;
+        const pct=o.target>0?(o.achievement/o.target)*100:0;
+        const officeLabel=weeklyEsc(o.officeName||o.solId);
+        const officeLink=`<a href="javascript:void(0)" class="office-name-link" onclick="openOfficeInfoPopupBySol('${String(o.solId||'').replace(/'/g,"\\'")}','${String(o.officeName||'').replace(/'/g,"\\'")}')"><strong>${officeLabel}</strong></a>`;
+        if(part==='part1'){
+          return `<tr><td>${i+1}</td><td>${officeLink}</td><td style="font-family:monospace;color:#64748b">${weeklyEsc(o.solId||'-')}</td><td>${weeklyEsc(o.soName||'-')}</td><td>${weeklyEsc(o.subDivision||'-')}</td><td>${weeklyEsc(o.division||'-')}</td><td><span class="badge-level ${normalizeBachatOfficeType(o.officeType)==='BPO'?'level-bo':(normalizeBachatOfficeType(o.officeType)==='SPO'?'level-so':'level-div')}">${weeklyEsc(normalizeBachatOfficeType(o.officeType)||'-')}</span></td><td class="num">${Math.round(o.target).toLocaleString('en-IN')}</td><td class="num">${Math.round(o.achievement).toLocaleString('en-IN')}</td><td class="num">${bachatVarianceHTML(o.target,o.achievement)}</td><td class="num">${o.target>0?pct.toFixed(1)+'%':'-'}</td></tr>`;
+        }
+        return `<tr><td>${i+1}</td><td>${officeLink}</td><td><span class="badge-level ${normalizeBachatOfficeType(o.officeType)==='SPO'?'level-so':'level-div'}">${weeklyEsc(normalizeBachatOfficeType(o.officeType)||'-')}</span></td><td class="num">${Math.round(o.target).toLocaleString('en-IN')}</td><td class="num">${Math.round(o.achievement).toLocaleString('en-IN')}</td><td class="num">${bachatVarianceHTML(o.target,o.achievement)}</td><td class="num">${o.target>0?pct.toFixed(1)+'%':'-'}</td></tr>`;
+      }).join('');
+      if(foot){
+        const v=totalTarget-totalAchievement,p=totalTarget>0?(totalAchievement/totalTarget)*100:0;
+        foot.innerHTML=part==='part1'
+          ? `<tr style="font-weight:900;background:#e8f6f0"><td colspan="7">${part==='part1'?'PART 1 TOTAL':'PART TOTAL'}</td><td class="num">${Math.round(totalTarget).toLocaleString('en-IN')}</td><td class="num">${Math.round(totalAchievement).toLocaleString('en-IN')}</td><td class="num">${bachatVarianceHTML(totalTarget,totalAchievement)}</td><td class="num">${p.toFixed(1)}%</td></tr>`
+          : `<tr style="font-weight:900;background:#e8f6f0"><td colspan="3">${part==='part2'?'PART 2 TOTAL':'PART 3 TOTAL'}</td><td class="num">${Math.round(totalTarget).toLocaleString('en-IN')}</td><td class="num">${Math.round(totalAchievement).toLocaleString('en-IN')}</td><td class="num">${bachatVarianceHTML(totalTarget,totalAchievement)}</td><td class="num">${p.toFixed(1)}%</td></tr>`;
+      }
+    }
+
+    function openOfficeInfoPopupBySol(sol,name){
+      const o=(Array.isArray(rawTransactions)?rawTransactions:[]).find(r=>String(r.solId||'').trim()===String(sol||'').trim());
+      openOfficeInfoPopup(name || o?.officeName || sol, sol);
+    }
+    function getBachatDriveTotal(cmp) {
+      let target=0,achievement=0;
+      ['part1','part2','part3'].forEach(part=>bachatOfficeRows(cmp,part).forEach(o=>{target+=o.target;achievement+=o.achievement;}));
+      return {target,achievement};
+    }
+    function renderBachatParvaSpecialModule() {
+      const cmp=getActiveCampaign(); if(!isBachatParvaDrive(cmp)) return;
+      populateBachatParvaFilters();
+      renderBachatParvaPartTable(cmp,activeBachatParvaPart);
+      const totals=getBachatDriveTotal(cmp), variance=totals.target-totals.achievement, pct=totals.target>0?(totals.achievement/totals.target)*100:0;
+      const t=document.getElementById('bachatParvaTotalTarget'), a=document.getElementById('bachatParvaTotalAchievement'), v=document.getElementById('bachatParvaTotalVariance'), p=document.getElementById('bachatParvaTotalPct');
+      if(t)t.textContent=Math.round(totals.target).toLocaleString('en-IN'); if(a)a.textContent=Math.round(totals.achievement).toLocaleString('en-IN');
+      if(v){v.innerHTML=bachatVarianceHTML(totals.target,totals.achievement);} if(p)p.textContent=pct.toFixed(1)+'%';
+      const regionTarget=totals.target; cmp.regionTarget=regionTarget;
+      const hdr=document.getElementById('cmpRegionTargetHeader'); if(hdr)hdr.textContent=regionTarget.toLocaleString('en-IN');
+      const cardTarget=document.getElementById('cmpCardTarget'); if(cardTarget)cardTarget.textContent=regionTarget.toLocaleString('en-IN');
+      const cardNet=document.getElementById('cmpCardNet'); if(cardNet)cardNet.textContent=Math.round(totals.achievement).toLocaleString('en-IN');
+      const cardShort=document.getElementById('cmpCardShortfall'); if(cardShort)cardShort.textContent=Math.abs(Math.round(variance)).toLocaleString('en-IN');
+      const cardPct=document.getElementById('cmpCardPct'); if(cardPct)cardPct.textContent=pct.toFixed(1)+'%';
+      const strip=document.getElementById('cmpStripMetric'); if(strip)strip.textContent=pct.toFixed(1)+'% Met';
+      const fill=document.getElementById('cmpStripFill'); if(fill)fill.style.width=Math.min(Math.max(pct,0),100)+'%';
+    }
+    function bachatPartExpectedType(part){ return part==='part1'?'BPO':part==='part2'?'HPO_GPO':'SPO'; }
+    function downloadBachatParvaTemplate(part) {
+      if(!requireEditAccess())return;
+      const rows=[['SOL ID','Office Name','Division','Sub Division','SO Name','Office Type','Target']];
+      if(part!=='part1'){
+        const expected=part==='part2'?['HPO','GPO']:['SPO'];
+        getBachatOfficeMaster().filter(o=>expected.includes(normalizeBachatOfficeType(o.officeType))).forEach(o=>rows.push([o.solId,o.officeName,o.division,o.subDivision,o.soName,normalizeBachatOfficeType(o.officeType),'']));
+      }
+      const csvEscape=v=>{const x=String(v??'');return /[",\r\n]/.test(x)?'"'+x.replace(/"/g,'""')+'"':x;};
+      const blob=new Blob(['\uFEFF'+rows.map(r=>r.map(csvEscape).join(',')).join('\r\n')],{type:'text/csv;charset=utf-8'});
+      const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`Bachat_Parva_Tritiy_${part}_Target_Template.csv`;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},1500);
+    }
+    function handleBachatParvaTargetUpload(event,part){
+      if(!requireEditAccess()){event.target.value='';return;}
+      const file=event.target.files?.[0];if(!file)return;
+      const process=rows=>{ Promise.resolve(processBachatParvaTargetRows(rows,part,event)).catch(err=>{console.error(err);alert('Upload failed: '+(err.message||err)); if(event?.target) event.target.value='';}); };
+      const reader=new FileReader(); const name=file.name.toLowerCase();
+      if(name.endsWith('.xlsx')||name.endsWith('.xls')){reader.onload=e=>{try{const wb=XLSX.read(new Uint8Array(e.target.result),{type:'array'});const ws=wb.Sheets[wb.SheetNames[0]];process(XLSX.utils.sheet_to_json(ws,{defval:''}));}catch(err){alert('Error reading Excel file: '+err.message);event.target.value='';}};reader.readAsArrayBuffer(file);}
+      else {Papa.parse(file,{header:true,skipEmptyLines:true,complete:r=>process(r.data),error:err=>{alert('Error parsing CSV file: '+err.message);event.target.value='';}});}
+    }
+
+    async function processBachatParvaTargetRows(rows, part, event) {
+      try {
+        const cmp = getActiveCampaign();
+        if (!isBachatParvaDrive(cmp)) {
+          alert('Select बचत पर्व त्रितीय ( भाग १) first.');
+          if (event?.target) event.target.value = '';
+          return;
+        }
+        const cfg = getBachatPartConfig(cmp, part);
+        const masterBySol = bachatOfficeMasterBySol();
+        let imported = 0, skipped = 0;
+        const find = (r, tests) => {
+          const keys = Object.keys(r || {});
+          for (const k of keys) {
+            const n = normalizeBulkHeader(k);
+            if (tests.some(fn => fn(n))) return k;
+          }
+          return null;
+        };
+        (rows || []).forEach(r => {
+          const solKey = find(r, [n => n === 'sol id', n => n.includes('sol id'), n => n === 'solid', n => n.includes('bocode'), n => n === 'office id']);
+          const targetKey = find(r, [n => n.includes('target'), n => n.includes('goal'), n => n.includes('tgt')]);
+          if (!solKey || !targetKey) { skipped++; return; }
+          const sol = String(r[solKey] ?? '').trim();
+          const target = Number(String(r[targetKey] ?? '').replace(/,/g, ''));
+          if (!sol || !Number.isFinite(target) || target < 0) { skipped++; return; }
+          const known = masterBySol.get(sol);
+          const typeKey = find(r, [n => n.includes('office type'), n => n === 'type']);
+          let uploadedType = normalizeBachatOfficeType((typeKey ? r[typeKey] : '') || known?.officeType || '');
+          // If type missing, infer from part expectation / master
+          if (!uploadedType && known) uploadedType = normalizeBachatOfficeType(known.officeType);
+          if (!uploadedType && part === 'part1') uploadedType = 'BPO';
+          if (!uploadedType && part === 'part3') uploadedType = 'SPO';
+          const expected = part === 'part1' ? 'BPO' : part === 'part2' ? ['HPO', 'GPO'] : ['SPO'];
+          const typeOK = Array.isArray(expected) ? expected.includes(uploadedType) : uploadedType === expected;
+          if (!typeOK) { skipped++; return; }
+          if (part === 'part1' && !cfg.offices[sol] && Object.keys(cfg.offices).length >= 1050) { skipped++; return; }
+          const nameKey = find(r, [n => n === 'office name', n => n.includes('office name')]);
+          const divKey = find(r, [n => n === 'division', n => n.includes('division') && !n.includes('sub')]);
+          const subKey = find(r, [n => n.includes('sub division'), n => n.includes('subdivision')]);
+          const soKey = find(r, [n => n === 'so name', n => n.includes('so name')]);
+          cfg.offices[sol] = {
+            solId: sol,
+            officeName: String((nameKey ? r[nameKey] : null) ?? known?.officeName ?? sol).trim(),
+            division: String((divKey ? r[divKey] : null) ?? known?.division ?? '').trim(),
+            subDivision: String((subKey ? r[subKey] : null) ?? known?.subDivision ?? '').trim(),
+            soName: String((soKey ? r[soKey] : null) ?? known?.soName ?? '').trim(),
+            officeType: uploadedType,
+            target
+          };
+          imported++;
+        });
+        // Persist into campaignList entry
+        const idx = campaignList.findIndex(c => c.id === cmp.id);
+        if (idx >= 0) {
+          if (!campaignList[idx].specialParts) campaignList[idx].specialParts = cmp.specialParts;
+          campaignList[idx].specialParts[part] = cfg;
+        }
+        saveCampaignList();
+        if (typeof invalidateBachatPerformanceCache === 'function') invalidateBachatPerformanceCache();
+        try { await saveDashboardConfigLocal(); } catch (e) { console.warn(e); }
+        renderBachatParvaSpecialModule();
+        setGoogleSheetStatus && setGoogleSheetStatus(`☁ Uploading ${imported.toLocaleString()} ${part} targets to Google config sheet…`);
+        const synced = await saveDashboardConfigToGoogleSheet();
+        alert(`${imported.toLocaleString()} ${part.toUpperCase()} target record(s) imported${skipped ? `\nSkipped: ${skipped.toLocaleString()}` : ''}.\n\n${synced ? '✅ Saved to Google Sheet configuration (POSB_Dashboard_Config).' : '⚠️ Saved locally, but Google Sheet sync failed. Please retry Admin sync.'}`);
+      } catch (err) {
+        console.error(err);
+        alert('Bulk target upload failed: ' + (err.message || err));
+      } finally {
+        if (event?.target) event.target.value = '';
+      }
+    }
+
+
     function getActiveCampaign() {
       return campaignList.find(c => c.id === activeCampaignId) || campaignList[0];
     }
@@ -10845,9 +11392,23 @@ ${cleanTable(p2)}
       const cmp = getActiveCampaign();
       if (!cmp) return;
 
+      // Keep dropdown free of duplicate drives (same id or same name+period)
+      if (typeof dedupeCampaignList === 'function') {
+        const before = campaignList.length;
+        campaignList = dedupeCampaignList(campaignList);
+        if (campaignList.length !== before) {
+          localStorage.setItem('posb_campaign_list', JSON.stringify(campaignList));
+        }
+      }
       const sel = document.getElementById('activeCampaignSelect');
       if (sel) {
-        sel.innerHTML = campaignList.map(c => `
+        const seen = new Set();
+        sel.innerHTML = campaignList.filter(c => {
+          const key = `${String(c.id||'')}|${String(c.name||'').toLowerCase()}|${c.startDate}|${c.endDate}`;
+          if (seen.has(key)) return false;
+          seen.add(key);
+          return true;
+        }).map(c => `
           <option value="${c.id}" ${c.id === cmp.id ? 'selected' : ''}>${c.name} (${formatDateDMY(c.startDate)} to ${formatDateDMY(c.endDate)})</option>
         `).join('');
       }
@@ -10888,6 +11449,17 @@ ${cleanTable(p2)}
       document.getElementById('cmpStripFill').style.width = `${Math.min(Math.max(achievedPct, 0), 100)}%`;
 
       renderCampaignMatrixTable(cmp, cmpRows);
+
+      // Show three-part बचत पर्व त्रितीय module below the matrix when this drive is active
+      const specialPanel = document.getElementById('specialBachatParvaModule');
+      const specialDrive = typeof isBachatParvaDrive === 'function' && isBachatParvaDrive(cmp);
+      const onCampaignTab = (typeof currentMainTab === 'undefined') || currentMainTab === 'campaign';
+      if (specialPanel) {
+        specialPanel.style.display = (specialDrive && onCampaignTab) ? 'block' : 'none';
+      }
+      if (specialDrive && typeof renderBachatParvaSpecialModule === 'function') {
+        renderBachatParvaSpecialModule();
+      }
     }
 
     function renderCampaignMatrixTable(cmp, cmpRows) {
@@ -11586,13 +12158,36 @@ ${cleanTable(p2)}
         tickerMessage: localStorage.getItem('posb_ticker_message') || '',
         dpsMessage: dpsMessage || DEFAULT_DPS_MESSAGE,
         dpsSignature: dpsSignatureText || DEFAULT_DPS_MESSAGE.signature,
+        dpsMessageImage: dpsMessageImage || DEFAULT_DPS_MESSAGE_IMAGE || '',
         customTargets: {
           divisions: customTargets?.divisions || {},
           subDivisions: customTargets?.subDivisions || {},
           offices: customTargets?.offices || {}
         },
+        // Full office contact master — Apps Script should write one row per key
+        // into POSB_Dashboard_Config (or a dedicated Monitoring sheet).
         officePhoneDirectory: officePhoneDirectory || {},
-        officeMonitoringTeams: officeMonitoringTeams || {}
+        officeMonitoringTeams: officeMonitoringTeams || {},
+        // Flattened rows help Google Sheet display monitoring contacts when the
+        // script only expands top-level arrays (not nested objects).
+        monitoringContactRows: Object.keys({...(officePhoneDirectory||{}), ...(officeMonitoringTeams||{})}).map(key => {
+          const phone = (officePhoneDirectory && officePhoneDirectory[key]) || '';
+          const team = (officeMonitoringTeams && officeMonitoringTeams[key]) || {};
+          return {
+            key,
+            solId: team.solId || key,
+            officeName: team.officeName || '',
+            officeType: team.officeType || '',
+            phone: typeof phone === 'object' ? (phone.phone || phone.number || '') : phone,
+            member1Name: team.member1Name || team.m1Name || (Array.isArray(team.members)?team.members[0]?.name:'') || '',
+            member1Mobile: team.member1Mobile || team.m1Mobile || (Array.isArray(team.members)?team.members[0]?.mobile:'') || '',
+            member2Name: team.member2Name || team.m2Name || (Array.isArray(team.members)?team.members[1]?.name:'') || '',
+            member2Mobile: team.member2Mobile || team.m2Mobile || (Array.isArray(team.members)?team.members[1]?.mobile:'') || '',
+            member3Name: team.member3Name || team.m3Name || (Array.isArray(team.members)?team.members[2]?.name:'') || '',
+            member3Mobile: team.member3Mobile || team.m3Mobile || (Array.isArray(team.members)?team.members[2]?.mobile:'') || '',
+            notes: team.notes || ''
+          };
+        })
       };
       try {
         await saveDashboardConfigToIndexedDB(config);
@@ -11689,16 +12284,22 @@ ${cleanTable(p2)}
         }
       }
       if (Array.isArray(config.campaigns)) {
-        // Retired drives must not return from an older Google Sheet configuration.
-        const incomingCampaigns = config.campaigns.filter(c => {
-          if (!c) return false;
-          // Retire the two explicitly removed historical drives. The SBBAS id is
-          // retained only when a future/new definition uses it; the old
-          // 17-07-2026 to 31-08-2026 definition is removed.
-          if (c.id === 'camp-bachat-parva-2') return false;
-          if (c.id === 'camp-ladki-bahin-sbbas' && String(c.endDate || '') <= '2026-08-31') return false;
-          return true;
+        // IMPORTANT: Never retire/delete a historical campaign merely because it is
+        // absent from a newer Google configuration payload. Merge Google campaigns
+        // with the campaigns already cached locally so target uploads cannot erase
+        // older drives. Google values win for the same campaign ID.
+        const remoteCampaigns = config.campaigns.filter(Boolean);
+        const mergedById = new Map();
+        (campaignList || []).filter(Boolean).forEach(c => { if (c.id) mergedById.set(c.id, c); });
+        remoteCampaigns.forEach(c => { if (c.id) mergedById.set(c.id, c); });
+        // Ensure built-in DEFAULT_CAMPAIGNS are always present
+        DEFAULT_CAMPAIGNS.forEach(def => {
+          if (def.id && !mergedById.has(def.id)) {
+            mergedById.set(def.id, {...def, divTargets:{...(def.divTargets||{})}, subTargets:{...(def.subTargets||{})}, specialParts: def.specialParts ? JSON.parse(JSON.stringify(def.specialParts)) : undefined});
+          }
         });
+        let incomingCampaigns = Array.from(mergedById.values());
+        if (typeof dedupeCampaignList === 'function') incomingCampaigns = dedupeCampaignList(incomingCampaigns);
         const oldCampaignJson = JSON.stringify(campaignList || []);
         const newCampaignJson = JSON.stringify(incomingCampaigns || []);
         if (oldCampaignJson !== newCampaignJson) {
@@ -11707,6 +12308,7 @@ ${cleanTable(p2)}
         }
       }
       if (config.activeCampaignId && activeCampaignId !== config.activeCampaignId) {
+        // Prefer date-matching active campaign when available
         activeCampaignId = config.activeCampaignId;
         changed = true;
       }
@@ -11720,6 +12322,37 @@ ${cleanTable(p2)}
         if (JSON.stringify(officeMonitoringTeams) !== JSON.stringify(config.officeMonitoringTeams)) {
           officeMonitoringTeams = config.officeMonitoringTeams || {};
           changed = true;
+        }
+      }
+      // Rebuild monitoring maps from flattened rows when Apps Script stores
+      // POSB_Dashboard_Config as a sheet table instead of nested JSON objects.
+      if (Array.isArray(config.monitoringContactRows) && config.monitoringContactRows.length) {
+        const phoneMap = { ...(officePhoneDirectory || {}) };
+        const teamMap = { ...(officeMonitoringTeams || {}) };
+        config.monitoringContactRows.forEach(row => {
+          if (!row) return;
+          const key = String(row.key || row.solId || row.officeName || '').trim();
+          if (!key) return;
+          if (row.phone) phoneMap[key] = row.phone;
+          teamMap[key] = {
+            ...(teamMap[key] || {}),
+            solId: row.solId || key,
+            officeName: row.officeName || (teamMap[key] && teamMap[key].officeName) || '',
+            officeType: row.officeType || (teamMap[key] && teamMap[key].officeType) || '',
+            member1Name: row.member1Name || '',
+            member1Mobile: row.member1Mobile || '',
+            member2Name: row.member2Name || '',
+            member2Mobile: row.member2Mobile || '',
+            member3Name: row.member3Name || '',
+            member3Mobile: row.member3Mobile || '',
+            notes: row.notes || ''
+          };
+        });
+        if (JSON.stringify(officePhoneDirectory) !== JSON.stringify(phoneMap)) {
+          officePhoneDirectory = phoneMap; changed = true;
+        }
+        if (JSON.stringify(officeMonitoringTeams) !== JSON.stringify(teamMap)) {
+          officeMonitoringTeams = teamMap; changed = true;
         }
       }
       if (config.customTargets && typeof config.customTargets === 'object') {
@@ -14289,7 +14922,8 @@ document.addEventListener('DOMContentLoaded', function(){ setTimeout(function(){
         'openTickerModal',
         'handleTickerSubmit',
         'handleBulkTargetUpload',
-        'processBulkTargetRows'
+        'processBulkTargetRows',
+        'handleBachatParvaTargetUpload'
       ];
       names.forEach(name => {
         const original = window[name];
@@ -14360,8 +14994,6 @@ document.addEventListener('DOMContentLoaded', function(){ setTimeout(function(){
 .subdn-top-office-kpi-grid{width:100%;box-sizing:border-box}.subdn-top-office-card{color:#fff!important;box-shadow:0 8px 22px rgba(15,23,42,.14);overflow:hidden}.subdn-top-office-name{font-size:19px!important;line-height:1.2;min-height:30px;margin:4px 0 8px;white-space:normal;word-break:break-word}.subdn-top-office-details{display:grid;grid-template-columns:1fr 1fr;gap:5px 8px;margin-top:5px}.subdn-top-office-details>div{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.18);border-radius:7px;padding:5px 7px;min-width:0}.subdn-top-office-details b{display:block;font-size:8px;line-height:1.1;text-transform:uppercase;letter-spacing:.25px;opacity:.9}.subdn-top-office-details span{display:block;font-size:11px;font-weight:900;line-height:1.25;margin-top:2px;word-break:break-word}.subdn-shortfall-excess{font-weight:900}@media(max-width:1100px){.subdn-top-office-kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}@media(max-width:680px){.subdn-top-office-kpi-grid{grid-template-columns:1fr!important}.subdn-top-office-card{min-height:0!important}}
 </style>
 <script>document.addEventListener('DOMContentLoaded',function(){try{renderDpsMessage();const canvas=document.getElementById('dpsEditableCanvas');if(canvas&&window.ResizeObserver){const ro=new ResizeObserver(()=>fitDpsMessageText());ro.observe(canvas);window.__dpsMessageResizeObserver=ro;}window.addEventListener('resize',fitDpsMessageText);}catch(e){console.warn('DPS message render:',e);}});</script>
-</body>
-</html
 <!-- ADMIN FLASH MESSAGE EDIT MODAL -->
 <div class="ticker-modal-overlay" id="tickerModalOverlay" aria-hidden="true" onclick="if(event.target===this) closeTickerModal()">
   <div class="ticker-modal-box" role="dialog" aria-modal="true" aria-labelledby="tickerModalTitle">
