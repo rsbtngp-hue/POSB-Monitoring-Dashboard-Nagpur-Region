@@ -11267,7 +11267,9 @@ ${cleanTable(p2)}
           if (!campaignList[idx].specialParts) campaignList[idx].specialParts = cmp.specialParts;
           campaignList[idx].specialParts[part] = cfg;
         }
-        saveCampaignList();
+        // Persist the complete campaign object only after all imported rows
+        // have been merged into specialParts.  The Google save is serialized.
+        saveCampaignList(false);
         if (typeof invalidateBachatPerformanceCache === 'function') invalidateBachatPerformanceCache();
         try { await saveDashboardConfigLocal(); } catch (e) { console.warn(e); }
         renderBachatParvaSpecialModule();
@@ -12149,11 +12151,17 @@ ${cleanTable(p2)}
       return `<div style="margin-top:12px;border-top:1px solid #e2e8f0;padding-top:10px;"><div style="font-weight:900;color:#0f172a;margin-bottom:4px;">📞 Office Phone</div><div style="font-size:13px;font-weight:900;color:#0369a1;">${cfg.phone ? officePopupEscape(cfg.phone) : 'Not configured'}</div><div style="font-weight:900;color:#0f172a;margin:12px 0 4px;">👥 Monitoring Team</div><div class="office-team-grid">${cards.join('')}</div></div>`;
     }
 
-    async function saveDashboardConfigToGoogleSheet() {
-      const config = {
-        version: 2,
+    // Serialized Google configuration saves prevent two admin actions from
+    // reaching Apps Script out of order.  This is especially important for
+    // bulk campaign-part uploads.
+    let googleConfigSavePromise = Promise.resolve();
+
+    function buildDashboardConfigPayload() {
+      return {
+        version: 4,
         savedAt: new Date().toISOString(),
-        campaigns: campaignList,
+        regionAnnualTarget: Number(window.REGION_ANNUAL_TARGET || REGION_ANNUAL_TARGET || 0),
+        campaigns: Array.isArray(campaignList) ? campaignList : [],
         activeCampaignId,
         tickerMessage: localStorage.getItem('posb_ticker_message') || '',
         dpsMessage: dpsMessage || DEFAULT_DPS_MESSAGE,
@@ -12164,12 +12172,8 @@ ${cleanTable(p2)}
           subDivisions: customTargets?.subDivisions || {},
           offices: customTargets?.offices || {}
         },
-        // Full office contact master — Apps Script should write one row per key
-        // into POSB_Dashboard_Config (or a dedicated Monitoring sheet).
         officePhoneDirectory: officePhoneDirectory || {},
         officeMonitoringTeams: officeMonitoringTeams || {},
-        // Flattened rows help Google Sheet display monitoring contacts when the
-        // script only expands top-level arrays (not nested objects).
         monitoringContactRows: Object.keys({...(officePhoneDirectory||{}), ...(officeMonitoringTeams||{})}).map(key => {
           const phone = (officePhoneDirectory && officePhoneDirectory[key]) || '';
           const team = (officeMonitoringTeams && officeMonitoringTeams[key]) || {};
@@ -12189,25 +12193,40 @@ ${cleanTable(p2)}
           };
         })
       };
-      try {
-        await saveDashboardConfigToIndexedDB(config);
-        const res = await fetch(GOOGLE_SHEET_SCRIPT_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify({ action: 'save_dashboard_config', config })
-        });
-        const json = await res.json().catch(() => null);
-        if (!res.ok || (json && json.error)) {
-          if (res.status === 404) throw new Error('HTTP 404 — Google Apps Script Web App deployment URL is not active. Redeploy the Apps Script as a Web app and keep the same /exec URL.');
-          throw new Error((json && json.error) || `HTTP ${res.status}`);
+    }
+
+    async function saveDashboardConfigToGoogleSheet() {
+      const config = buildDashboardConfigPayload();
+      await saveDashboardConfigToIndexedDB(config);
+
+      const run = async () => {
+        try {
+          setGoogleSheetStatus('☁ Saving dashboard configuration to Google Sheet…');
+          const res = await fetch(GOOGLE_SHEET_SCRIPT_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({ action: 'save_dashboard_config', config })
+          });
+          const json = await res.json().catch(() => null);
+          if (!res.ok || (json && json.error)) {
+            if (res.status === 404) throw new Error('HTTP 404 — Google Apps Script Web App deployment URL is not active.');
+            throw new Error((json && json.error) || `HTTP ${res.status}`);
+          }
+          if (!json || json.ok === false) throw new Error(json?.error || 'Google Apps Script rejected the configuration.');
+          setGoogleSheetStatus(`☁ Configuration saved to POSB_Dashboard_Config${json.savedCampaignParts != null ? ` • ${Number(json.savedCampaignParts).toLocaleString()} campaign-part records` : ''}.`);
+          return true;
+        } catch (err) {
+          console.error('Google Sheet configuration save failed:', err);
+          setGoogleSheetStatus('⚠️ Local update saved, but Google Sheet configuration sync failed. Please retry.', true);
+          return false;
         }
-        setGoogleSheetStatus('☁ Dashboard targets/campaign configuration saved permanently to Google Sheet.');
-        return true;
-      } catch (err) {
-        console.error('Google Sheet configuration save failed:', err);
-        setGoogleSheetStatus('⚠️ Local update saved, but Google Sheet configuration sync failed. Please retry.', true);
-        return false;
-      }
+      };
+
+      // Every request waits for the previous request to finish. If an admin
+      // uploads Part 1 and immediately edits another campaign, the later save
+      // can no longer overwrite the earlier one with stale data.
+      googleConfigSavePromise = googleConfigSavePromise.then(run, run);
+      return googleConfigSavePromise;
     }
 
     function openAdminTargetUpdate() {
@@ -12389,11 +12408,15 @@ ${cleanTable(p2)}
       return null;
     }
 
-    function saveCampaignList() {
+    function saveCampaignList(syncGoogle = true) {
       localStorage.setItem('posb_campaign_list', JSON.stringify(campaignList));
       localStorage.setItem('posb_active_campaign_id', activeCampaignId);
-      saveDashboardConfigLocal();
-      saveDashboardConfigToGoogleSheet();
+      try { saveDashboardConfigLocal(); } catch (e) { console.warn('Local campaign config save failed:', e); }
+      if (syncGoogle && typeof saveDashboardConfigToGoogleSheet === 'function') {
+        // The Google save function is serialized, so rapid successive edits
+        // cannot overwrite each other out of order.
+        void saveDashboardConfigToGoogleSheet();
+      }
     }
 
     function formatDateDMY(iso) {
