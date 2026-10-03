@@ -3101,11 +3101,17 @@ html.dps-start-hidden #viewOnlyGoogleStatusCard .dps-message-pane{display:none !
 /* Read the administrator's last saved local visibility state before the body paints. */
 try {
   const __dpsBoot = JSON.parse(localStorage.getItem('posb_dps_message') || '{}');
-  if (__dpsBoot && __dpsBoot.visible === false) {
+  if (!(__dpsBoot && __dpsBoot.visible === true)) {
     document.documentElement.classList.add('dps-start-hidden');
   }
-} catch (_) {}
+} catch (_) { document.documentElement.classList.add('dps-start-hidden'); }
 </script>
+<style id="bachat-total-variance-warm-cream">
+.bachat-total-variance-card{background:#F4EAE1 !important;border:1px solid #D6BFAE !important;box-shadow:0 4px 12px rgba(91,70,54,.10);}
+.bachat-total-variance-card>div:first-child{color:#5B4636 !important;}
+.bachat-total-variance-card #bachatParvaTotalVariance{color:#3F2D22 !important;font-weight:950 !important;text-shadow:none !important;}
+.bachat-total-variance-card #bachatParvaTotalVariance .shortfall-display,.bachat-total-variance-card #bachatParvaTotalVariance .excess-display{color:#3F2D22 !important;background:transparent !important;text-shadow:none !important;}
+</style>
 </head>
 <body>
 <a class="skip-link" href="#main-content">Skip to dashboard content</a>
@@ -4056,7 +4062,7 @@ try {
   <div id="bachatParvaSummary" style="display:grid;grid-template-columns:repeat(4,minmax(140px,1fr));gap:9px;margin:14px 0;">
     <div style="background:#fff;border:1px solid #fde68a;border-radius:10px;padding:10px;"><div style="font-size:9px;font-weight:800;color:#92400e;text-transform:uppercase;">TOTAL TARGET</div><div id="bachatParvaTotalTarget" style="font-size:21px;font-weight:900;font-family:monospace;margin-top:3px;">0</div></div>
     <div style="background:#fff;border:1px solid #dbeafe;border-radius:10px;padding:10px;"><div style="font-size:9px;font-weight:800;color:#1d4ed8;text-transform:uppercase;">ACHIEVEMENT</div><div id="bachatParvaTotalAchievement" style="font-size:21px;font-weight:900;font-family:monospace;margin-top:3px;">0</div></div>
-    <div class="bachat-total-variance-card" style="background:#fff7ed;border:1px solid #fdba74;border-radius:10px;padding:10px;"><div style="font-size:9px;font-weight:800;color:#9a3412;text-transform:uppercase;">SHORTFALL / EXCESS</div><div id="bachatParvaTotalVariance" style="font-size:21px;font-weight:900;font-family:monospace;margin-top:3px;">0</div></div>
+    <div class="bachat-total-variance-card" style="background:#F4EAE1;border:1px solid #D6BFAE;border-radius:10px;padding:10px;"><div style="font-size:9px;font-weight:900;color:#5B4636;text-transform:uppercase;">SHORTFALL / EXCESS</div><div id="bachatParvaTotalVariance" style="font-size:21px;font-weight:900;font-family:monospace;margin-top:3px;color:#3F2D22;">0</div></div>
     <div style="background:#fff;border:1px solid #d1fae5;border-radius:10px;padding:10px;"><div style="font-size:9px;font-weight:800;color:#047857;text-transform:uppercase;">% TARGET MET</div><div id="bachatParvaTotalPct" style="font-size:21px;font-weight:900;font-family:monospace;margin-top:3px;">0.0%</div></div>
   </div>
 
@@ -5214,8 +5220,8 @@ try {
       closing: 'Together, let us turn insights into action and targets into achievements.',
       signature: '— Dr. Sudhir Jakhere (IPoS), DPS Nagpur Region'
     };
-    let dpsMessage = (()=>{ try { return {...DEFAULT_DPS_MESSAGE, visible:true, ...(JSON.parse(localStorage.getItem('posb_dps_message')||'{}')||{})}; } catch(_){ return {...DEFAULT_DPS_MESSAGE, visible:true}; } })();
-    if (dpsMessage.visible !== false) dpsMessage.visible = true;
+    let dpsMessage = (()=>{ try { return {...DEFAULT_DPS_MESSAGE, visible:false, ...(JSON.parse(localStorage.getItem('posb_dps_message')||'{}')||{})}; } catch(_){ return {...DEFAULT_DPS_MESSAGE, visible:false}; } })();
+    if (dpsMessage.visible !== true) dpsMessage.visible = false;
     let dpsSignatureText = dpsMessage.signature || DEFAULT_DPS_MESSAGE.signature;
 
     function applyDpsVisibility() {
