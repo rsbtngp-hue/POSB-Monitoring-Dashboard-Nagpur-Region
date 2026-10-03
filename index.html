@@ -3215,6 +3215,9 @@ try {
       <button id="dedicatedGoogleSyncBtn" class="live-sync-action-btn google" onclick="manualGoogleSheetSync()" type="button">
         ↻ Sync Google Sheet Now
       </button>
+      <button id="dedicatedSaveGoogleLocalBtn" class="live-sync-action-btn local" onclick="saveGoogleSyncDataToLocalDB()" type="button" title="Save the latest Google Sheet transaction data currently loaded in the dashboard into IndexedDB local database">
+        💾 Save Google Data to Local DB
+      </button>
     </div>
 
     <div aria-label="Google Sheet sync progress" class="view-only-progress-track">
@@ -4126,13 +4129,9 @@ try {
   </div>
 
   <div class="bachat-export-bar" aria-label="Bachat Parva table exports">
-    <span class="bachat-export-label">📊 Export filtered tabular reports</span>
-    <button type="button" class="btn-action btn-pdf-report" onclick="exportReportTableToPDF('bachatParvaPart1Table','Bachat_Parva_III_Part_1')">📄 Part 1 PDF</button>
-    <button type="button" class="btn-action btn-excel" onclick="downloadTableAsExcel('bachatParvaPart1Table','Bachat_Parva_III_Part_1')">📥 Part 1 Excel</button>
-    <button type="button" class="btn-action btn-pdf-report" onclick="exportReportTableToPDF('bachatParvaPart2Table','Bachat_Parva_III_Part_2')">📄 Part 2 PDF</button>
-    <button type="button" class="btn-action btn-excel" onclick="downloadTableAsExcel('bachatParvaPart2Table','Bachat_Parva_III_Part_2')">📥 Part 2 Excel</button>
-    <button type="button" class="btn-action btn-pdf-report" onclick="exportReportTableToPDF('bachatParvaPart3Table','Bachat_Parva_III_Part_3')">📄 Part 3 PDF</button>
-    <button type="button" class="btn-action btn-excel" onclick="downloadTableAsExcel('bachatParvaPart3Table','Bachat_Parva_III_Part_3')">📥 Part 3 Excel</button>
+    <span class="bachat-export-label">📊 Export filtered tabular report • Selected Part</span>
+    <button type="button" class="btn-action btn-pdf-report" onclick="exportActiveBachatParvaTableToPDF()">📄 Export PDF</button>
+    <button type="button" class="btn-action btn-excel" onclick="exportActiveBachatParvaTableToExcel()">📥 Export Excel</button>
   </div>
 
   <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px;">
@@ -5570,6 +5569,36 @@ try {
       updateGoogleSheetButtonState();
     }
 
+    async function saveGoogleSyncDataToLocalDB() {
+      if (googleSheetSyncInProgress || offlineRestoreInProgress) return;
+      const count = Array.isArray(rawTransactions) ? rawTransactions.length : 0;
+      const btn = document.getElementById('dedicatedSaveGoogleLocalBtn');
+      const original = btn ? btn.innerText : '';
+      try {
+        if (!count) {
+          setGoogleSheetStatus('🔎 No Google transaction data is currently loaded. Starting Google Sheet sync so the expanded dataset can be saved locally…');
+          await syncFromGoogleSheet({silent:false, background:false, retry404:true});
+          return;
+        }
+        if (btn) { btn.disabled = true; btn.innerText = '⏳ Saving Google Data…'; }
+        updateViewOnlySyncProgress(100, `Saving ${count.toLocaleString()} Google transaction records into the local database…`, true);
+        const ok = await saveToIndexedDB(rawTransactions, true, true);
+        if (!ok) throw new Error('IndexedDB verification did not confirm the local save.');
+        try { localStorage.setItem('posb_google_record_count', String(count)); } catch (_) {}
+        setGoogleSheetStatus(`💾 Google sync data saved to local database • ${count.toLocaleString()} transaction records • ready for next opening.`);
+        updateViewOnlySyncProgress(100, `Local database saved and verified • ${count.toLocaleString()} Google transaction records`, false);
+        updateGoogleSheetButtonState();
+      } catch (err) {
+        console.error('Manual Google-to-local save failed:', err);
+        setGoogleSheetStatus(`❌ Google data could not be saved to local database: ${err.message || err}`, true);
+        updateViewOnlySyncProgress(0, `Local database save failed • ${err.message || err}`, false);
+        alert(`Google data could not be saved to the local database.\n\n${err.message || err}`);
+      } finally {
+        if (btn && !googleSheetSyncInProgress) btn.innerText = original || '💾 Save Google Data to Local DB';
+        updateGoogleSheetButtonState();
+      }
+    }
+
     async function manualGoogleSheetSync() {
       if (googleSheetSyncInProgress) return;
       updateViewOnlySyncProgress(0, 'Starting manual Google Sheet sync…', true);
@@ -6054,6 +6083,7 @@ try {
       const localBtn=document.getElementById('googleSheetLocalDownloadBtn'); if(localBtn) localBtn.disabled=googleSheetUploadInProgress||googleSheetSyncInProgress;
       const dedicatedBtn=document.getElementById('dedicatedGoogleSyncBtn'); if(dedicatedBtn) dedicatedBtn.disabled=googleSheetUploadInProgress||googleSheetSyncInProgress;
       const localDbBtn=document.getElementById('dedicatedLocalDbBtn'); if(localDbBtn) { localDbBtn.disabled=googleSheetSyncInProgress||offlineRestoreInProgress; localDbBtn.innerText=offlineRestoreInProgress?'⏳ Loading Local Store…':`⟳ Local Store • ${getLocalStoreRowCount().toLocaleString()} records`; }
+      const saveGoogleLocalBtn=document.getElementById('dedicatedSaveGoogleLocalBtn'); if(saveGoogleLocalBtn) { saveGoogleLocalBtn.disabled=googleSheetSyncInProgress||offlineRestoreInProgress||!rawTransactions.length; if(googleSheetSyncInProgress) saveGoogleLocalBtn.innerText='⏳ Google Syncing…'; else if(!rawTransactions.length) saveGoogleLocalBtn.innerText='💾 Save Google Data to Local DB'; else saveGoogleLocalBtn.innerText=`💾 Save Google Data • ${rawTransactions.length.toLocaleString()}`; }
       updateGoogleSyncButtonLabels();
     }
 
@@ -11559,6 +11589,29 @@ ${cleanTable(p2)}
       soEl.innerHTML='<option value="ALL">All SO Names</option>'+sos.map(x=>`<option value="${weeklyEsc(x)}">${weeklyEsc(x)}</option>`).join('');
       soEl.value=sos.includes(old)?old:'ALL';
     }
+    function getActiveBachatParvaExportTarget() {
+      const part = ['part1','part2','part3'].includes(activeBachatParvaPart) ? activeBachatParvaPart : 'part1';
+      const n = part.slice(-1);
+      const tableId = `bachatParvaPart${n}Table`;
+      const labels = { part1:'Part_1_1050_Selected_BPOs', part2:'Part_2_HPO_GPO', part3:'Part_3_SPOs' };
+      const titleLabels = { part1:'Part 1 • 1050 Selected BPOs', part2:'Part 2 • HPO / GPO', part3:'Part 3 • SPOs' };
+      return { part, tableId, filePrefix:`Bachat_Parva_III_${labels[part]}`, title:titleLabels[part] };
+    }
+
+    function exportActiveBachatParvaTableToPDF() {
+      const target = getActiveBachatParvaExportTarget();
+      const table = document.getElementById(target.tableId);
+      if (!table) { alert(`${target.title} table is not available yet.`); return; }
+      exportReportTableToPDF(target.tableId, target.filePrefix);
+    }
+
+    function exportActiveBachatParvaTableToExcel() {
+      const target = getActiveBachatParvaExportTarget();
+      const table = document.getElementById(target.tableId);
+      if (!table) { alert(`${target.title} table is not available yet.`); return; }
+      downloadTableAsExcel(target.tableId, target.filePrefix);
+    }
+
     function switchBachatParvaPart(part) {
       activeBachatParvaPart=part;
       document.querySelectorAll('.bachat-part-tab').forEach(b=>b.classList.toggle('active',b.dataset.part===part));
