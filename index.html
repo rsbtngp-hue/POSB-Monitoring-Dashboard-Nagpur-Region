@@ -6239,7 +6239,7 @@ try {
         setGoogleSheetStatus('📦 Automatically loading saved local database…');
         const localRecords = await restoreOfflineSnapshot(true);
         if (Array.isArray(localRecords) && localRecords.length) {
-          setGoogleSheetStatus(`📦 Local database loaded automatically — ${localRecords.length.toLocaleString()} records. Refreshing Google Sheet in background…`);
+          setGoogleSheetStatus(`📦 Local database loaded automatically — ${localRecords.length.toLocaleString()} records. This is a temporary fallback; Google Sheet refresh is authoritative…`);
           setTimeout(() => {
             syncFromGoogleSheet({silent:true, background:true, retry404:true})
               .catch(err => console.warn('Background Google refresh skipped:', err));
@@ -6299,6 +6299,11 @@ try {
       viewOnlyNextRefreshAt = Date.now() + VIEW_ONLY_REFRESH_MS;
       const el = document.getElementById('viewOnlySyncClock');
       if (el) el.innerText = `Local ${getLocalStoreRowCount().toLocaleString()} • ${fmtElapsed(lastLocalStoreLoadMs)} | Google ${lastGoogleSheetRowCount.toLocaleString()} • ${fmtElapsed(lastGoogleSyncMs)}`;
+      // Actually schedule the next authoritative Google refresh.
+      viewOnlyAutoRefreshTimer = setTimeout(() => {
+        syncFromGoogleSheet({silent:true, background:true, retry404:true})
+          .catch(err => console.warn('Scheduled Google Sheet refresh failed:', err));
+      }, VIEW_ONLY_REFRESH_MS);
     }
 
     function updateViewOnlySyncProgress(percent, detail, active=true) {
@@ -6377,23 +6382,10 @@ try {
           }
         }
 
-        // Do not skip the configuration update merely because POSB_Data itself
-        // has not changed. Only skip the large transaction download.
-        if (previousSignature && previousSignature === signature && rawTransactions.length) {
-          updateViewOnlySyncProgress(100, configChanged
-            ? `Configuration updated • Local ${rawTransactions.length.toLocaleString()} records • Google ${totalRows.toLocaleString()} rows`
-            : `No change • Local ${rawTransactions.length.toLocaleString()} records • Google ${totalRows.toLocaleString()} rows`, false);
-          const stamp = new Date().toLocaleString('en-IN',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true,timeZone:'Asia/Kolkata'});
-          lastGoogleSyncMs = Date.now() - syncStartedAt;
-          try { localStorage.setItem('posb_google_sync_ms', String(Math.round(lastGoogleSyncMs))); } catch (_) {}
-          updateViewOnlySyncProgress(100, `Local Store: ${rawTransactions.length.toLocaleString()} records • Load time: ${fmtElapsed(lastLocalStoreLoadMs)} | Google Sheet: ${totalRows.toLocaleString()} rows • Sync time: ${fmtElapsed(lastGoogleSyncMs)}`, false);
-          setGoogleSheetStatus(configChanged
-            ? `✅ Google Sheet checked ${stamp} IST • Latest POSB_Dashboard_Config applied • ${rawTransactions.length.toLocaleString()} local records retained • Sync ${fmtElapsed(lastGoogleSyncMs)}.`
-            : `✅ Google Sheet checked ${stamp} IST • No data change • ${rawTransactions.length.toLocaleString()} local records retained • Sync ${fmtElapsed(lastGoogleSyncMs)}.`);
-          viewOnlyNextRefreshAt = Date.now() + VIEW_ONLY_REFRESH_MS;
-          return;
-        }
-
+        // IMPORTANT: Never use the browser's stored signature to skip the
+        // authoritative POSB_Data download. A stale signature can survive
+        // across GitHub deployments/browser profiles and leave viewers on an
+        // older IndexedDB snapshot. Google Sheet data is authoritative.
         updateViewOnlySyncProgress(0, `Google Sheet contains ${totalRows.toLocaleString()} transaction rows • starting download…`, true);
         let offset = 0;
         // IMPORTANT: the Apps Script chunk endpoint returns `done`, not
