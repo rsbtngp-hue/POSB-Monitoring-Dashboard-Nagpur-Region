@@ -6011,6 +6011,7 @@ try {
       return Array.isArray(rawTransactions) ? rawTransactions.length : 0;
     }
     let lastGoogleSheetRowCount = Number(localStorage.getItem('posb_google_sheet_remote_rows') || 0);
+    let lastGoogleRecordCount = Number(localStorage.getItem('posb_google_record_count') || 0);
 
     let lastLocalStoreLoadMs = Number(localStorage.getItem('posb_local_store_load_ms') || 0);
     let lastGoogleSyncMs = Number(localStorage.getItem('posb_google_sync_ms') || 0);
@@ -6024,7 +6025,7 @@ try {
     function updateLiveSyncMetrics() {
       const detail = document.getElementById('viewOnlySyncProgressDetail');
       if (!detail || googleSheetSyncInProgress || offlineRestoreInProgress) return;
-      detail.innerText = `Local Store: ${getLocalStoreRowCount().toLocaleString()} records • Load time: ${fmtElapsed(lastLocalStoreLoadMs)}  |  Google Sheet: ${lastGoogleSheetRowCount.toLocaleString()} rows • Sync time: ${fmtElapsed(lastGoogleSyncMs)}`;
+      detail.innerText = `Local Store: ${getLocalStoreRowCount().toLocaleString()} records • Load time: ${fmtElapsed(lastLocalStoreLoadMs)}  |  Google Sheet: ${lastGoogleSheetRowCount.toLocaleString()} sheet rows • ${lastGoogleRecordCount.toLocaleString()} records • Sync time: ${fmtElapsed(lastGoogleSyncMs)}`;
     }
 
     function updateGoogleSyncButtonLabels(remoteRows) {
@@ -6298,7 +6299,7 @@ try {
       if (viewOnlyCountdownTimer) clearInterval(viewOnlyCountdownTimer);
       viewOnlyNextRefreshAt = Date.now() + VIEW_ONLY_REFRESH_MS;
       const el = document.getElementById('viewOnlySyncClock');
-      if (el) el.innerText = `Local ${getLocalStoreRowCount().toLocaleString()} • ${fmtElapsed(lastLocalStoreLoadMs)} | Google ${lastGoogleSheetRowCount.toLocaleString()} • ${fmtElapsed(lastGoogleSyncMs)}`;
+      if (el) el.innerText = `Local ${getLocalStoreRowCount().toLocaleString()} • ${fmtElapsed(lastLocalStoreLoadMs)} | Google ${lastGoogleSheetRowCount.toLocaleString()} sheet rows / ${lastGoogleRecordCount.toLocaleString()} records • ${fmtElapsed(lastGoogleSyncMs)}`;
       // Actually schedule the next authoritative Google refresh.
       viewOnlyAutoRefreshTimer = setTimeout(() => {
         syncFromGoogleSheet({silent:true, background:true, retry404:true})
@@ -6393,17 +6394,27 @@ try {
         // the FIRST 8-row batch (which is why only about 31,136 records were
         // being loaded). Continue until the endpoint explicitly reports done
         // or the next offset reaches the advertised total row count.
-        // FAST MODE: Apps Script v32 accepts at most 12 POSB_Data rows per
-        // request. Fetch three 12-row chunks concurrently so the dashboard
-        // does not wait for each large JSON response sequentially.
-        const chunkSize = 24;
+        // IMPORTANT: the Apps Script endpoint caps each request at 12 physical
+        // POSB_Data rows. A POSB_Data row contains a JSON array of thousands of
+        // dashboard transactions, so the physical-row count (for example 54)
+        // must NEVER be treated as the transaction-record count.
+        //
+        // The previous version requested limit=24 and then jumped offsets by
+        // 24 even though Apps Script silently capped the request to 12. That
+        // skipped every second block of Google rows. More importantly, its
+        // custom recursive parser could count the outer date rows instead of
+        // expanding the stored transaction array. Use the dashboard's existing
+        // tested extractGoogleSheetRecords() normalizer for every chunk instead.
+        const chunkSize = 12;
         const parallelChunks = 4;
         const allRecords = [];
+        const previousLocalCount = getLocalStoreRowCount();
+
         let batchNo = 0;
         let lastCompletedRows = 0;
         let nextOffsetToFetch = 0;
         let serverDone = false;
-        const maxBatches = Math.max(1, Math.ceil(Math.max(totalRows, 1) / chunkSize) + 5);
+        const maxBatches = Math.max(1, Math.ceil(Math.max(totalRows, 1) / chunkSize) + 2);
 
         const fetchChunkWithRetry = async (chunkOffset) => {
           let lastChunkError = null;
@@ -6440,35 +6451,15 @@ try {
               ? chunk.records
               : (Array.isArray(chunk.rows) ? chunk.rows : []);
 
-            rows.forEach(row => {
-              // Apps Script v3 returns physical sheet rows as:
-              // [txn_date, fileName, recordsJson, updatedAt]
-              if (Array.isArray(row)) {
-                const recordsJson = row[2];
-                if (!recordsJson || typeof recordsJson !== 'string') return;
-                try {
-                  const parsed = JSON.parse(recordsJson);
-                  if (Array.isArray(parsed)) {
-                    parsed.forEach(r => {
-                      if (r && typeof r === 'object') allRecords.push(r);
-                    });
-                  }
-                } catch (parseErr) {
-                  console.warn('Skipping invalid recordsJson in Google Sheet row:', parseErr);
-                }
-                return;
-              }
-
-              if (Array.isArray(row?.records)) {
-                row.records.forEach(r => {
-                  if (r && typeof r === 'object') allRecords.push(r);
-                });
-              } else if (row && typeof row === 'object') {
-                if (row.officeName || row.officeType || row.date || row.txn_date || row.net !== undefined) {
-                  allRecords.push(row);
-                }
-              }
-            });
+            // Use the same normalizer that already handles:
+            //   • {txn_date,fileName,records:[...]}
+            //   • recordsJson strings/arrays
+            //   • 2-D Google Sheet grids
+            //   • alternate column names (Office Name, Total Opened, etc.)
+            // This is critical because each physical POSB_Data row contains
+            // many transaction objects.
+            const normalizedChunk = extractGoogleSheetRecords({ rows });
+            if (normalizedChunk.length) allRecords.push(...normalizedChunk);
 
             batchNo++;
             const chunkOffset = Number(chunk.offset);
@@ -6480,9 +6471,17 @@ try {
             serverDone = serverDone || chunk.done === true || chunk.hasMore === false || physicalEnd >= totalRows;
           }
 
+          // Move to the next physical row exactly once. Apps Script returns
+          // the authoritative nextOffset for each chunk; do not infer it from
+          // a requested limit because the server may cap the limit.
+          const returnedNextOffsets = chunks
+            .map(c => Number(c.nextOffset))
+            .filter(Number.isFinite);
+          const inferredNext = nextOffsetToFetch + (offsets.length * chunkSize);
           nextOffsetToFetch = Math.max(
-            nextOffsetToFetch + (parallelChunks * chunkSize),
-            ...chunks.map(c => Number(c.nextOffset)).filter(Number.isFinite),
+            nextOffsetToFetch,
+            inferredNext,
+            ...returnedNextOffsets,
             lastCompletedRows
           );
 
@@ -6511,9 +6510,34 @@ try {
         // authoritative completion signal.
         if (!allRecords.length) throw new Error('Google Sheet returned no readable transaction records.');
 
+        // If the expanded payload still contains only one record per physical
+        // sheet row, it was not decoded correctly. Never replace a healthy
+        // local database with that incomplete result.
+        if (totalRows > 1 && allRecords.length <= totalRows && previousLocalCount > 1000) {
+          throw new Error(`Google data payload was not expanded correctly: ${totalRows.toLocaleString()} sheet rows produced only ${allRecords.length.toLocaleString()} records. Local database was not replaced.`);
+        }
+
         const fetchedRecords = allRecords.map(r => ({...r,opened:Number(r.opened)||0,closed:Number(r.closed)||0,net:(Number(r.opened)||0)-(Number(r.closed)||0),iso:r.iso||parseToISO(r.date)||'',month:r.month||((r.iso||parseToISO(r.date)||'')?(r.iso||parseToISO(r.date)||'').slice(0,7):''),division:String(r.division||'Unassigned').trim(),subDivision:String(r.subDivision||'Unassigned').trim(),soName:String(r.soName||r.officeName||'Unassigned').trim(),officeName:String(r.officeName||'Unassigned').trim(),officeType:String(r.officeType||'').trim().toUpperCase()}));
 
         normalizeTransactionMetrics(fetchedRecords);
+
+        // Google `totalRows` is the number of physical POSB_Data rows. Each row
+        // can contain thousands of transactions inside recordsJson. Therefore
+        // the authoritative dashboard count is allRecords.length, not totalRows.
+        // Persist both values separately so the UI never confuses 54 sheet rows
+        // with 54 dashboard records.
+        lastGoogleRecordCount = fetchedRecords.length;
+        try { localStorage.setItem('posb_google_record_count', String(lastGoogleRecordCount)); } catch (_) {}
+
+        // Never replace a healthy local database with a suspiciously tiny
+        // Google result. A completed physical-row download with a drastically
+        // smaller record payload indicates a partial/malformed Apps Script
+        // response and must remain a sync failure instead of becoming the new
+        // viewer dataset.
+        if (previousLocalCount > 1000 && fetchedRecords.length < Math.max(1000, Math.floor(previousLocalCount * 0.25))) {
+          throw new Error(`Google download returned only ${fetchedRecords.length.toLocaleString()} records while local database has ${previousLocalCount.toLocaleString()}. Local database was not replaced.`);
+        }
+
         rawTransactions = fetchedRecords;
         updateGoogleSheetButtonState();
         updateGoogleSyncButtonLabels(totalRows);
@@ -6534,14 +6558,14 @@ try {
 
         lastGoogleSyncMs = Date.now() - syncStartedAt;
         try { localStorage.setItem('posb_google_sync_ms', String(Math.round(lastGoogleSyncMs))); } catch (_) {}
-        updateViewOnlySyncProgress(100, `Local Store: ${rawTransactions.length.toLocaleString()} records • Load time: ${fmtElapsed(lastLocalStoreLoadMs)} | Google Sheet: ${totalRows.toLocaleString()} rows • Sync time: ${fmtElapsed(lastGoogleSyncMs)}`, false);
+        updateViewOnlySyncProgress(100, `Local Store: ${rawTransactions.length.toLocaleString()} records • Load time: ${fmtElapsed(lastLocalStoreLoadMs)} | Google Sheet: ${totalRows.toLocaleString()} physical rows / ${rawTransactions.length.toLocaleString()} transaction records • Sync time: ${fmtElapsed(lastGoogleSyncMs)}`, false);
         try { markGoogleSheetLastSync(); } catch (e) { console.warn('Last-sync timestamp update skipped:', e); }
         updateHeaderSheetLastUpdated();
         refreshDashboardFromLocalData(`✅ Google Sheet synced: ${rawTransactions.length.toLocaleString()} records`);
 
         const syncNet = rawTransactions.reduce((a,r) => a + (Number(r.net)||0), 0);
         const syncStamp = new Date().toLocaleString('en-IN',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true,timeZone:'Asia/Kolkata'});
-        setGoogleSheetStatus(`✅ Google Sheet synced ${syncStamp} IST • ${rawTransactions.length.toLocaleString()} local records • Google ${totalRows.toLocaleString()} rows • Sync time ${fmtElapsed(lastGoogleSyncMs)} • Net: ${Math.round(syncNet).toLocaleString()} • ${localCacheSaved ? 'Local database saved and ready for next opening.' : 'Local database save could not be confirmed.'}`);
+        setGoogleSheetStatus(`✅ Google Sheet synced ${syncStamp} IST • ${rawTransactions.length.toLocaleString()} transaction records • Google ${totalRows.toLocaleString()} physical sheet rows expanded to ${rawTransactions.length.toLocaleString()} records • Sync time ${fmtElapsed(lastGoogleSyncMs)} • Net: ${Math.round(syncNet).toLocaleString()} • ${localCacheSaved ? 'Local database saved and ready for next opening.' : 'Local database save could not be confirmed.'}`);
         viewOnlyNextRefreshAt = Date.now() + VIEW_ONLY_REFRESH_MS;
 
       } catch (err) {
