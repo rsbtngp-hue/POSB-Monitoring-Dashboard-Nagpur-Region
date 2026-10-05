@@ -354,6 +354,10 @@
     @media(max-width:1050px){.office-popup-glance-card .office-team-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.office-popup-glance-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
     @media(max-width:760px){.office-popup-glance-card .office-team-grid{grid-template-columns:1fr}.office-popup-glance-grid{grid-template-columns:1fr}.weekly-modal-box{max-height:94vh}}
 
+    /* Campaign performance rendering optimization: isolate heavy table layout/paint. */
+    #mod-campaign { contain: layout paint; }
+    #campaignMatrixTable { contain: layout style; }
+
     .campaign-kpi-grid-5 {
       display:grid;
       grid-template-columns:repeat(5,minmax(0,1fr));
@@ -11502,6 +11506,11 @@ ${cleanTable(p2)}
     const BACHAT_PARVA_DRIVE_ID = 'camp-bachat-parva-tritiy-bhag-1';
     let activeBachatParvaPart = 'part1';
 
+    // Performance caches for the campaign tab. These prevent repeated scans of
+    // the full POSB transaction array when the user only expands/collapses the tree.
+    let campaignViewCache = { campaignId:'', rows:null, aggregate:null, source:null, sourceLength:0 };
+    let bachatAggregateTargetCache = new Map();
+
     function isBachatParvaDrive(cmp) { return !!(cmp && cmp.id === BACHAT_PARVA_DRIVE_ID); }
     function normalizeBachatOfficeType(v) {
       let t = String(v || '').trim().toUpperCase();
@@ -11526,6 +11535,8 @@ ${cleanTable(p2)}
       bachatMasterCache = null; bachatMasterSource = null;
       bachatMasterBySolCache = null; bachatAchievementCache = null;
       bachatAchievementSource = null; bachatPartOfficeCache = new Map();
+      bachatAggregateTargetCache = new Map();
+      campaignViewCache.aggregate = null;
     }
     function getBachatOfficeMaster() {
       if (bachatMasterCache && bachatMasterSource === rawTransactions) return bachatMasterCache;
@@ -12035,11 +12046,11 @@ ${cleanTable(p2)}
       return totalDays > 0 ? elapsedDays / totalDays : 1;
     }
 
-    function renderCampaignTopDivisionKpis(cmp, cmpRows) {
+    function renderCampaignTopDivisionKpis(cmp, cmpRows, aggregateOverride = null) {
       const grid = document.getElementById('campaignTopDivisionsKpiGrid');
       if (!grid || !cmp) return;
 
-      const bachatAggregate = isBachatParvaDrive(cmp) ? getBachatAggregateTargetMaps(cmp) : null;
+      const bachatAggregate = aggregateOverride || (isBachatParvaDrive(cmp) ? getBachatAggregateTargetMaps(cmp) : null);
       const campaignTotalTarget = bachatAggregate ? Number(bachatAggregate.regionTarget || 0) : (Number(cmp.regionTarget) || 0);
       const divMap = {};
       Object.keys(DEFAULT_DIVISION_TARGETS).forEach(d => {
@@ -12121,8 +12132,11 @@ ${cleanTable(p2)}
       document.getElementById('cmpSubDesc').innerHTML = `Period: <strong>${formatDateDMY(cmp.startDate)} to ${formatDateDMY(cmp.endDate)}</strong> &bull; Region Target: <span id="cmpRegionTargetHeader">${cmp.regionTarget.toLocaleString()}</span>${cmp.schemeOnly ? ` &bull; Scheme Only: <strong>${cmp.schemeOnly.toUpperCase()}</strong>` : ''}`;
       document.getElementById('cmpMatrixSubtitle').innerText = `Target Vs Achievement for ${cmp.name} across Divisions, Sub-Divisions and offices`;
 
-      const cmpRows = rawTransactions.filter(r => { const dt = campaignRecordDate(r); return dt && dt >= cmp.startDate && dt <= cmp.endDate; });
-      const effectiveCampaignTarget = isBachatParvaDrive(cmp) ? Number(getBachatAggregateTargetMaps(cmp).regionTarget || 0) : (Number(cmp.regionTarget) || 0);
+      const aggregate = isBachatParvaDrive(cmp) ? getBachatAggregateTargetMaps(cmp) : null;
+      const cachedRows = campaignViewCache.campaignId === cmp.id && campaignViewCache.source === rawTransactions && campaignViewCache.sourceLength === rawTransactions.length ? campaignViewCache.rows : null;
+      const cmpRows = cachedRows || rawTransactions.filter(r => { const dt = campaignRecordDate(r); return dt && dt >= cmp.startDate && dt <= cmp.endDate; });
+      const effectiveCampaignTarget = aggregate ? Number(aggregate.regionTarget || 0) : (Number(cmp.regionTarget) || 0);
+      campaignViewCache = {campaignId:cmp.id, rows:cmpRows, aggregate, source:rawTransactions, sourceLength:rawTransactions.length};
       const desc = document.getElementById('cmpSubDesc');
       if (desc) desc.innerHTML = `Period: <strong>${formatDateDMY(cmp.startDate)} to ${formatDateDMY(cmp.endDate)}</strong> &bull; Region Target: <span id="cmpRegionTargetHeader">${Math.round(effectiveCampaignTarget).toLocaleString('en-IN')}</span>${cmp.schemeOnly ? ` &bull; Scheme Only: <strong>${cmp.schemeOnly.toUpperCase()}</strong>` : ''}`;
 
@@ -12140,7 +12154,7 @@ ${cleanTable(p2)}
       const campaignShortfall = Math.max(effectiveCampaignTarget - cmpNet, 0);
       const pctFormatted = achievedPct.toFixed(1) + '%';
 
-      renderCampaignTopDivisionKpis(cmp, cmpRows);
+      renderCampaignTopDivisionKpis(cmp, cmpRows, aggregate);
 
       document.getElementById('cmpCardTarget').innerText = Math.round(effectiveCampaignTarget).toLocaleString('en-IN');
       document.getElementById('cmpCardNet').innerText = (cmpNet >= 0 ? '+' : '') + Math.round(cmpNet).toLocaleString();
@@ -12155,7 +12169,7 @@ ${cleanTable(p2)}
       document.getElementById('cmpStripMetric').innerText = `${pctFormatted} Met (${(cmpNet >= 0 ? '+' : '') + Math.round(cmpNet).toLocaleString()} Net of ${cmp.regionTarget.toLocaleString()} Target)`;
       document.getElementById('cmpStripFill').style.width = `${Math.min(Math.max(achievedPct, 0), 100)}%`;
 
-      renderCampaignMatrixTable(cmp, cmpRows);
+      renderCampaignMatrixTable(cmp, cmpRows, aggregate);
 
       // Show three-part बचत पर्व त्रितीय module below the matrix when this drive is active
       const specialPanel = document.getElementById('specialBachatParvaModule');
@@ -12173,9 +12187,13 @@ ${cleanTable(p2)}
     // Division, Sub-Division and regional targets are derived from the same SOL-ID
     // target source as the three part tables, so they remain in sync with Admin edits.
     function getBachatAggregateTargetMaps(cmp) {
+      const empty = {divisionTargets:{}, subDivisionTargets:{}, officeTargets:{}, regionTarget:0};
+      if (!cmp || !isBachatParvaDrive(cmp)) return empty;
+      const cacheKey = String(cmp.id || 'bachat') + '|' + String(rawTransactions?.length || 0);
+      const cached = bachatAggregateTargetCache.get(cacheKey);
+      if (cached) return cached;
       const divisionTargets = {}, subDivisionTargets = {}, officeTargets = {};
       let regionTarget = 0;
-      if (!cmp || !isBachatParvaDrive(cmp)) return {divisionTargets, subDivisionTargets, officeTargets, regionTarget};
       ['part1','part2','part3'].forEach(part => {
         getBachatPartOffices(cmp, part).forEach(o => {
           const sol = String(o.solId || '').trim();
@@ -12191,14 +12209,16 @@ ${cleanTable(p2)}
           regionTarget += target;
         });
       });
-      return {divisionTargets, subDivisionTargets, officeTargets, regionTarget};
+      const result = {divisionTargets, subDivisionTargets, officeTargets, regionTarget};
+      bachatAggregateTargetCache.set(cacheKey, result);
+      return result;
     }
 
-    function renderCampaignMatrixTable(cmp, cmpRows) {
+    function renderCampaignMatrixTable(cmp, cmpRows, aggregateOverride = null) {
       const tbody = document.getElementById('campaignMatrixTableBody');
       if (!tbody) return;
 
-      const bachatAggregate = isBachatParvaDrive(cmp) ? getBachatAggregateTargetMaps(cmp) : null;
+      const bachatAggregate = aggregateOverride || (isBachatParvaDrive(cmp) ? getBachatAggregateTargetMaps(cmp) : null);
       const divMap = {};
       Object.keys(DEFAULT_DIVISION_TARGETS).forEach(d => {
         divMap[d] = {
@@ -12397,25 +12417,38 @@ ${cleanTable(p2)}
       tbody.innerHTML = html;
     }
 
+    function redrawCampaignMatrixFast() {
+      const cmp = getActiveCampaign();
+      if (!cmp) return;
+      const cache = campaignViewCache;
+      if (cache && cache.campaignId === cmp.id && Array.isArray(cache.rows) && cache.source === rawTransactions) {
+        // Only the tree/table needs to change after expand/collapse. Avoid the
+        // full 180k+ transaction filter, KPI calculation, dropdown rebuild and
+        // special-drive panel refresh on every click.
+        renderCampaignMatrixTable(cmp, cache.rows, cache.aggregate);
+        return;
+      }
+      renderCampaignPerformanceModule();
+    }
     function toggleCampaignDiv(name) {
       if (expandedCampaignDivs.has(name)) expandedCampaignDivs.delete(name);
       else expandedCampaignDivs.add(name);
-      renderCampaignPerformanceModule();
+      redrawCampaignMatrixFast();
     }
     function toggleCampaignSub(name) {
       if (expandedCampaignSubs.has(name)) expandedCampaignSubs.delete(name);
       else expandedCampaignSubs.add(name);
-      renderCampaignPerformanceModule();
+      redrawCampaignMatrixFast();
     }
     function expandAllCampaignTree() {
       Object.keys(DEFAULT_DIVISION_TARGETS).forEach(d => expandedCampaignDivs.add(d));
       currentConsolidatedOffices.forEach(o => expandedCampaignSubs.add(o.subDivision));
-      renderCampaignPerformanceModule();
+      redrawCampaignMatrixFast();
     }
     function collapseAllCampaignTree() {
       expandedCampaignDivs.clear();
       expandedCampaignSubs.clear();
-      renderCampaignPerformanceModule();
+      redrawCampaignMatrixFast();
     }
 
     async function onCampaignChange() {
