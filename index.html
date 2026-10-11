@@ -4181,7 +4181,7 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
 <!-- Campaign Top 3 Divisions by Total Campaign/Drive Target Achievement -->
 <section aria-label="Top 3 Divisions by Total Campaign Target Achievement" class="top-divisions-section campaign-top-divisions-section">
 <div class="top-divisions-heading">
-<div><span class="top-divisions-title">TOP 3 DIVISIONS</span><span class="top-divisions-subtitle">by % of Total Campaign/Drive Target Achieved</span></div>
+<div><span class="top-divisions-title">TOP 3 DIVISIONS</span><span class="top-divisions-subtitle">by % of Total Campaign/Drive Target (Division) Achieved</span></div>
 <span class="top-divisions-badge" id="campaignTop3Badge">LIVE • Selected Campaign/Drive</span>
 </div>
 <div class="top-divisions-grid" id="campaignTopDivisionsKpiGrid"></div>
@@ -12671,10 +12671,11 @@ ${cleanTable(p2)}
       // Other campaigns retain their existing percentage-of-region-target ranking.
       const ranked = Object.values(divMap).map(d => {
         const net = Number(d.net) || 0;
-        const denominator = bachatAggregate ? (Number(d.target)||0) : campaignTotalTarget;
+        const divisionTarget = Number(d.target) || 0;
+        const denominator = divisionTarget;
         const totalTargetPct = denominator > 0 ? (net / denominator) * 100 : 0;
-        return { ...d, net, totalTargetPct };
-      }).filter(d => d.net !== 0 || campaignTotalTarget > 0)
+        return { ...d, net, divisionTarget, totalTargetPct };
+        }).filter(d => d.net !== 0 || d.divisionTarget > 0)
         .sort((a,b) => b.totalTargetPct-a.totalTargetPct || b.net-a.net || a.name.localeCompare(b.name))
         .slice(0,3);
 
@@ -12691,10 +12692,10 @@ ${cleanTable(p2)}
           <div class="top-division-content">
             <div class="top-division-rank-space"></div>
             <div class="top-division-name" title="${weeklyEsc(d.name)}">${weeklyEsc(d.name)}</div>
-            <div class="top-division-meta">${bachatAggregate ? '% of Division Target Achieved' : '% of Total Campaign/Drive Target Achieved'}</div>
+            <div class="top-division-meta">% of Division Target Achieved</div>
             <div class="top-division-achievement-box"><span class="top-division-pct">${Number(d.totalTargetPct||0).toFixed(2)}%</span></div>
             <div class="top-division-stats">
-              <div class="top-division-stat target-stat"><span>Target</span><strong>${Math.round(bachatAggregate ? d.target : campaignTotalTarget).toLocaleString('en-IN')}</strong></div>
+              <div class="top-division-stat target-stat"><span>Target</span><strong>${Math.round(d.divisionTarget).toLocaleString('en-IN')}</strong></div>
               <div class="top-division-stat achievement-stat"><span>Ach -</span><strong>${Math.round(d.net).toLocaleString('en-IN')}</strong></div>
             </div>
           </div>
@@ -13226,8 +13227,9 @@ ${cleanTable(p2)}
       }
     }
 
-    function handleCampaignSubmit(e) {
+    async function handleCampaignSubmit(e) {
       e.preventDefault();
+      if (!requireEditAccess()) return;
       const id = document.getElementById('modalCampaignId').value;
       const name = document.getElementById('modalCampaignName').value.trim();
       const startDate = document.getElementById('modalPeriodFrom').value;
@@ -13250,9 +13252,18 @@ ${cleanTable(p2)}
         activeCampaignId = newId;
       }
 
-      saveCampaignList();
-      closeCampaignModal();
+      cacheCampaignListSafely(campaignList);
+      safeLocalStorageSet('posb_active_campaign_id', activeCampaignId);
+      await saveDashboardConfigLocal().catch(err=>console.warn('Campaign local config save failed:',err));
       renderCampaignPerformanceModule();
+      setGoogleSheetStatus('☁ Uploading campaign and targets to Google configuration…');
+      const synced=await saveDashboardConfigToGoogleSheet();
+      if(synced){
+        closeCampaignModal();
+        alert('Campaign saved locally and confirmed in Google configuration. GitHub Pages will show it after refreshing/syncing Google configuration.');
+      }else{
+        alert('Campaign saved in this browser only. Google configuration upload failed. Keep the dashboard open, check Admin Config Upload status, then retry “Upload Config to Google Sheet”.');
+      }
     }
 
     function deleteCurrentCampaign() {
@@ -13648,7 +13659,7 @@ ${cleanTable(p2)}
         });
         setAdminConfigUploadProgress(70, 'Google Sheet is merging existing configuration and updating changed rows…', true);
         const json = await res.json().catch(() => null);
-        if (!res.ok || (json && json.error)) {
+        if (!res.ok || !json || json.success !== true || (json && json.error)) {
           if (res.status === 404) throw new Error('HTTP 404 — Google Apps Script Web App deployment URL is not active. Redeploy the Apps Script as a Web app and keep the same /exec URL.');
           throw new Error((json && json.error) || `HTTP ${res.status}`);
         }
@@ -13835,7 +13846,7 @@ ${cleanTable(p2)}
       cacheCampaignListSafely(campaignList);
       safeLocalStorageSet('posb_active_campaign_id', activeCampaignId);
       saveDashboardConfigLocal();
-      saveDashboardConfigToGoogleSheet();
+      return saveDashboardConfigToGoogleSheet();
     }
 
     function formatDateDMY(iso) {
