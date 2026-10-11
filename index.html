@@ -4160,7 +4160,7 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
 <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; padding: 16px;">
 <span style="font-size: 10px; font-weight: 800; color: #15803d; text-transform: uppercase;">CAMPAIGN NET ADDITION</span>
 <div id="cmpCardNet" style="font-size: 28px; font-weight: 900; color: #059669; font-family: monospace; margin: 8px 0 4px;">+0</div>
-<span style="font-size: 11px; color: #64748b;">Net balance in campaign period</span>
+<span style="font-size: 11px; color: #64748b;">Campaign-period net addition • all offices</span>
 </div>
 <div style="background: #fff7ed; border: 1px solid #fed7aa; border-radius: 12px; padding: 16px;">
 <span style="font-size: 10px; font-weight: 800; color: #c2410c; text-transform: uppercase;">SHORTFALL AGAINST TARGET</span>
@@ -4304,10 +4304,11 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
 
   <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:12px;margin-bottom:12px;">
     <div style="font-size:10px;font-weight:900;color:#475569;text-transform:uppercase;margin-bottom:8px;">🔎 Dedicated Drive Filters — applied to all three parts</div>
-    <div style="display:grid;grid-template-columns:repeat(4,minmax(160px,1fr));gap:9px;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:9px;">
       <div><label class="filter-label">Division</label><select id="bachatParvaDivisionFilter" onchange="populateBachatParvaSubFilters();renderBachatParvaSpecialModule()"><option value="ALL">All Divisions</option></select></div>
       <div><label class="filter-label">Sub Division</label><select id="bachatParvaSubDivisionFilter" onchange="populateBachatParvaSoFilters();renderBachatParvaSpecialModule()"><option value="ALL">All Sub Divisions</option></select></div>
       <div><label class="filter-label">SO Name</label><select id="bachatParvaSoFilter" onchange="renderBachatParvaSpecialModule()"><option value="ALL">All SO Names</option></select></div>
+      <div><label class="filter-label">Office</label><select id="bachatParvaOfficeFilter" onchange="renderBachatParvaSpecialModule()"><option value="ALL">All Offices</option></select></div>
       <div><label class="filter-label">Office Type</label>
         <select id="bachatParvaOfficeTypeFilter" onchange="renderBachatParvaSpecialModule()">
           <option value="ALL">All</option>
@@ -12246,13 +12247,14 @@ ${cleanTable(p2)}
       const d=document.getElementById('bachatParvaDivisionFilter')?.value || 'ALL';
       const s=document.getElementById('bachatParvaSubDivisionFilter')?.value || 'ALL';
       const so=document.getElementById('bachatParvaSoFilter')?.value || 'ALL';
+      const office=document.getElementById('bachatParvaOfficeFilter')?.value || 'ALL';
       const ot=document.getElementById('bachatParvaOfficeTypeFilter')?.value || 'ALL';
       const type=normalizeBachatOfficeType(o.officeType);
       let typeOK = true;
       if (ot === 'GPO_HPO') typeOK = (type === 'GPO' || type === 'HPO');
       else if (ot === 'SPO') typeOK = (type === 'SPO');
       else if (ot === 'BPO') typeOK = (type === 'BPO');
-      return (d==='ALL'||o.division===d) && (s==='ALL'||o.subDivision===s) && (so==='ALL'||o.soName===so) && typeOK;
+      return (d==='ALL'||o.division===d) && (s==='ALL'||o.subDivision===s) && (so==='ALL'||o.soName===so) && (office==='ALL'||String(o.solId||'')===office) && typeOK;
     }
     function populateBachatParvaFilters() {
       const master=getBachatOfficeMaster();
@@ -12279,6 +12281,19 @@ ${cleanTable(p2)}
       const sos=[...new Set(master.map(o=>o.soName).filter(Boolean))].sort();
       soEl.innerHTML='<option value="ALL">All SO Names</option>'+sos.map(x=>`<option value="${weeklyEsc(x)}">${weeklyEsc(x)}</option>`).join('');
       soEl.value=sos.includes(old)?old:'ALL';
+      populateBachatParvaOfficeFilters();
+    }
+    function populateBachatParvaOfficeFilters() {
+      const d=document.getElementById('bachatParvaDivisionFilter')?.value||'ALL';
+      const s=document.getElementById('bachatParvaSubDivisionFilter')?.value||'ALL';
+      const so=document.getElementById('bachatParvaSoFilter')?.value||'ALL';
+      const officeEl=document.getElementById('bachatParvaOfficeFilter'); if(!officeEl)return;
+      const old=officeEl.value||'ALL';
+      const offices=getBachatOfficeMaster().filter(o=>(d==='ALL'||o.division===d)&&(s==='ALL'||o.subDivision===s)&&(so==='ALL'||o.soName===so));
+      const seen=new Set();
+      const options=offices.filter(o=>{const sol=String(o.solId||'');if(!sol||seen.has(sol))return false;seen.add(sol);return true;}).sort((a,b)=>String(a.officeName||'').localeCompare(String(b.officeName||'')));
+      officeEl.innerHTML='<option value="ALL">All Offices</option>'+options.map(o=>`<option value="${weeklyEsc(o.solId)}">${weeklyEsc(o.officeName||o.solId)} (${weeklyEsc(o.solId)})</option>`).join('');
+      officeEl.value=options.some(o=>String(o.solId)===old)?old:'ALL';
     }
     function getActiveBachatParvaExportTarget() {
       const part = ['part1','part2','part3'].includes(activeBachatParvaPart) ? activeBachatParvaPart : 'part1';
@@ -12433,14 +12448,11 @@ ${cleanTable(p2)}
       const t=document.getElementById('bachatParvaTotalTarget'), a=document.getElementById('bachatParvaTotalAchievement'), v=document.getElementById('bachatParvaTotalVariance'), p=document.getElementById('bachatParvaTotalPct');
       if(t)t.textContent=Math.round(totals.target).toLocaleString('en-IN'); if(a)a.textContent=Math.round(totals.achievement).toLocaleString('en-IN');
       if(v){v.innerHTML=bachatVarianceHTML(totals.target,totals.achievement);} if(p)p.textContent=pct.toFixed(1)+'%';
-      const regionTarget=totals.target; cmp.regionTarget=regionTarget;
+      const regionTarget=totals.target;
       const hdr=document.getElementById('cmpRegionTargetHeader'); if(hdr)hdr.textContent=regionTarget.toLocaleString('en-IN');
-      const cardTarget=document.getElementById('cmpCardTarget'); if(cardTarget)cardTarget.textContent=regionTarget.toLocaleString('en-IN');
-      const cardNet=document.getElementById('cmpCardNet'); if(cardNet)cardNet.textContent=Math.round(totals.achievement).toLocaleString('en-IN');
-      const cardShort=document.getElementById('cmpCardShortfall'); if(cardShort)cardShort.textContent=Math.abs(Math.round(variance)).toLocaleString('en-IN');
-      const cardPct=document.getElementById('cmpCardPct'); if(cardPct)cardPct.textContent=pct.toFixed(1)+'%';
-      const strip=document.getElementById('cmpStripMetric'); if(strip)strip.textContent=pct.toFixed(1)+'% Met';
-      const fill=document.getElementById('cmpStripFill'); if(fill)fill.style.width=Math.min(Math.max(pct,0),100)+'%';
+      // These three-part figures are scoped to the dedicated drive filters.
+      // Keep the campaign KPI cards and progress strip above sourced from the
+      // full campaign-period transaction set across all offices.
     }
     let bachatTargetEditorPart = '';
     let bachatTargetEditorRows = [];
@@ -12884,16 +12896,49 @@ ${cleanTable(p2)}
       return result;
     }
 
+    function campaignMatrixTarget(cmp, level, key, fallback) {
+      const saved=cmp?.matrixTargets?.[level];
+      const raw=saved&&Object.prototype.hasOwnProperty.call(saved,String(key))?saved[String(key)]:fallback;
+      const value=Number(raw);
+      return Number.isFinite(value)&&value>=0?value:Math.max(0,Number(fallback)||0);
+    }
+    function campaignMatrixEditButton(level,key,currentValue) {
+      return `<button type="button" class="edit-btn campaign-matrix-target-edit" title="Edit matrix-only target" aria-label="Edit matrix-only target" data-matrix-level="${weeklyEsc(level)}" data-matrix-key="${weeklyEsc(String(key??''))}" data-matrix-current="${Math.max(0,Number(currentValue)||0)}" onclick="editCampaignMatrixTargetFromButton(this)">✏️</button>`;
+    }
+    async function editCampaignMatrixTargetFromButton(button) {
+      if(!requireEditAccess())return;
+      const cmp=getActiveCampaign(),level=String(button?.dataset?.matrixLevel||''),key=String(button?.dataset?.matrixKey||'');
+      const current=Number(button?.dataset?.matrixCurrent)||0;
+      if(!cmp||!['region','division','subDivision','office'].includes(level))return;
+      const labels={region:'Regional total',division:`Division ${key}`,subDivision:`Sub-Division ${key.replace('|||',' / ')}`,office:`Office ${key}`};
+      const raw=prompt(`Enter ${labels[level]} target for the matrix only. This will not change Special Campaign / Drive Performance targets:`,String(current));
+      if(raw===null)return;
+      const value=Number(String(raw).replace(/,/g,'').trim());
+      if(!Number.isFinite(value)||value<0){alert('Enter a valid target of zero or more.');return;}
+      cmp.matrixTargets=cmp.matrixTargets&&typeof cmp.matrixTargets==='object'?cmp.matrixTargets:{};
+      cmp.matrixTargets[level]=cmp.matrixTargets[level]&&typeof cmp.matrixTargets[level]==='object'?cmp.matrixTargets[level]:{};
+      cmp.matrixTargets[level][key]=Math.round(value);
+      const idx=campaignList.findIndex(c=>c.id===cmp.id);if(idx>=0)campaignList[idx]=cmp;
+      cacheCampaignListSafely(campaignList);
+      await saveDashboardConfigLocal().catch(err=>console.warn('Campaign matrix target local save failed:',err));
+      renderCampaignPerformanceModule();
+      const synced=await saveDashboardConfigToGoogleSheet();
+      setGoogleSheetStatus(synced?'☁ Matrix-only target saved and synced. Special Campaign / Drive Performance targets were not changed.':'⚠️ Matrix-only target saved locally; Google configuration sync failed.',!synced);
+      if(!synced)alert('Matrix-only target saved locally, but Google configuration sync failed. Retry the admin configuration sync when online.');
+    }
+
     function renderCampaignMatrixTable(cmp, cmpRows, aggregateOverride = null) {
       const tbody = document.getElementById('campaignMatrixTableBody');
       if (!tbody) return;
 
       const bachatAggregate = aggregateOverride || (isBachatParvaDrive(cmp) ? getBachatAggregateTargetMaps(cmp) : null);
+      const matrixTarget=(level,key,fallback)=>campaignMatrixTarget(cmp,level,key,fallback);
       const divMap = {};
       Object.keys(DEFAULT_DIVISION_TARGETS).forEach(d => {
+        const baseTarget=bachatAggregate ? (Number(bachatAggregate.divisionTargets[d]) || 0) : (cmp.divTargets?.[d] !== undefined ? Number(cmp.divTargets[d]) || 0 : Math.round((DEFAULT_DIVISION_TARGETS[d] / REGION_ANNUAL_TARGET) * cmp.regionTarget));
         divMap[d] = {
           name: d,
-          target: bachatAggregate ? (Number(bachatAggregate.divisionTargets[d]) || 0) : (cmp.divTargets?.[d] !== undefined ? Number(cmp.divTargets[d]) || 0 : Math.round((DEFAULT_DIVISION_TARGETS[d] / REGION_ANNUAL_TARGET) * cmp.regionTarget)),
+          target: matrixTarget('division',d,baseTarget),
           opened: 0,
           closed: 0,
           net: 0,
@@ -12906,7 +12951,7 @@ ${cleanTable(p2)}
       // For all other campaigns preserve the existing configured division targets.
       const configuredDivisions = bachatAggregate ? Object.keys(bachatAggregate.divisionTargets) : Object.keys(cmp.divTargets || {});
       configuredDivisions.forEach(d => {
-        const target = bachatAggregate ? (Number(bachatAggregate.divisionTargets[d]) || 0) : (Number(cmp.divTargets[d]) || 0);
+        const target = matrixTarget('division',d,bachatAggregate ? (Number(bachatAggregate.divisionTargets[d]) || 0) : (Number(cmp.divTargets[d]) || 0));
         if (!divMap[d]) divMap[d] = { name: d, target, opened: 0, closed: 0, net: 0, subDivs: {}, offices: new Set() };
         else if (bachatAggregate) divMap[d].target = target;
         else divMap[d].target = target;
@@ -12917,15 +12962,15 @@ ${cleanTable(p2)}
         Object.entries(bachatAggregate.subDivisionTargets).forEach(([key, target]) => {
           const [division, subName] = key.split('|||');
           if (!divMap[division]) divMap[division] = {name:division,target:0,opened:0,closed:0,net:0,subDivs:{},offices:new Set()};
-          if (!divMap[division].subDivs[subName]) divMap[division].subDivs[subName] = {name:subName,target:Number(target)||0,opened:0,closed:0,net:0,offices:new Set(),officeRows:[]};
-          else divMap[division].subDivs[subName].target = Number(target)||0;
+          if (!divMap[division].subDivs[subName]) divMap[division].subDivs[subName] = {name:subName,target:matrixTarget('subDivision',`${division}|||${subName}`,Number(target)||0),opened:0,closed:0,net:0,offices:new Set(),officeRows:[]};
+          else divMap[division].subDivs[subName].target = matrixTarget('subDivision',`${division}|||${subName}`,Number(target)||0);
           Object.values(bachatAggregate.officeTargets).filter(o=>o.division===division && o.subDivision===subName).forEach(o=>divMap[division].subDivs[subName].offices.add(o.solId));
         });
       }
 
       cmpRows.forEach(r => {
         if (!divMap[r.division]) {
-          divMap[r.division] = { name: r.division, target: bachatAggregate ? (Number(bachatAggregate.divisionTargets[r.division]) || 0) : 0, opened: 0, closed: 0, net: 0, subDivs: {}, offices: new Set() };
+          divMap[r.division] = { name: r.division, target: matrixTarget('division',r.division,bachatAggregate ? (Number(bachatAggregate.divisionTargets[r.division]) || 0) : 0), opened: 0, closed: 0, net: 0, subDivs: {}, offices: new Set() };
         }
         // Scheme-specific campaign figures must use the selected scheme column.
         const metrics = getCampaignRecordMetrics(r, cmp);
@@ -12938,7 +12983,7 @@ ${cleanTable(p2)}
         if (!divMap[r.division].subDivs[sub]) {
           divMap[r.division].subDivs[sub] = {
             name: sub,
-            target: bachatAggregate ? (Number(bachatAggregate.subDivisionTargets[`${r.division}|||${sub}`]) || 0) : (cmp.subTargets?.[sub] !== undefined ? Number(cmp.subTargets[sub]) || 0 : 0),
+            target: matrixTarget('subDivision',`${r.division}|||${sub}`,bachatAggregate ? (Number(bachatAggregate.subDivisionTargets[`${r.division}|||${sub}`]) || 0) : (cmp.subTargets?.[sub] !== undefined ? Number(cmp.subTargets[sub]) || 0 : 0)),
             opened: 0,
             closed: 0,
             net: 0,
@@ -12976,7 +13021,7 @@ ${cleanTable(p2)}
             <td style="color:#94a3b8;">-</td>
             <td class="num">
               <strong>${d.target.toLocaleString('en-IN')}</strong>
-              ${bachatAggregate ? '' : `<span style="cursor:pointer; color:#94a3b8; font-size:10px; margin-left:4px;" onclick="editCampaignDivTarget('${d.name}', ${d.target})">✏️</span>`}
+              ${bachatAggregate ? campaignMatrixEditButton('division',d.name,d.target) : `<span style="cursor:pointer; color:#94a3b8; font-size:10px; margin-left:4px;" onclick="editCampaignDivTarget('${d.name}', ${d.target})">✏️</span>`}
             </td>
             <td class="num" style="color:#2563eb;">${Math.round(d.opened).toLocaleString()}</td>
             <td class="num" style="color:#dc2626;">${Math.round(d.closed).toLocaleString()}</td>
@@ -13008,7 +13053,7 @@ ${cleanTable(p2)}
                 <td style="color:#94a3b8;">-</td>
                 <td class="num">
                   <span>${sub.target ? sub.target.toLocaleString() : '-'}</span>
-                  ${bachatAggregate ? '' : `<span style="cursor:pointer; color:#94a3b8; font-size:10px; margin-left:4px;" onclick="editCampaignSubTarget('${sub.name}', ${sub.target || 0})">✏️</span>`}
+                  ${bachatAggregate ? campaignMatrixEditButton('subDivision',`${d.name}|||${sub.name}`,sub.target) : `<span style="cursor:pointer; color:#94a3b8; font-size:10px; margin-left:4px;" onclick="editCampaignSubTarget('${sub.name}', ${sub.target || 0})">✏️</span>`}
                 </td>
                 <td class="num" style="color:#2563eb;">${Math.round(sub.opened).toLocaleString()}</td>
                 <td class="num" style="color:#dc2626;">${Math.round(sub.closed).toLocaleString()}</td>
@@ -13048,7 +13093,7 @@ ${cleanTable(p2)}
                     </td>
                     <td><span class="badge-level level-bo">${o.type}</span></td>
                     <td style="font-family:monospace; color:#64748b;">${o.solId || '-'}</td>
-                    <td class="num">${bachatAggregate ? Math.round(Number(o.target)||0).toLocaleString('en-IN') : '-'}</td>
+                    <td class="num">${bachatAggregate ? `${Math.round(matrixTarget('office',String(o.solId||canonicalOfficeKey(o)),Number(o.target)||0)).toLocaleString('en-IN')} ${campaignMatrixEditButton('office',String(o.solId||canonicalOfficeKey(o)),matrixTarget('office',String(o.solId||canonicalOfficeKey(o)),Number(o.target)||0))}` : '-'}</td>
                     <td class="num" style="color:#2563eb;">${Math.round(o.opened).toLocaleString()}</td>
                     <td class="num" style="color:#dc2626;">${Math.round(o.closed).toLocaleString()}</td>
                     <td class="num font-bold" style="color:${o.net >= 0 ? '#059669' : '#dc2626'};">${Math.round(o.net).toLocaleString()}</td>
@@ -13064,7 +13109,7 @@ ${cleanTable(p2)}
       });
 
       // Regional total is displayed below the complete campaign/drive matrix.
-      const regionalTarget = bachatAggregate ? Number(bachatAggregate.regionTarget || 0) : (Number(cmp.regionTarget) || 0);
+      const regionalTarget = matrixTarget('region','',bachatAggregate ? Number(bachatAggregate.regionTarget || 0) : (Number(cmp.regionTarget) || 0));
       const regionalOpened = cmpRows.reduce((sum, r) => sum + (getCampaignRecordMetrics(r, cmp).opened || 0), 0);
       const regionalClosed = cmpRows.reduce((sum, r) => sum + (getCampaignRecordMetrics(r, cmp).closed || 0), 0);
       const regionalNet = cmpRows.reduce((sum, r) => sum + (getCampaignRecordMetrics(r, cmp).net || 0), 0);
@@ -13077,6 +13122,7 @@ ${cleanTable(p2)}
           <td style="color:#64748b;">-</td>
           <td class="num">
             <strong>${regionalTarget.toLocaleString('en-IN')}</strong>
+            ${bachatAggregate ? campaignMatrixEditButton('region','',regionalTarget) : ''}
 
           </td>
           <td class="num" style="color:#2563eb;">${Math.round(regionalOpened).toLocaleString()}</td>
