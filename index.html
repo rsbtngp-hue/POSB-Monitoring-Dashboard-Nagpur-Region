@@ -6889,6 +6889,9 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
 
         const localDataVersion = String(safeLocalStorageGet('posb_backend_data_version') || '');
         const summaryRows = Number(meta.summaryRows || meta.dailySummaryRows || meta.totalRows || 0);
+        const localRowCountMatchesBackend = summaryRows > 0 && localRecordsBefore.length === summaryRows;
+        const localLatestMatchesBackend = !!googleLatestDate && !!localLatestDate && localLatestDate === googleLatestDate;
+        const localCacheComplete = localRowCountMatchesBackend && localLatestMatchesBackend;
 
         lastGoogleSheetRowCount = summaryRows;
         lastGoogleRecordCount = localRecordsBefore.length;
@@ -6923,13 +6926,18 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
           } catch (_) {}
         }
 
-        // If the backend data version has not changed, there is no reason to
-        // download anything. This is the critical 30-second fast-sync path.
-        if (!force && localRecordsBefore.length && localDataVersion && localDataVersion === dataVersion) {
+        // Reuse the fast path only when the version, DAILY_SUMMARY row count,
+        // and latest transaction date all agree. A version match alone can
+        // leave a partial or stale local cache looking current.
+        if (!force && localCacheComplete && localDataVersion && localDataVersion === dataVersion) {
           lastGoogleRecordCount = localRecordsBefore.length;
           lastGoogleSyncMs = Date.now() - syncStartedAt;
           try { markGoogleSheetLastSync(); } catch (_) {}
           updateHeaderSheetLastUpdated(sourceUpdatedAt);
+          // Even when no network download is needed, recompute every KPI and
+          // module from the confirmed local DAILY_SUMMARY rows. This also
+          // refreshes the date filters so the backend's latest date is included.
+          refreshDashboardFromLocalData();
           setGoogleSheetStatus(
             `🟢 Backend current • no data download required • ${localRecordsBefore.length.toLocaleString()} DAILY_SUMMARY rows cached • version ${dataVersion}`
           );
@@ -6942,13 +6950,27 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
           return rawTransactions;
         }
 
+        // If counts disagree, reconcile the full FY so gaps in older dates are
+        // repaired too. When only the latest date differs, re-fetch from the
+        // local latest date so that date's corrections and newer rows are included.
         const fromDate = options.fromDate ||
-          (localLatestDate ? localLatestDate : POSB_BACKEND_FY_START);
+          (localRecordsBefore.length && localRowCountMatchesBackend
+            ? (localLatestDate || POSB_BACKEND_FY_START)
+            : POSB_BACKEND_FY_START);
         const toDate = options.toDate || googleLatestDate || localLatestDate || POSB_BACKEND_FY_START;
 
         if (fromDate && toDate && fromDate > toDate) {
           safeLocalStorageSet('posb_backend_data_version', dataVersion);
+          // Keep the currently available local figures visible and fully
+          // recalculated even when the backend reports an older latest date
+          // than the local cache (for example, while a newer date is pending).
+          refreshDashboardFromLocalData();
           setGoogleSheetStatus(`🟢 Backend current • latest transaction date ${formatDateDMY(googleLatestDate || localLatestDate)}`);
+          updateViewOnlySyncProgress(
+            100,
+            `Local dashboard recalculated • ${rawTransactions.length.toLocaleString()} DAILY_SUMMARY rows • latest ${formatDateDMY(getLatestDataISO(rawTransactions) || localLatestDate)} • backend reports ${formatDateDMY(googleLatestDate || toDate)}`,
+            false
+          );
           startViewOnlyAutoRefresh();
           return rawTransactions;
         }
