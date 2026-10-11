@@ -6550,9 +6550,10 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
           ? `Local DB ready • ${localRecords.length.toLocaleString()} records • Google sync starting…`
           : 'Local DB checked • no saved records • Google sync starting…', true);
 
-        // Start Google immediately after the local read has settled, without
-        // blocking dashboard startup or repeating the local database read.
-        if (!hasLocalRecords) setDashboardLoading(true, 'Loading latest POSB data from Google Sheets, please wait…', 420);
+        // Keep the startup loader visible through the complete Google refresh,
+        // local persistence, and dashboard recalculation. The local cache is
+        // already restored, so it remains ready underneath the progress overlay.
+        setDashboardLoading(true, 'Loading latest POSB data from Google Sheets, please wait…', 420);
         syncFromGoogleSheet({silent:true, background:true, retry404:true, skipLocalRestore:true})
           .catch(err => console.warn('Background Google refresh skipped:', err))
           .finally(() => setDashboardLoading(false));
@@ -6625,6 +6626,7 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
       if (bar) { bar.style.width = `${pct}%`; bar.classList.toggle('done', !active || pct >= 100); }
       if (pctEl) pctEl.innerText = `${pct}%`;
       if (detailEl) detailEl.innerText = detail || (active ? 'Synchronizing…' : 'Ready');
+      updateDashboardLoadingProgress(pct, detail, active);
     }
 
     function addOneDayISO(iso) {
@@ -6986,50 +6988,72 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
         let page = 0;
         let done = false;
         let totalExpected = Number(meta.rangeRows || 0);
+        const parallelPages = 4;
 
         while (!done) {
-          page++;
-          const url =
-            `${base}?action=data` +
-            `&sheet=${encodeURIComponent(POSB_BACKEND_SUMMARY_SHEET)}` +
-            `&fromDate=${encodeURIComponent(fromDate)}` +
-            `&toDate=${encodeURIComponent(toDate)}` +
-            `&offset=${offset}` +
-            `&limit=${POSB_BACKEND_PAGE_SIZE}` +
-            `&_=${Date.now()}_${page}`;
+          const batchStart = offset;
+          // Once the first response reports the range size, request up to four
+          // fixed-size pages together. The Apps Script endpoint caps pages at
+          // 5,000 rows; bounded parallel reads reduce round trips without
+          // creating an unbounded burst of requests.
+          const pageCount = totalExpected > 0
+            ? Math.max(1, Math.min(parallelPages, Math.ceil((totalExpected - batchStart) / POSB_BACKEND_PAGE_SIZE)))
+            : 1;
+          const requests = Array.from({length:pageCount}, (_, index) => {
+            const pageOffset = batchStart + index * POSB_BACKEND_PAGE_SIZE;
+            const pageNumber = Math.floor(pageOffset / POSB_BACKEND_PAGE_SIZE) + 1;
+            if (pageNumber > 10000) throw new Error('Backend pagination safety limit reached.');
+            const url =
+              `${base}?action=data` +
+              `&sheet=${encodeURIComponent(POSB_BACKEND_SUMMARY_SHEET)}` +
+              `&fromDate=${encodeURIComponent(fromDate)}` +
+              `&toDate=${encodeURIComponent(toDate)}` +
+              `&offset=${pageOffset}` +
+              `&limit=${POSB_BACKEND_PAGE_SIZE}` +
+              `&_=${Date.now()}_${pageNumber}`;
+            return fetchJson(url).then(chunk => ({chunk, pageOffset, pageNumber}));
+          });
+          const batch = await Promise.all(requests);
 
-          const chunk = await fetchJson(url);
-          if (Number.isFinite(Number(chunk.total))) totalExpected = Number(chunk.total);
-          const rows = Array.isArray(chunk.records) ? chunk.records :
-                       Array.isArray(chunk.rows) ? chunk.rows :
-                       Array.isArray(chunk.data) ? chunk.data : [];
+          for (const item of batch) {
+            page++;
+            const {chunk, pageOffset, pageNumber} = item;
+            if (Number.isFinite(Number(chunk.total))) totalExpected = Number(chunk.total);
+            const rows = Array.isArray(chunk.records) ? chunk.records :
+                         Array.isArray(chunk.rows) ? chunk.rows :
+                         Array.isArray(chunk.data) ? chunk.data : [];
+            const normalized = extractGoogleSheetRecords({rows});
+            if (normalized.length) incoming.push(...normalized);
 
-          const normalized = extractGoogleSheetRecords({rows});
-          if (normalized.length) incoming.push(...normalized);
+            const nextOffset = Number(chunk.nextOffset);
+            const chunkDone = chunk.done === true || chunk.hasMore === false ||
+              rows.length < POSB_BACKEND_PAGE_SIZE ||
+              (!Number.isFinite(nextOffset) && rows.length === 0);
+            offset = Math.max(offset, Number.isFinite(nextOffset) && nextOffset > pageOffset
+              ? nextOffset
+              : pageOffset + rows.length);
+            done = done || chunkDone;
 
-          const nextOffset = Number(chunk.nextOffset);
-          done = chunk.done === true || chunk.hasMore === false ||
-                 rows.length < POSB_BACKEND_PAGE_SIZE ||
-                 (!Number.isFinite(nextOffset) && rows.length === 0);
-
-          if (Number.isFinite(nextOffset) && nextOffset > offset) offset = nextOffset;
-          else offset += rows.length;
-
-          const received = incoming.length;
-          const pct = totalExpected
-            ? Math.min(99, (received / totalExpected) * 90 + 10)
-            : Math.min(99, 10 + Math.min(85, page * 5));
-
-          updateViewOnlySyncProgress(
-            pct,
-            `DAILY_SUMMARY sync • page ${page} • ${received.toLocaleString()} office/date rows received • raw transaction shards untouched`,
-            true
-          );
-
-          if (page > 10000) throw new Error('Backend pagination safety limit reached.');
-          if (!rows.length && !done) throw new Error('Backend returned an empty page without a completion marker.');
-          await new Promise(r => setTimeout(r, 0));
+            const received = incoming.length;
+            const pct = totalExpected
+              ? Math.min(99, (received / totalExpected) * 90 + 10)
+              : Math.min(99, 10 + Math.min(85, page * 5));
+            updateViewOnlySyncProgress(
+              pct,
+              `Downloading DAILY_SUMMARY • page ${pageNumber} • ${received.toLocaleString()}${totalExpected ? ` / ${totalExpected.toLocaleString()}` : ''} office/date rows • raw transaction shards untouched`,
+              true
+            );
+            if (!rows.length && !chunkDone) throw new Error('Backend returned an empty page without a completion marker.');
+          }
+          if (totalExpected > 0 && offset >= totalExpected) done = true;
+          if (offset <= batchStart && !done) throw new Error('Backend pagination did not advance to the next page.');
         }
+
+        updateViewOnlySyncProgress(
+          99,
+          `All ${incoming.length.toLocaleString()} DAILY_SUMMARY rows downloaded • saving to local database and recalculating dashboard…`,
+          true
+        );
 
         // Date-level replacement: corrections for an existing date replace
         // that date's summary rows. There is NO record-by-record comparison.
@@ -7319,14 +7343,91 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
     }
 
     let dashboardLoadingTimer = null;
+    let dashboardLoadingEtaTimer = null;
+    let dashboardLoadingStartedAt = 0;
+    let dashboardLoadingDownloadStartedAt = 0;
+    let dashboardLoadingCurrentPct = 0;
+    function formatApproxWait(ms) {
+      const seconds = Math.max(1, Math.ceil(Number(ms || 0) / 1000));
+      if (seconds < 60) return `about ${seconds} sec`;
+      return `about ${Math.max(1, Math.round(seconds / 60))} min`;
+    }
+    function updateDashboardLoadingProgress(percent, detail='', active=true) {
+      const overlay = document.getElementById('dashboardLoadingOverlay');
+      if (!overlay || !overlay.classList.contains('active')) return;
+      const pct = Math.max(0, Math.min(100, Math.round(Number(percent) || 0)));
+      const bar = document.getElementById('dashboardLoadingProgressBar');
+      const pctEl = document.getElementById('dashboardLoadingPercent');
+      const etaEl = document.getElementById('dashboardLoadingEstimate');
+      const detailEl = document.getElementById('dashboardLoadingDetail');
+      if (bar) {
+        bar.style.width = `${pct}%`;
+        bar.setAttribute('aria-valuenow', String(pct));
+      }
+      if (pctEl) pctEl.textContent = `${pct}%`;
+      if (detailEl) detailEl.textContent = detail || (pct < 10 ? 'Connecting to Google Sheets…' : 'Downloading DAILY_SUMMARY rows…');
+
+      if (pct >= 100 || !active) {
+        if (etaEl) etaEl.textContent = pct >= 100 ? 'Download complete • preparing dashboard…' : 'Waiting for Google Sheets response…';
+        dashboardLoadingCurrentPct = pct;
+        return;
+      }
+      if (pct >= 99) {
+        if (etaEl) etaEl.textContent = 'Download received • saving local data and calculating dashboard…';
+        dashboardLoadingCurrentPct = pct;
+        return;
+      }
+      if (pct >= 10 && !dashboardLoadingDownloadStartedAt) dashboardLoadingDownloadStartedAt = Date.now();
+      dashboardLoadingCurrentPct = Math.max(dashboardLoadingCurrentPct, pct);
+
+      let estimateMs;
+      if (pct >= 10 && dashboardLoadingDownloadStartedAt && pct > 10) {
+        const elapsedMs = Math.max(1000, Date.now() - dashboardLoadingDownloadStartedAt);
+        const downloadedPct = pct - 10;
+        estimateMs = (elapsedMs / downloadedPct) * Math.max(0, 100 - pct);
+      } else {
+        const previousSyncMs = Number(safeLocalStorageGet('posb_google_sync_ms') || 0);
+        estimateMs = previousSyncMs > 0 ? previousSyncMs : 45000;
+        estimateMs *= Math.max(0.15, (100 - pct) / 100);
+      }
+      const elapsedSeconds = dashboardLoadingStartedAt ? Math.floor((Date.now() - dashboardLoadingStartedAt) / 1000) : 0;
+      if (etaEl) etaEl.textContent = `Approx. wait: ${formatApproxWait(estimateMs)}${pct >= 10 ? ' remaining' : ' • connecting'} • ${elapsedSeconds}s elapsed`;
+    }
     function setDashboardLoading(active, message = 'Loading, please wait…', delay = 0) {
       const overlay = document.getElementById('dashboardLoadingOverlay');
       const label = document.getElementById('dashboardLoadingMessage');
       if (!overlay) return;
       if (dashboardLoadingTimer) { clearTimeout(dashboardLoadingTimer); dashboardLoadingTimer = null; }
-      if (!active) { overlay.classList.remove('active'); overlay.hidden = true; return; }
+      if (!active) {
+        overlay.classList.remove('active'); overlay.hidden = true;
+        if (dashboardLoadingEtaTimer) { clearInterval(dashboardLoadingEtaTimer); dashboardLoadingEtaTimer = null; }
+        dashboardLoadingStartedAt = 0;
+        dashboardLoadingDownloadStartedAt = 0;
+        dashboardLoadingCurrentPct = 0;
+        return;
+      }
       if (label) label.textContent = message;
-      dashboardLoadingTimer = window.setTimeout(() => { overlay.hidden = false; requestAnimationFrame(() => overlay.classList.add('active')); dashboardLoadingTimer = null; }, Math.max(0, Number(delay) || 0));
+      dashboardLoadingStartedAt = Date.now();
+      dashboardLoadingDownloadStartedAt = 0;
+      dashboardLoadingCurrentPct = 0;
+      const bar = document.getElementById('dashboardLoadingProgressBar');
+      if (bar) { bar.style.width = '3%'; bar.setAttribute('aria-valuenow', '3'); }
+      const pctEl = document.getElementById('dashboardLoadingPercent');
+      if (pctEl) pctEl.textContent = '3%';
+      const detailEl = document.getElementById('dashboardLoadingDetail');
+      if (detailEl) detailEl.textContent = /google/i.test(message) ? 'Connecting to Google Sheets…' : 'Preparing dashboard view…';
+      const etaEl = document.getElementById('dashboardLoadingEstimate');
+      if (etaEl) etaEl.textContent = `Approx. wait: ${formatApproxWait(Number(safeLocalStorageGet('posb_google_sync_ms') || 45000))} • connecting`;
+      dashboardLoadingTimer = window.setTimeout(() => {
+        overlay.hidden = false;
+        requestAnimationFrame(() => {
+          overlay.classList.add('active');
+          updateDashboardLoadingProgress(3, /google/i.test(message) ? 'Connecting to Google Sheets…' : 'Preparing dashboard view…', true);
+        });
+        dashboardLoadingTimer = null;
+        if (dashboardLoadingEtaTimer) clearInterval(dashboardLoadingEtaTimer);
+        dashboardLoadingEtaTimer = window.setInterval(() => updateDashboardLoadingProgress(dashboardLoadingCurrentPct || 3, '', true), 1000);
+      }, Math.max(0, Number(delay) || 0));
     }
     function openDashboardSection(tabId) {
       const allowed = new Set(['overview','target','subdn','top','daywise','campaign','zeroneg','net','nilreport','weekly','hmosc','officecount']);
@@ -16625,6 +16726,13 @@ document.addEventListener('DOMContentLoaded', function(){ setTimeout(function(){
   else activate();
 })();
 </script>
-<div id="dashboardLoadingOverlay" hidden aria-live="polite" aria-busy="true"><div class="dashboard-loading-card"><div class="dashboard-loading-spinner" aria-hidden="true"></div><div id="dashboardLoadingMessage">Loading, please wait…</div><div class="dashboard-loading-track" aria-hidden="true"><span></span></div></div></div>
+<style id="dashboard-loading-download-progress-style">
+  #dashboardLoadingOverlay .dashboard-loading-track{height:9px;margin-top:16px;background:#e8edf2}
+  #dashboardLoadingOverlay .dashboard-loading-track span{width:3%;transform:none;animation:none;transition:width .3s ease;background:linear-gradient(90deg,#bb1e2d,#ffbd00)}
+  #dashboardLoadingPercent{margin-top:8px;color:#541522;font:800 13px/1 Arial,sans-serif}
+  #dashboardLoadingEstimate{margin-top:7px;color:#475569;font:700 12px/1.35 Arial,sans-serif}
+  #dashboardLoadingDetail{margin-top:7px;color:#64748b;font:500 11px/1.35 Arial,sans-serif;overflow-wrap:anywhere}
+</style>
+<div id="dashboardLoadingOverlay" hidden aria-live="polite" aria-busy="true"><div class="dashboard-loading-card"><div class="dashboard-loading-spinner" aria-hidden="true"></div><div id="dashboardLoadingMessage">Loading, please wait…</div><div class="dashboard-loading-track" role="progressbar" aria-label="Google Sheets download progress" aria-valuemin="0" aria-valuemax="100"><span id="dashboardLoadingProgressBar"></span></div><div id="dashboardLoadingPercent">3%</div><div id="dashboardLoadingEstimate">Approx. wait: estimating…</div><div id="dashboardLoadingDetail">Connecting to Google Sheets…</div></div></div>
 </body>
 </html>
