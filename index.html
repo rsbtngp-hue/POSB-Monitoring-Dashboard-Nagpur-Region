@@ -6273,22 +6273,6 @@ body.edit-unlocked #adminAdministrationRow { display:flex !important; }
       }
       const dmy = str.match(/^(\d{1,2})[-/](\d{1,2})[-/](\d{4})/);
       if (dmy) return `${dmy[3]}-${String(dmy[2]).padStart(2, '0')}-${String(dmy[1]).padStart(2, '0')}`;
-
-      // Date cells exported as UTC timestamps (for example, 2026-10-26T18:30:00.000Z)
-      // can represent midnight on the following day in India. Resolve explicit
-      // timezone-bearing timestamps to the business timezone before grouping or
-      // confirming uploads. Keep date-only strings timezone-neutral.
-      const zonedTimestamp = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:?\d{2})$/i.test(str);
-      if (zonedTimestamp) {
-        const d = new Date(str);
-        if (!Number.isNaN(d.getTime())) {
-          const parts = new Intl.DateTimeFormat('en-CA', {
-            timeZone: 'Asia/Kolkata', year: 'numeric', month: '2-digit', day: '2-digit'
-          }).formatToParts(d);
-          const part = type => parts.find(p => p.type === type)?.value;
-          return `${part('year')}-${part('month')}-${part('day')}`;
-        }
-      }
       const ymd = str.match(/^(\d{4})[-/](\d{1,2})[-/](\d{1,2})/);
       if (ymd) return `${ymd[1]}-${String(ymd[2]).padStart(2, '0')}-${String(ymd[3]).padStart(2, '0')}`;
       const d = new Date(str);
